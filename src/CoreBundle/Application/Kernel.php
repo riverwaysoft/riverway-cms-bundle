@@ -50,12 +50,12 @@ class Kernel extends HttpKernel
 
     public function getCacheDir()
     {
-        return $this->getRootDir().'/var/cache/'.$this->getEnvironment();
+        return $this->getRootDir().'/../var/cache/'.$this->getEnvironment();
     }
 
     public function getLogDir()
     {
-        return $this->getRootDir().'/var/logs';
+        return $this->getRootDir().'/../var/logs';
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
