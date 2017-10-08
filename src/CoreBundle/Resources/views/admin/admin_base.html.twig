@@ -15,24 +15,14 @@
     <a class="navbar-brand" href="#">Keys4uLocksmith - admin</a>
 
     <div class="collapse navbar-collapse">
-        {{ knp_menu_render('admin', {
-            'leaf_class': 'nav-item nav-link'
-        }) }}
-
+        {% block riverway_cms_menu_block %}{% endblock %}
         <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
             <li class="nav-item nav-link">
                 <a href="{{ path('homepage') }}">
                     {{ 'layout.front'|trans }}
                 </a>
             </li>
-            <li class="nav-item nav-link">
-                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
-            </li>
-            <li class="nav-item nav-link">
-                <a href="{{ path('fos_user_security_logout') }}">
-                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                </a>
-            </li>
+           {% block riverway_cms_user_block %}{% endblock %}
         </ul>
     </div>
 </div>

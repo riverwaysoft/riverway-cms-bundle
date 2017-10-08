@@ -21,9 +21,3 @@ security:
               default_target_path:  _redirect_after_login
           logout:       true
           anonymous:    true
-    access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/preview/, role: ROLE_ADMIN }

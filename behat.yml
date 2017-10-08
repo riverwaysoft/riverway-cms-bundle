@@ -1,0 +1,23 @@
+default:
+  calls:
+    error_reporting: 16383 # E_ALL & ~E_USER_DREPRECATED
+  suites:
+    default:
+      contexts:
+        - Features\FeatureContext:
+            doctrine: "@doctrine"
+        - Features\FixtureContext:
+            doctrine: "@doctrine"
+        - Behatch\Context\RestContext
+        - Behatch\Context\JsonContext
+  extensions:
+    Behat\Symfony2Extension:
+      kernel:
+        env: "test"
+        debug: "true"
+    Behat\MinkExtension:
+      show_cmd: open %s
+      sessions:
+        default:
+          symfony2: ~
+    Behatch\Extension: ~

@@ -14,6 +14,17 @@ Add private repo:
 ]
 
 ```
+Exclude app dir:
+```
+"autoload": {
+
+    //...
+
+    "exclude-from-classmap": [
+        "vendor/riverwaysoft/riverway-cms-bundle/app"
+    ]
+},
+ ```
 
 Install:
 ```composer require --prefer-dist riverway/riverway-cms-bundle```
