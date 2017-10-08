@@ -1,0 +1,74 @@
+$base-offset: 16px;
+
+@mixin backgroundImage($image) {
+	$path: './../media/#{$image}';
+	background-image: url($path);
+	background-repeat: no-repeat;
+}
+
+@mixin clear() {
+	&::after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+}
+
+@mixin  overflow($x: hidden, $y: $x) {
+	overflow-x: $x;
+	overflow-y: $y;
+}
+
+@mixin rotate($angle) {
+	-webkit-transform: rotate($angle);
+	-moz-transform: rotate($angle);
+	-o-transform: rotate($angle);
+	transform: rotate($angle);
+}
+
+@mixin translate($x: 0, $y: 0, $z: 0) {
+	-webkit-transform: translate3d($x, $y, $z);
+	-moz-transform: translate3d($x, $y, $z);
+	-o-transform: translate3d($x, $y, $z);
+	transform: translate3d($x, $y, $z);
+}
+
+@mixin transition($time, $function: '') {
+	-webkit-transition: $time;
+	-moz-transition: $time;
+	-o-transition: $time;
+	transition: $time;
+}
+
+@mixin placeholderColor($color) {
+	&::-webkit-input-placeholder {color:$color;}
+	&::-moz-placeholder {color:$color;}/* Firefox 19+ */
+	&:-moz-placeholder {color:$color;}/* Firefox 18- */
+	&:-ms-input-placeholder {color:$color;}
+}
+
+//GRID GENERATOR
+@mixin grid-generator() {
+	$max-cells: 12;
+	@include clear();
+	.custom-grid {
+		margin: 0 (-$base-offset / 4);
+
+		@for $i from 1 through $max-cells {
+			.cell-#{$i} {
+				float: left;
+  				padding: 0 $base-offset / 4;
+				width: (100% / $max-cells) * $i;
+			}
+		}
+
+		&.base-offset {
+			margin: 0 (-$base-offset / 2);
+			& > * {
+				padding: 0 $base-offset / 2;
+			}
+		}
+	}
+}
+
+@include grid-generator();

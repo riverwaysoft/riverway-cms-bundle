@@ -1,0 +1,7 @@
+_riverway_cms_admin:
+    resource: '@RiverwayCmsCoreBundle/Controller/Admin/'
+    type: annotation
+    prefix: /admin
+_riverway_cms_front:
+    resource: '@RiverwayCmsCoreBundle/Controller/Front/'
+    type: annotation

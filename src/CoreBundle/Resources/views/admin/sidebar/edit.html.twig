@@ -1,0 +1,18 @@
+{% extends '@RiverwayCmsCore/admin/admin_base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.name) }}
+
+    {{ include('@RiverwayCmsCore/admin/_widgets.html.twig', {widgets: sidebar.widgets, owner: 'sidebar', id: sidebar.id}) }}
+
+    {{ form_row(form.widgets) }}
+
+    {{ form_row(form.save) }}
+
+    {{ form_end(form) }}
+
+{% endblock %}

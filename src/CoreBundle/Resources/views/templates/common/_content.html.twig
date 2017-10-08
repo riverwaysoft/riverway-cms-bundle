@@ -1,0 +1,17 @@
+<h2>
+    {% if article.titleIcon %}
+        <i class="fa {{ article.titleIcon }}"></i>
+    {% endif %}
+    {% if article.featuredImage %}
+        <img src="{{ article.featuredImage }}"/>
+    {% endif %}
+    {{ article.title }}
+</h2>
+{% for aWidget in article.widgets %}
+    {{ render(controller('RiverwayCmsCoreBundle:Front/Content:renderWidget', {entity: aWidget})) }}
+{% endfor %}
+{% if article.tags %}
+    {% for tag in article.tags %}
+        <a href="{{ path('tag_search', {id: tag.id, name: tag.name}) }}">#{{ tag }}</a>
+    {% endfor %}
+{% endif %}

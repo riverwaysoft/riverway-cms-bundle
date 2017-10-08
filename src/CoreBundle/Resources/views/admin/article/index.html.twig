@@ -1,0 +1,12 @@
+{% extends '@RiverwayCmsCore/admin/admin_base.html.twig' %}
+
+{% block body %}
+    <a class="btn btn-outline-primary"
+       href="{{ path('article_create') }}"
+       data-toggle="modal"
+       data-target="#admin-modal">Create</a>
+    <br/>
+    <br/>
+
+    {{ riverway_grid_render(grid_config, query)}}
+{% endblock %}

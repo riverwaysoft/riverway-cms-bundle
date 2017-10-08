@@ -1,0 +1,121 @@
+Riverway\Cms\CoreBundle\Entity\Article:
+    type: entity
+    table: article
+    repositoryClass: Riverway\Cms\CoreBundle\Repository\ArticleRepository
+    indexes:
+        IDX_23A0E663A432888:
+            columns:
+                - sidebar_id
+        IDX_23A0E6612469DE2:
+            columns:
+                - category_id
+    uniqueConstraints:
+        UNIQ_23A0E66841CB121:
+            columns:
+                - uri
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        titleIcon:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                default: 'NULL'
+            column: title_icon
+        uri:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        template:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            column: updated_at
+        featuredImage:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+                default: 'NULL'
+            column: featured_image
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+    manyToOne:
+        category:
+            targetEntity: Category
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                category_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        sidebar:
+            targetEntity: Sidebar
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sidebar_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    oneToMany:
+        widgets:
+            targetEntity: Riverway\Cms\CoreBundle\Entity\Widget
+            mappedBy: article
+            orderBy:
+                sequence: ASC
+    manyToMany:
+        tags:
+            targetEntity: Riverway\Cms\CoreBundle\Entity\Tag
+            cascade: [persist,remove]
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: article
+            joinTable:
+                name: article_tag
+                joinColumns:
+                    -
+                        name: article_id
+                        referencedColumnName: id
+                        onDelete: "CASCADE"
+                inverseJoinColumns:
+                    -
+                        name: tag_id
+                        referencedColumnName: id
+            orderBy: null
+    lifecycleCallbacks:
+        prePersist: [updatedTimestamps,createUri]
+        preUpdate: [updatedTimestamps]

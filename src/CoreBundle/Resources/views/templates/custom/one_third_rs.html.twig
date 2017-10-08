@@ -1,0 +1,14 @@
+{% extends '@RiverwayCmsCore/article.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="right-sidebar">
+            {% if sidebar %}
+                {% include('@RiverwayCmsCore/templates/common/_sidebar.html.twig') %}
+            {% endif %}
+        </div>
+        <div class="content-wrapper">
+            {% include('RiverwayCmsCoreBundle:templates/common:_content.html.twig') %}
+        </div>
+    </div>
+{% endblock %}

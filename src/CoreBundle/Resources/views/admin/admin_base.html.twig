@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block common_stylesheets %}
+        {% include '@RiverwayCmsCore/_stylesheets.html.twig' %}
+    {% endblock %}
+    {% block stylesheets %}{% endblock %}
+    {% include '@RiverwayCmsCore/_javascript.html.twig' %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+<div class="navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Keys4uLocksmith - admin</a>
+
+    <div class="collapse navbar-collapse">
+        {{ knp_menu_render('admin', {
+            'leaf_class': 'nav-item nav-link'
+        }) }}
+
+        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+            <li class="nav-item nav-link">
+                <a href="{{ path('homepage') }}">
+                    {{ 'layout.front'|trans }}
+                </a>
+            </li>
+            <li class="nav-item nav-link">
+                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+            </li>
+            <li class="nav-item nav-link">
+                <a href="{{ path('fos_user_security_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div id="main">
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashBag.all %}
+                {% for message in messages %}
+                    <div class="{{ type }}">
+                        {{ message|trans({}, 'FOSUserBundle') }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
+        {% block body %}
+            {% block fos_user_content %}{% endblock %}
+        {% endblock %}
+    </div>
+    <div class="modal fade admin-modal" id="admin-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body">
+                    <div style="text-align: center">
+                        <img id="modal-loader" src="{{ asset('bundles/riverwaycmscore/img/loader.gif') }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade admin-modal" id="admin-modal-lg" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal-body">
+                    <div style="text-align: center">
+                        <img id="modal-loader" src="{{ asset('bundles/riverwaycmscore/img/loader.gif') }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="customFileManager" tabindex="-1" role="dialog" aria-labelledby="customFileManager">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    //...FILE LIST
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary select-file">Select</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.admin-modal').on('show.bs.modal', function (e) {
+            var link = $(e.relatedTarget);
+            var loaderPath = "{{asset('bundles/riverwaycmscore/img/loader.gif')}}";
+            var preloaderContent = '<div style="text-align: center">'
+                +'<img id="modal-loader" src=' + loaderPath + '>'
+            +'</div>';
+            $(".admin-modal .modal-body").html(preloaderContent);
+            $.get(link.attr('href'), function (data) {
+                $(".admin-modal .modal-body").html(data);
+            });
+        });
+    </script>
+</div>
+{% block javascripts %}{% endblock %}
+
+</body>
+</html>

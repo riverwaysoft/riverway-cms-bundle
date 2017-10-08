@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block common_stylesheets %}
+        {% include '@RiverwayCmsCore/_stylesheets.html.twig' %}
+    {% endblock %}
+    {% block stylesheets %}{% endblock %}
+    {% include '@RiverwayCmsCore/_javascript.html.twig' %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+
+<div class="navbar navbar-expand navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Keys4uLocksmith</a>
+
+        <div class="collapse navbar-collapse">
+            {{ knp_menu_render('main') }}
+
+            <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <li class="nav-item nav-link">
+                        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+                    </li>
+                    <li class="nav-item nav-link">
+                        <a href="{{ path('fos_user_security_logout') }}">
+                            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                        </a>
+                    </li>
+
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <li class="nav-item nav-link">
+                            <a href="{{ path('article_index') }}">
+                                | {{ 'layout.admin'|trans }}
+                            </a>
+                        </li>
+
+                    {% endif %}
+
+                {% else %}
+                    <li class="nav-item nav-link">
+                        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div id="main">
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashBag.all %}
+                {% for message in messages %}
+                    <div class="{{ type }}">
+                        {{ message|trans({}, 'FOSUserBundle') }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        {% block body %}
+        {% endblock %}
+
+    </div>
+
+    {#<div id="footer">#}
+    {#{% block footer %}{% endblock %}#}
+    {#</div>#}
+</div>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

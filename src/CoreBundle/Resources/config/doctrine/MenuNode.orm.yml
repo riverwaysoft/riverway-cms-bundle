@@ -1,0 +1,144 @@
+Riverway\Cms\CoreBundle\Entity\MenuNode:
+    type: entity
+    table: menu_node
+    repositoryClass: Riverway\Cms\CoreBundle\Repository\MenuNodeRepository
+    indexes:
+        IDX_4D30180B727ACA70:
+            columns:
+                - parent_id
+        IDX_4D30180B7294869C:
+            columns:
+                - article_id
+        IDX_4D30180B12469DE2:
+            columns:
+                - category_id
+        IDX_4D30180BCCD7E912:
+            columns:
+                - parent_menu_id
+    uniqueConstraints:
+        UNIQ_4D30180B5E237E06:
+            columns:
+                - name
+        UNIQ_4D30180B841CB121:
+            columns:
+                - uri
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        routeAbsolute:
+            type: boolean
+            nullable: false
+            column: route_absolute
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        label:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        uri:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                default: 'NULL'
+        route:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                default: 'NULL'
+        attributes:
+            type: json_array
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        childrenAttributes:
+            type: json_array
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: children_attributes
+        linkAttributes:
+            type: json_array
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: link_attributes
+        labelAttributes:
+            type: json_array
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: label_attributes
+        display:
+            type: boolean
+            nullable: false
+        displayChildren:
+            type: boolean
+            nullable: false
+            column: display_children
+    manyToOne:
+        category:
+            targetEntity: Category
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                category_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        parent:
+            targetEntity: MenuNode
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                parent_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        article:
+            targetEntity: Article
+            cascade: []
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                article_id:
+                    referencedColumnName: id
+                    onDelete: "SET NULL"
+            orphanRemoval: false
+        parentMenu:
+            targetEntity: MenuNode
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                parent_menu_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks:
+        prePersist: [updateClass]
+        preUpdate: [updateClass]
+

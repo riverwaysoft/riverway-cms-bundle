@@ -1,0 +1,18 @@
+<ol class="dd-list">
+    {% for child in node.children %}
+        <li class="dd-item" data-id="{{ child.id }}">
+            {% if child.category %}
+                <a class="pull-right" style="margin-right: 15px;margin-top: 4px;"
+                   href="{{ path('category_remove_from_menu', {'id': child.category.id, 'menu': menu.id}) }}">
+                    <i class="fa fa-times"></i>
+                </a>
+                <div class="dd-handle">{{ child.label }}</div>
+                {% if child.children %}
+                    {% include(':admin/menu:_list-item.html.twig') with {'node': child, 'menu': menu} only %}
+                {% endif %}
+            {% elseif child.article %}
+                {{ child.label }}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ol>

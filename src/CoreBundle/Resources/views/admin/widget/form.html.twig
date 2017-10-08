@@ -1,0 +1,19 @@
+{{ form(form) }}
+
+<script>
+    $('.modal-submit').closest('form').on('submit', function (e) {
+
+        e.preventDefault();
+        var $form = $(this).closest('form');
+        $.post("{{ path('update_widget', {'id': widget.id}) }}", $form.serialize(), function (response) {
+            $("#admin-modal").modal('hide');
+            $("#admin-modal-lg").modal('hide');
+
+            if (response.status == 'success') {
+                $('#widget_area_' + response.updated_id + ' .widget-content').text(response.content);
+            }
+        });
+
+        return false;
+    })
+</script>

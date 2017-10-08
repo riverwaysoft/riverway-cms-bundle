@@ -1,0 +1,142 @@
+.file-manager {
+    $list-height: 400px;
+    $file-height: 50px;
+    $spinner-size: 40px;
+    //COLORS
+    $blue:    #007bff;
+    $indigo:  #6610f2;
+    $purple:  #6f42c1;
+    $pink:    #e83e8c;
+    $red:     #dc3545;
+    $orange:  #fd7e14;
+    $yellow:  #ffc107;
+    $green:   #28a745;
+    $cyan:    #17a2b8;
+    $dark:    #343a40;
+
+    height: $list-height;
+
+    & ul {
+        @include overflow(scroll);
+        
+        height: 90%;
+        position: relative;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        margin-top: $base-offset;
+
+        & li {
+            display: block;
+            position: relative;
+            padding-right: $base-offset * 2;
+            margin-bottom: $base-offset / 2;
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+            @include transition(.3s);
+
+            span.image {
+                position: relative;
+                display: block;
+                width: $file-height;
+                height: $file-height;
+                float: left;
+                margin-right: $base-offset;
+                border-radius: 4px;
+                @include overflow();
+                img {
+                    position: absolute;
+                    top: 0;
+                    left: 50%;
+                    height: 100%;
+                    transform: translateX(-50%);
+                }
+            }
+
+            p.title {
+                margin: 0;
+                font-size: 14px;
+                @include transition(.3s);
+            }
+
+            a.delete {
+                opacity: 0;
+                @include transition(.3s);
+                font-size: 16px;
+                position: absolute;
+                top: 0;
+                right: $base-offset / 2;
+                color: #fff;
+            }  
+            
+            &:hover {
+                cursor: pointer;
+                background-color: rgba($blue, .3);
+                color: #fff;
+                @include transition(.3s);
+                & p.title {
+                    color: #fff !important;
+                    @include transition(.3s);
+                }
+                & a.delete {
+                    opacity: 1;
+                    @include transition(.3s);
+                }
+            }
+
+            &.active {
+                background-color: rgba($blue, .1);
+                color: $dark !important;
+                @include transition(.3s);
+                & p.title {
+                    color: $dark !important;
+                    @include transition(.3s);
+                }
+                & a.delete {
+                    color: $dark;
+                    @include transition(.3s);
+                }
+            }
+        }
+
+        &.fetching {
+            @include overflow();
+            &::before {
+                content: '\f1ce';
+                position: absolute;
+                width: $spinner-size;
+                height: $spinner-size;
+                left: 50%;
+                top: 50%;
+                font-family: FontAwesome;
+                font-size: $spinner-size;
+                line-height: $spinner-size;
+                text-align: center;
+                color: $blue;
+                z-index: 25;
+ 
+                animation: spinnerAnimation 1s linear forwards infinite;
+            }
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 20;
+                background-color: rgba(#fff, .8);
+            }
+
+            @keyframes spinnerAnimation {
+                from {transform: translate3d(-50%, -50%, 0) rotate(0deg);}
+                to {transform: translate3d(-50%, -50%, 0) rotate(360deg);}
+            }
+        }
+    }
+}
+
+.re-customfilemanager::before {
+    content: '\e60f';
+}

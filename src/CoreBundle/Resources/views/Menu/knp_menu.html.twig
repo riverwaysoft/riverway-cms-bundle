@@ -1,0 +1,98 @@
+{% extends 'knp_menu.html.twig' %}
+
+{#{% block linkElement %}#}
+    {#{% import 'knp_menu.html.twig' as knp_menu %}#}
+    {#<a href="{{ item.uri }}" class="hello">#}
+        {#<span>{{ block('label') }}</span>#}
+    {#</a>#}
+{#{% endblock %}#}
+
+{% block spanElement %}
+    {% import 'knp_menu.html.twig' as knp_menu %}
+    {% if item.hasChildren and options.depth is not same as(0) and item.displayChildren %}
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            <span{{ knp_menu.attributes(item.labelAttributes) }}>{{ block('label') }}</span>
+        </a>
+    {% else %}
+        <span{{ knp_menu.attributes(item.labelAttributes) }}>{{ block('label') }}</span>
+    {% endif %}
+{% endblock %}
+
+{% block linkElement %}
+    {% import 'knp_menu.html.twig' as knp_menu %}
+    <a href="{{ item.uri }}" class="nav-link">{{ block('label') }}</a>
+{% endblock %}
+
+
+{% block item %}
+    {% if item.displayed %}
+        {# building the class of the item #}
+        {%- set classes = item.attribute('class') is not empty ? [item.attribute('class')] : [] %}
+        {%- if matcher.isCurrent(item) %}
+            {%- set classes = classes|merge([options.currentClass]) %}
+        {%- elseif matcher.isAncestor(item, options.matchingDepth) %}
+            {%- set classes = classes|merge([options.ancestorClass]) %}
+        {%- endif %}
+        {%- if item.actsLikeFirst %}
+            {%- set classes = classes|merge([options.firstClass]) %}
+        {%- endif %}
+        {%- if item.actsLikeLast %}
+            {%- set classes = classes|merge([options.lastClass]) %}
+        {%- endif %}
+
+        {# Mark item as "leaf" (no children) or as "branch" (has children that are displayed) #}
+        {% if item.hasChildren and options.depth is not same as(0) %}
+            {% if options.branch_class is not empty and item.displayChildren %}
+                {%- set classes = classes|merge([options.branch_class]) %}
+            {% endif %}
+        {% elseif options.leaf_class is not empty %}
+            {%- set classes = classes|merge([options.leaf_class]) %}
+        {%- endif %}
+
+        {%- set attributes = item.attributes %}
+        {%- if classes is not empty %}
+            {%- set attributes = attributes|merge({'class': classes|join(' ')}) %}
+        {%- endif %}
+        {# displaying the item #}
+        {% import 'knp_menu.html.twig' as knp_menu %}
+        <li{{ knp_menu.attributes(attributes) }}>
+            {%- if item.uri is not empty and (not matcher.isCurrent(item) or options.currentAsLink) %}
+                {{ block('linkElement') }}
+            {%- else %}
+                {{ block('spanElement') }}
+            {%- endif %}
+            {# render the list of children#}
+            {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : [] %}
+            {%- set childrenClasses = childrenClasses|merge(['menu_level_' ~ item.level]) %}
+            {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
+
+            {% if item.hasChildren %}
+                {{ block('dropdown') }}
+            {% endif %}
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block dropdown %}
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        {{ block('links') }}
+    </div>
+{% endblock %}
+
+{% block links %}
+    {% set currentItem = item %}
+    {% for item in item.children %}
+        <h6 class="dropdown-header" href="{{ item.uri ? item.uri : '#' }}">{{ block('label') }}</h6>
+        {% if item.hasChildren %}
+            {% set prevItem = item %}
+
+            {% for item in item.children %}
+                <a class="dropdown-item" href="{{ item.uri }}">{{ block('label') }}</a>
+            {% endfor %}
+
+            {% set item = prevItem %}
+        {% endif %}
+    {% endfor %}
+    {% set item = currentItem %}
+{% endblock %}

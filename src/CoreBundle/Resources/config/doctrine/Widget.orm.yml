@@ -1,0 +1,70 @@
+Riverway\Cms\CoreBundle\Entity\Widget:
+    type: entity
+    table: widget
+    repositoryClass: Riverway\Cms\CoreBundle\Repository\WidgetRepository
+    indexes:
+        IDX_85F91ED07294869C:
+            columns:
+                - article_id
+        IDX_85F91ED02314B8EA:
+            columns:
+                - sidebar_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        extraData:
+            type: json_array
+            nullable: true
+            length: null
+            options:
+                fixed: false
+            column: extra_data
+        htmlContent:
+            type: text
+            nullable: true
+            length: null
+            options:
+                fixed: false
+                default: 'NULL'
+            column: html_content
+        sequence:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+    manyToOne:
+        sidebar:
+            targetEntity: Sidebar
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                sidebar_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        article:
+            targetEntity: Article
+            cascade: {}
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                article_id:
+                    referencedColumnName: id
+                    onDelete: "CASCADE"
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

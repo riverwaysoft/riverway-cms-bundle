@@ -1,0 +1,52 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Riverway\Cms\CoreBundle\Widget\Realisation\:
+        resource: '../../Widget/Realisation'
+        tags: ['riverway.cms.widget']
+
+    Riverway\Cms\CoreBundle\Widget\WidgetRegistry:
+        public: true
+
+    Riverway\Cms\CoreBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Repository,Tests,Dto,DataFixtures,Enum,Utils,Widget}'
+
+    Riverway\Cms\CoreBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget:
+        arguments: ['@form.factory']
+        tags:
+          - { name: 'riverway.cms.widget' }
+
+    Riverway\Cms\CoreBundle\Service\FileManager:
+        public: true
+        arguments:
+            $targetDir: '%kernel.project_dir%/web/uploads/images/redactor'
+            $webDir: '/uploads/images/redactor'
+            $cacheManager: '@liip_imagine.cache.manager'
+            $filesystem: '@filesystem'
+
+    Riverway\Cms\CoreBundle\Service\ArticleRenderer:
+        arguments: ["@fos_rest.view_handler", "@=service('doctrine.orm.entity_manager').getRepository('RiverwayCmsCoreBundle:Article')"]
+
+    twig.ext:
+        class: Twig_Extensions_Extension_Text
+
+    Riverway\Cms\CoreBundle\Form\Extension\ImageTypeExtension:
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FileType }
+
+    Riverway\Cms\CoreBundle\Form\DataTransformer\TagsDataTransformer:
+        arguments: ["@=service('doctrine.orm.entity_manager').getRepository('RiverwayCmsCoreBundle:Tag')"]
+
+
+    doctrine_cache:
+        class: Doctrine\Common\Cache\FilesystemCache
+        arguments: ["%kernel.cache_dir%/app_cache"]

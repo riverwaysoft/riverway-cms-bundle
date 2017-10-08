@@ -1,0 +1,82 @@
+{% extends '@RiverwayCmsCore/admin/admin_base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#main-content" role="tab">Main</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#seo-content" role="tab">Seo</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="main-content" role="tabpanel">
+            <div class="row">
+                <div class="col-3">
+                    {{ form_row(form.title) }}
+                </div>
+                <div class="col-3">
+                    {{ form_row(form.titleIcon) }}
+                </div>
+                <div class="col-3">
+                    Status: {{ article.statusKey }}<br/>
+                    {% if not article.published %}
+                        <a href="{{ path('article_publish', {id: article.id}) }}">Publish</a><br/><br/>
+                        <a href="{{ path('preview_article', {id: article.id}) }}" target="_blank">Preview</a><br/>
+                    {% endif %}
+                    {% if article.id %}
+                        <a href="{{ article.uri }}" target="_blank">View on site</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-8">
+                    <div class="form-group">
+                        <div class="col-6">
+                            <button type="button" id="upload-btn" class="btn btn-primary">Upload image</button>
+                        </div>
+                        <div class="col-6">
+                            <img id="featured-img" class="admin-preview" src="{{ article.featuredImage }}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if article.id %}
+
+                {{ include('@RiverwayCmsCore/admin/_widgets.html.twig', {widgets: article.widgets, owner: 'article', id: article.id}) }}
+
+            {% endif %}
+
+            {{ form_row(form.category) }}
+            {{ form_row(form.sidebar) }}
+            {{ form_row(form.template) }}
+
+        </div>
+        <div class="tab-pane" id="seo-content" role="tabpanel">
+            {{ form_row(form.uri) }}
+        </div>
+    </div>
+
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $('.icp').iconpicker();
+        $('#upload-btn').manageFiles({
+            onSelect: function (data) {
+                console.log(data);
+                $('#app_article_featuredImage').val(data.real_path);
+                $('#featured-img').attr('src', data.real_path);
+            }
+        });
+    </script>
+{% endblock %}

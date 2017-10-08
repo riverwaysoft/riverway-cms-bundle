@@ -1,0 +1,11 @@
+<div class="action-bar grid-action-bar">
+    <a class="edit_link"
+       href="{{ path('article_edit', {id: object.id }) }}">
+        <i class="fa fa-edit"></i>
+    </a>
+    <a class="delete_link"
+       href="{{ path('article_delete', {id: object.id }) }}"
+       onclick="return confirm('Confirm deleting article?')">
+        <i class="fa fa-times"></i>
+    </a>
+</div>

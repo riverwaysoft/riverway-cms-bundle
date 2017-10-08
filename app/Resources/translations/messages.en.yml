@@ -1,0 +1,2 @@
+AppBundle\Widget\PopProduct\PopProductWidget: Popular products [Alltime]
+AppBundle\Widget\RelatedProduct\RelatedProductWidget: Related products [Alltime]

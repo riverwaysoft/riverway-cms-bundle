@@ -1,0 +1,83 @@
+imports:
+    - { resource: services.yml }
+liip_imagine:
+    resolvers:
+        default:
+            web_path: ~
+    filter_sets:
+        cache: ~
+        thumb:
+            quality: 75
+            filters:
+                # create a thumbnail: set size to 120x90 and use the "outbound" mode
+                # to crop the image when the size ratio of the input differs
+                thumbnail: { size: [120, 90], mode: outbound }
+                background: { size: [124, 94], position: center, color: '#000000' }
+        normal:
+            quality: 95
+            filters:
+                # create a thumbnail: set size to 120x90 and use the "outbound" mode
+                # to crop the image when the size ratio of the input differs
+                thumbnail: { size: [500, 400], mode: outbound }
+knp_menu:
+    # use "twig: false" to disable the Twig extension and the TwigRenderer
+    twig:
+        template: '@RiverwayCmsCore/Menu/knp_menu.html.twig'
+    #  if true, enables the helper for PHP templates
+    templating: false
+    # the renderer to use, list is also available by default
+    default_renderer: twig
+
+knp_paginator:
+    page_range: 5                       # number of links showed in the pagination menu (e.g: you have 10 pages, a page_range of 3, on the 5th page you'll see links to page 4, 5, 6)
+    default_options:
+        page_name: page                 # page query parameter name
+        sort_field_name: sort           # sort field query parameter name
+        sort_direction_name: direction  # sort direction query parameter name
+        distinct: true                  # ensure distinct results, useful when ORM queries are using GROUP BY statements
+        filter_field_name: filterField  # filter field query parameter name
+        filter_value_name: filterValue  # filter value query paameter name
+    template:
+        pagination: 'KnpPaginatorBundle:Pagination:sliding.html.twig'     # sliding pagination controls template
+        sortable: 'KnpPaginatorBundle:Pagination:sortable_link.html.twig' # sort link template
+        filtration: 'KnpPaginatorBundle:Pagination:filtration.html.twig'
+
+fos_rest:
+    serializer:
+        serialize_null: true
+    view:
+        force_redirects:
+            html: true
+        formats:
+            json: true
+            xml: true
+        templating_formats:
+            html: true
+    allowed_methods_listener: true
+    access_denied_listener:
+        json: true
+    format_listener:
+        rules:
+            - { path: ^/, priorities: [ html, json, xml, css ], fallback_format: html, prefer_extension: false }
+tetranz_select2_entity:
+    minimum_input_length: 2
+    page_limit: 8
+    allow_clear: true
+    delay: 500
+    language: en
+    cache: false
+    cache_timeout: 0
+    scroll: true
+vich_uploader:
+    db_driver: orm
+    mappings:
+        article_image:
+            uri_prefix:         /images/article
+            upload_destination: '%kernel.root_dir%/../web/images/article'
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: Application\Migrations
+    table_name: migration_versions
+    name: RiverwayCms Migrations
+    organize_migrations: BY_YEAR_AND_MONTH

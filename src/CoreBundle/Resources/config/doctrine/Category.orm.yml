@@ -1,0 +1,59 @@
+Riverway\Cms\CoreBundle\Entity\Category:
+    type: entity
+    table: category
+    repositoryClass: Riverway\Cms\CoreBundle\Repository\CategoryRepository
+    indexes:
+        IDX_64C19C1727ACA70:
+            columns:
+                - parent_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        type:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        isRoot:
+            type: boolean
+            nullable: false
+            column: is_root
+        externalId:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                default: 'NULL'
+            column: external_id
+    manyToOne:
+        parent:
+            targetEntity: Category
+            fetch: LAZY
+            inversedBy: children
+            joinColumns:
+                parent_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    oneToMany:
+        children:
+            targetEntity: Category
+            fetch: LAZY
+            mappedBy: parent
+            joinColumns:
+                parent_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

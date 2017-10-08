@@ -1,0 +1,137 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~fontawesome-iconpicker/dist/css/fontawesome-iconpicker.css";
+@import '~dragula/dist/dragula.css';
+@import '~select2/dist/css/select2.css';
+@import 'vendor/imperavi/redactor.css';
+@import "vendor/font-awesome/css/font-awesome.css";
+@import 'mixins';
+
+body {
+  .admin-modal .close {
+    text-align: right;
+    margin-right: 4px;
+  }
+
+  .tab-pane {
+    margin-top: 40px;
+  }
+
+  #main {
+    padding: 20px;
+
+    form {
+      div {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        font-weight: bold;
+        padding-bottom: 4px;
+      }
+      input, button {
+        padding: 8px;
+      }
+    }
+
+    .action-bar {
+      &.widget-action-bar {
+        float: right;
+      }
+      &.grid-action-bar {
+        float: left;
+      }
+      margin-bottom: 0;
+      a {
+        display: inline-block;
+        font-size: large;
+      }
+    }
+  }
+
+  #widget-areas {
+    padding: 8px;
+    border: 4px dashed #E0E0E0;
+    .widget-area {
+      background-color: #f8f8f8;
+      padding: 8px 16px;
+      margin: 8px;
+
+      .modal-link {
+        display: inline-block;
+        float: right;
+        cursor: pointer;
+        margin-left: 8px;
+      }
+
+      .widget-content {
+        color: #6E6E6E;
+        display: inline-block;
+        margin-left: 16px;
+      }
+
+      .delete-widget-link {
+        display: inline-block;
+        float: right;
+        cursor: pointer;
+        margin-left: 8px;
+      }
+    }
+  }
+
+  .modal {
+    display: none;
+  }
+
+  .add-widget-link {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+  }
+
+  .left-sidebar {
+    float: left;
+    padding: 8px 16px;
+    background-color: #868686;
+    display: inline-block;
+  }
+
+  .right-sidebar {
+    float: right;
+    padding: 8px 16px;
+    background-color: #868686;
+    display: inline-block;
+  }
+
+  .content-wrapper {
+    padding: 8px 16px;
+    display: inline-block;
+  }
+
+  #footer {
+    background-color: #333;
+    color: #fff;
+    padding: 8px 16px;
+  }
+
+  .bg-primary {
+    background-color: #868686;
+  }
+
+  .admin-preview {
+    width: 30%;
+  }
+
+  #menu-hierarchy {
+    margin-bottom: 24px;
+  }
+}
+
+//COMPONENTS
+@import './components/nestable';
+@import './components/multiple-carousel';
+@import './components/file-manager';

@@ -1,0 +1,3 @@
+{% for widget in sidebar.widgets %}
+    {{ render(controller('RiverwayCmsCoreBundle:Front/Content:renderWidget', {entity: widget})) }}
+{% endfor %}
