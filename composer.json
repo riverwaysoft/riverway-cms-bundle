@@ -1,5 +1,5 @@
 {
-    "name": "riverwaysoft/riverway-cms-core-bundle",
+    "name": "riverwaysoft/riverway-cms-bundle",
     "license": "proprietary",
     "type": "project",
     "autoload": {
