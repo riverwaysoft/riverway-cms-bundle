@@ -4,9 +4,9 @@ default:
   suites:
     default:
       contexts:
-        - Features\FeatureContext:
+        - Riverway\Cms\Context\FeatureContext:
             doctrine: "@doctrine"
-        - Features\FixtureContext:
+        - Riverway\Cms\Context\FixtureContext:
             doctrine: "@doctrine"
         - Behatch\Context\RestContext
         - Behatch\Context\JsonContext

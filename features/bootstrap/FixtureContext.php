@@ -1,6 +1,6 @@
 <?php
 
-namespace Features;
+namespace Riverway\Cms\Context;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;

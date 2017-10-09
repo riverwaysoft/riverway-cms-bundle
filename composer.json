@@ -6,7 +6,7 @@
         "psr-4": {
             "Riverway\\Cms\\": "src/",
             "Tests\\": "tests/",
-            "Features\\": "features/bootstrap/"
+            "Riverway\\Cms\\Context\\": "features/bootstrap/"
         },
         "classmap": [
             "app/AppKernel.php",
