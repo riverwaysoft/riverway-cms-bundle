@@ -5,3 +5,8 @@ _riverway_cms_admin:
 _riverway_cms_front:
     resource: '@RiverwayCmsCoreBundle/Controller/Front/'
     type: annotation
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.yaml"
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
