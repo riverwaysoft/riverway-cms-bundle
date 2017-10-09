@@ -1,4 +1,6 @@
 security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
@@ -7,7 +9,7 @@ security:
         in_memory:
             memory:
                 users:
-                    admin: { password: admin }
+                    admin: { password: admin, roles: 'ROLE_ADMIN' }
 
     firewalls:
        dev:
@@ -15,9 +17,11 @@ security:
             security: false
        main:
           pattern: ^/
+          provider: in_memory
           form_login:
-              provider: in_memory
-              always_use_default_target_path: true
-              default_target_path:  _redirect_after_login
+            login_path: login
+            check_path: login
           logout:       true
           anonymous:    true
+    access_control:
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }

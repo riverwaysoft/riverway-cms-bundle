@@ -11,36 +11,11 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
-<div class="navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Keys4uLocksmith - admin</a>
-
-    <div class="collapse navbar-collapse">
-        {% block riverway_cms_menu_block %}{% endblock %}
-        <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-            <li class="nav-item nav-link">
-                <a href="{{ path('homepage') }}">
-                    {{ 'layout.front'|trans }}
-                </a>
-            </li>
-           {% block riverway_cms_user_block %}{% endblock %}
-        </ul>
-    </div>
-</div>
+{% block riverway_cms_navbar %}{% endblock %}
 
 <div class="container-fluid">
     <div id="main">
-        {% if app.request.hasPreviousSession %}
-            {% for type, messages in app.session.flashBag.all %}
-                {% for message in messages %}
-                    <div class="{{ type }}">
-                        {{ message|trans({}, 'FOSUserBundle') }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
-        {% endif %}
-
         {% block body %}
-            {% block fos_user_content %}{% endblock %}
         {% endblock %}
     </div>
     <div class="modal fade admin-modal" id="admin-modal" tabindex="-1" role="dialog">

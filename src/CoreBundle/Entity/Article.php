@@ -97,7 +97,7 @@ class Article
 
     public function __construct()
     {
-        $this->status = ArticleStatusEnum::DRAFT();
+        $this->status = ArticleStatusEnum::DRAFT;
         $this->tags = new ArrayCollection();
         $this->widgets = new ArrayCollection();
     }

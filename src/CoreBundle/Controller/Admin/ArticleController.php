@@ -130,7 +130,7 @@ class ArticleController extends FOSRestController
     }
 
     /**
-     * @Route("article/{id}/publish", name="article_publish")
+     * @Route("/article/{id}/publish", name="article_publish")
      */
     public function publishAction(
         Article $article
