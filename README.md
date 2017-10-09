@@ -4,16 +4,6 @@ Riverway Cms Core Bundle
 Installation
 ------------
 #### Step 1: Download the Bundle
-Add private repo:
-```
-"repositories":[
-    {
-        "type": "git",
-        "url" : "git@github.com:riverwaysoft/riverway-cms-bundle.git"
-    }
-]
-
-```
 Exclude app dir:
 ```
 "autoload": {
