@@ -20,7 +20,7 @@ class FixtureContext implements Context
     /**
      * @var EntityManager
      */
-    private $manager;
+    protected $manager;
     /**
      * @var SchemaTool
      */
