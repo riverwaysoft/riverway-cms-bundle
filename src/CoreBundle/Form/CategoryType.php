@@ -35,6 +35,8 @@ class CategoryType extends AbstractType
                     return $er->createQueryBuilder('c')
                         ->andWhere('c.isRoot=true');
                 },
+                'placeholder' => '',
+                'required' => false
             ])
             ->add('save', SubmitType::class);
     }
