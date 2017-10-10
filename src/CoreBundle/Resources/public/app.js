@@ -19,4 +19,4 @@ $(document).ready(() => {
 });
 require('bootstrap');
 require('select2');
-require('./../bundles/tetranzselect2entity/js/select2entity');
+require('./vendor/select2/select2entity');

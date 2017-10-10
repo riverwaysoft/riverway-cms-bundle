@@ -1,5 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
-const rootDir='./web/src/';
+const rootDir='./src/CoreBundle/Resources/public';
 Encore
 // directory where all compiled assets will be stored
     .setOutputPath('web/build/')
