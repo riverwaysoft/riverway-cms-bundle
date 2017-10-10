@@ -64,7 +64,7 @@ class MenuController extends Controller
         foreach ($menuData as $child) {
             $this->setNode($child, $menu, true);
         }
-
+        $this->get('doctrine.orm.entity_manager')->flush();
         return new JsonResponse(['status' => 'success']);
     }
 

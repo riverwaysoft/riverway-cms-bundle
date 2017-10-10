@@ -76,6 +76,7 @@ class MenuNodeRepository extends EntityRepository
             }
         }
         $this->getEntityManager()->persist($node);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -128,6 +129,7 @@ class MenuNodeRepository extends EntityRepository
         }
         $artMenu->updateFromArticle($article, $parentNode, $parentMenu);
         $this->getEntityManager()->persist($artMenu);
+        $this->getEntityManager()->flush();
     }
 
 }

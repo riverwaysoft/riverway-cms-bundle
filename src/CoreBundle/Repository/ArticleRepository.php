@@ -17,11 +17,13 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
     public function saveArticle(Article $article)
     {
         $this->getEntityManager()->persist($article);
+        $this->getEntityManager()->flush();
     }
 
     public function removeArticle(Article $article)
     {
         $this->getEntityManager()->remove($article);
+        $this->getEntityManager()->flush();
     }
 
     /**

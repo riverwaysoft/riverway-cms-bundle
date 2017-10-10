@@ -62,6 +62,7 @@ class CategoryController extends Controller
         if ($form->isValid() && $form->isSubmitted()) {
             $category->updateFromDTO($dto);
             $em->persist($category);
+            $em->flush();
 
             return $this->redirectToRoute('category_edit', ['id' => $category->getId()]);
         }
@@ -88,6 +89,7 @@ class CategoryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $category = Category::createFromDto($dto);
             $em->persist($category);
+            $em->flush();
 
             return $this->redirectToRoute('category_index');
         }
@@ -134,6 +136,7 @@ class CategoryController extends Controller
         ]);
 
         $em->remove($node);
+        $em->flush();
 
         return $this->redirect($request->headers->get('referer'));
     }

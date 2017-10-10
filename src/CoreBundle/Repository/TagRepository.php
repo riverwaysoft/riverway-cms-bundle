@@ -13,15 +13,6 @@ use Doctrine\ORM\AbstractQuery;
  */
 class TagRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function createNewTag(string $name): Tag
-    {
-        $tag = new Tag();
-        $tag->setName($name);
-        $this->getEntityManager()->persist($tag);
-
-        return $tag;
-    }
-
     public function findList(int $limit = 10, string $q): array
     {
         return $this->createQueryBuilder('t')

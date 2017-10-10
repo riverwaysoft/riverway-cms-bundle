@@ -16,5 +16,6 @@ class WidgetRepository extends \Doctrine\ORM\EntityRepository
     public function saveWidget(Widget $entity)
     {
         $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush();
     }
 }

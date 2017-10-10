@@ -88,6 +88,7 @@ class WidgetController extends Controller
         $widget = $em->getRepository(Widget::class)->find($id);
 
         $em->remove($widget);
+        $em->flush();
 
         return new JsonResponse(['status' => 'success', 'deleted_id' => $id]);
     }

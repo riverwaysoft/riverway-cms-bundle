@@ -35,6 +35,7 @@ class SidebarController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($sidebar);
+            $em->flush();
 
             return $this->redirectToRoute('sidebar_edit', ['id' => $sidebar->getId()]);
         }
@@ -60,6 +61,7 @@ class SidebarController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($sidebar);
+            $em->flush();
 
             return $this->redirectToRoute('sidebar_index');
         }
