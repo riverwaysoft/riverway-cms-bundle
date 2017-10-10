@@ -138,6 +138,15 @@ Riverway\Cms\CoreBundle\Entity\MenuNode:
                 parent_menu_id:
                     referencedColumnName: id
             orphanRemoval: false
+    oneToMany:
+        children:
+            targetEntity: MenuNode
+            inversedBy: null
+            mappedBy: parent
+            joinColumns:
+                parent_id:
+                    referencedColumnName: id
+            cascade: ["persist"]
     lifecycleCallbacks:
         prePersist: [updateClass]
         preUpdate: [updateClass]
