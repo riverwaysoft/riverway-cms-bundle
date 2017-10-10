@@ -1,2 +1,8 @@
 _riverway_cms:
     resource: '@RiverwayCmsCoreBundle/Resources/config/routing.yml'
+_riverway_cms_default:
+    resource: '@RiverwayCmsCoreBundle/Controller/DefaultController.php'
+    type: annotation
+_riverway_cms_security:
+    resource: '@RiverwayCmsCoreBundle/Controller/SecurityController.php'
+    type: annotation

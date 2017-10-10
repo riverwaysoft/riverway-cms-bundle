@@ -1,6 +1,6 @@
 <?php
 
-namespace Riverway\Cms\CoreBundle\Controller\Front;
+namespace Riverway\Cms\CoreBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
