@@ -20,10 +20,11 @@ module.exports = (function($) {
         });
     }
 
-    function handleFileInputChange(event) {
+    function handleFileInputChange(event) { 
         isFetching = true;
         const fileInput = event.target;
         let fd = new FormData();
+        let validFilesCount = 0;
         let readyState = new Array(fileInput.files.length);
         readyState.fill(false);
 
@@ -43,9 +44,10 @@ module.exports = (function($) {
             }
 
             fd.append('file', file);
+            validFilesCount++;
         }
 
-        if (fd.getAll('file').length) {
+        if (validFilesCount) {
             $.ajax({
                 url: config.uploadUrl,
                 data: fd,
