@@ -18,60 +18,7 @@
         {% block body %}
         {% endblock %}
     </div>
-    <div class="modal fade admin-modal" id="admin-modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <div class="modal-body">
-                    <div style="text-align: center">
-                        <img id="modal-loader" src="{{ asset('bundles/riverwaycmscore/img/loader.gif') }}">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade admin-modal" id="admin-modal-lg" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <div class="modal-body">
-                    <div style="text-align: center">
-                        <img id="modal-loader" src="{{ asset('bundles/riverwaycmscore/img/loader.gif') }}">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="customFileManager" tabindex="-1" role="dialog" aria-labelledby="customFileManager">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    //...FILE LIST
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary select-file">Select</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        $('.admin-modal').on('show.bs.modal', function (e) {
-            var link = $(e.relatedTarget);
-            var loaderPath = "{{asset('bundles/riverwaycmscore/img/loader.gif')}}";
-            var preloaderContent = '<div style="text-align: center">'
-                +'<img id="modal-loader" src=' + loaderPath + '>'
-            +'</div>';
-            $(".admin-modal .modal-body").html(preloaderContent);
-            $.get(link.attr('href'), function (data) {
-                $(".admin-modal .modal-body").html(data);
-            });
-        });
-    </script>
+    {{ include('@RiverwayCmsCore/admin/_popup.html.twig') }}
 </div>
 {% block javascripts %}{% endblock %}
 

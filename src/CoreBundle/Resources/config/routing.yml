@@ -2,9 +2,11 @@ _riverway_cms_admin:
     resource: '@RiverwayCmsCoreBundle/Controller/Admin/'
     type: annotation
     prefix: /admin
+
 _riverway_cms_front:
     resource: '@RiverwayCmsCoreBundle/Controller/Front/'
     type: annotation
+
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.yaml"
 

@@ -1,4 +1,1 @@
-layout:
-  front: View site
-  admin: Admin
 Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget: Editor widget
