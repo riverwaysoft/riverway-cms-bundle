@@ -115,7 +115,7 @@ class ArticleController extends FOSRestController
 
         return $this->handleView($this->view([
             'form' => $form->createView(),
-        ])->setTemplate("admin/ajax-entity-form.html.twig"));
+        ])->setTemplate("@RiverwayCmsCore/admin/ajax-entity-form.html.twig"));
     }
 
     /**
