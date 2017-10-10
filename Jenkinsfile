@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Build') {
             when {
-                expression { env.FAST_FIX != 'true' }
+                expression { env.FAST_FIX != 'true'  }
             }
             steps {
                 sh 'composer install --prefer-dist --no-progress --no-suggest  --optimize-autoloader'
@@ -23,6 +23,11 @@ pipeline {
             steps {
                 sh 'bin/behat -vv'
             }
+        }
+    }
+    post {
+        always {
+            commitMessage action: 'postProcess'
         }
     }
 }
