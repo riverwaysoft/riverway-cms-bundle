@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-8">
             <div class="dd" id="menu-hierarchy">
-                {% include(':admin/menu:_list-item.html.twig') with {'node': menu, 'menu': menu} only %}
+                {% include('@RiverwayCmsCore/admin/menu/_list-item.html.twig') with {'node': menu, 'menu': menu} only %}
             </div>
 
             <button class="btn btn-success" id="menu-saver">Save</button>

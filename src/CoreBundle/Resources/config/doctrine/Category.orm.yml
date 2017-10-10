@@ -56,4 +56,19 @@ Riverway\Cms\CoreBundle\Entity\Category:
                 parent_id:
                     referencedColumnName: id
             orphanRemoval: false
+        menu:
+            targetEntity: MenuNode
+            fetch: LAZY
+            mappedBy: category
+            joinColumns:
+                name: category_id
+                referencedColumnName: id
+        articles:
+            targetEntity: Article
+            fetch: LAZY
+            mappedBy: category
+            joinColumns:
+                name: category_id
+                referencedColumnName: id
+
     lifecycleCallbacks: {  }

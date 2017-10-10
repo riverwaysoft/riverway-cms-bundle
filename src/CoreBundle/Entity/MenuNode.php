@@ -37,9 +37,9 @@ class MenuNode implements NodeInterface
      */
     private $name;
     /**
-     * @var array
+     * @var ArrayCollection
      */
-    private $children=[];
+    private $children;
     /**
      * @var MenuNode|null
      */

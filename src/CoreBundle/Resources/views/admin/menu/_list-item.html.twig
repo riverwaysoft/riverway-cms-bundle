@@ -8,7 +8,7 @@
                 </a>
                 <div class="dd-handle">{{ child.label }}</div>
                 {% if child.children %}
-                    {% include(':admin/menu:_list-item.html.twig') with {'node': child, 'menu': menu} only %}
+                    {% include('@RiverwayCmsCore/admin/menu/_list-item.html.twig') with {'node': child, 'menu': menu} only %}
                 {% endif %}
             {% elseif child.article %}
                 {{ child.label }}
