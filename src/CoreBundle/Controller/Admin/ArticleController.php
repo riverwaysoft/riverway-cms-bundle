@@ -63,6 +63,7 @@ class ArticleController extends FOSRestController
                 $article->updateFromDTO($dto);
                 $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addArticleToParentCategoryMenuNodes($article);
                 $em->persist($article);
+                $em->flush();
 
                 return $this->handleView($this->routeRedirectView('article_edit', ['id' => $article->getId()]));
             } else {

@@ -109,14 +109,14 @@ Riverway\Cms\CoreBundle\Entity\MenuNode:
             orphanRemoval: false
         parent:
             targetEntity: MenuNode
-            cascade: {  }
             fetch: LAZY
             mappedBy: null
-            inversedBy: null
+            inversedBy: children
             joinColumns:
                 parent_id:
                     referencedColumnName: id
             orphanRemoval: false
+            cascade: ["persist"]
         article:
             targetEntity: Article
             cascade: []
