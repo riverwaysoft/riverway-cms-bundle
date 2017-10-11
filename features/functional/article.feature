@@ -49,8 +49,8 @@ Feature: Article management
 
   Scenario: Validation errors article
     And I send a POST request to "/admin/article/1/edit" with parameters:
-      | key                   | value         |
-      | app_article[title]    | Changed title |
+      | key                | value         |
+      | app_article[title] | Changed title |
     And the response status code should be 400
     And the JSON should be equal to:
     """
@@ -88,12 +88,13 @@ Feature: Article management
     }
     """
 
-  Scenario: Created
+  Scenario: Updated
     And I send a POST request to "/admin/article/1/edit" with parameters:
-      | key                   | value          |
-      | app_article[title]    | Changed title  |
-      | app_article[template] | post.html.twig |
-      | app_article[uri]      | /test-test     |
+      | key                               | value          |
+      | app_article[title]                | Changed title  |
+      | app_article[template]             | post.html.twig |
+      | app_article[uri]                  | /test-test     |
+      | app_article[widgets][0][sequence] | 1              |
     And the response status code should be 201
 
 

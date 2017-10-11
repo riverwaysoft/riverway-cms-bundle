@@ -107,6 +107,20 @@ class MenuNodeRepository extends EntityRepository
                 // add to new nodes
                 $this->addArticleToMenu($article, $catMenu, $catMenu->getParentMenu());
             }
+        } elseif (!$category) {
+            $oldMenus = $this->createQueryBuilder('m')
+                ->innerJoin('m.parent', 'parent')
+                ->andWhere('m.article=:aid')
+                ->andWhere('parent!=:root_id')
+                ->setParameter('aid', $article)
+                ->setParameter('root_id', 1)
+                ->getQuery()->getResult();
+            if ($oldMenus) {
+                foreach ($oldMenus as $oldMenu) {
+                    $this->getEntityManager()->remove($oldMenu);
+                    $this->getEntityManager()->flush();
+                }
+            }
         }
     }
 
