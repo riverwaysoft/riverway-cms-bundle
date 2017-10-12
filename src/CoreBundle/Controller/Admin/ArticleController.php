@@ -102,7 +102,7 @@ class ArticleController extends FOSRestController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $dto = $form->getData();
-                $article = Article::createFromDto($dto);
+                $article = Article::createFromDto($dto, $this->getUser());
 
 
                 $em->persist($article);

@@ -2,14 +2,13 @@
 
 namespace Riverway\Cms\CoreBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation as Serializer;
 use Riverway\Cms\CoreBundle\Dto\ArticleDto;
 use Riverway\Cms\CoreBundle\Enum\ArticleStatusEnum;
 use Riverway\Cms\CoreBundle\Enum\TemplateEnum;
 use Riverway\Cms\CoreBundle\Service\FileManager;
 use Riverway\Cms\CoreBundle\Utils\UrlGenerator;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Article
@@ -94,6 +93,11 @@ class Article
      *
      */
     private $tags;
+    /**
+     * @var string
+     * @Serializer\Expose()
+     */
+    private $creator;
 
     public function __construct()
     {
@@ -102,10 +106,16 @@ class Article
         $this->widgets = new ArrayCollection();
     }
 
-    public static function createFromDto(ArticleDto $dto): Article
+    /**
+     * @param ArticleDto $dto
+     * @param mixed $user
+     * @return Article
+     */
+    public static function createFromDto(ArticleDto $dto, $user): Article
     {
         $entity = new static();
         $entity->updateFromDTO($dto);
+        $entity->creator = $user;
 
         return $entity;
     }
@@ -146,6 +156,11 @@ class Article
     public function getUri()
     {
         return $this->uri;
+    }
+
+    public function getCreator()
+    {
+        return $this->creator;
     }
 
     /**
@@ -247,6 +262,9 @@ class Article
         }
         if (isset($data['featuredImage'])) {
             $this->featuredImage = $data['featuredImage'];
+        }
+        if (isset($data['creator'])) {
+            $this->creator = $data['creator'];
         }
     }
 

@@ -4,8 +4,8 @@ Feature: Article management
 
   Background:
     Given the following articles exist:
-      | template | title | uri   | status    |
-      | POST     | Test1 | /test | PUBLISHED |
+      | template | title | uri   | status    | creator |
+      | POST     | Test1 | /test | PUBLISHED | john    |
     Given the following menu nodes exist:
       | name    | article |
       | article | 1       |
@@ -24,6 +24,7 @@ Feature: Article management
     {
       "article": {
           "category": null,
+          "creator": "john",
           "featured_image": null,
           "id": 1,
           "status": 2,
