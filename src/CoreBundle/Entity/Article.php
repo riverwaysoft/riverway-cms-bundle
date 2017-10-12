@@ -114,8 +114,7 @@ class Article
     public static function createFromDto(ArticleDto $dto, $user): Article
     {
         $entity = new static();
-        $entity->updateFromDTO($dto);
-        $entity->creator = $user;
+        $entity->updateFromDTO($dto, $user);
 
         return $entity;
     }
@@ -232,7 +231,7 @@ class Article
     /**
      * @param ArticleDto $articleDto
      */
-    public function updateFromDTO(ArticleDto $articleDto)
+    public function updateFromDTO(ArticleDto $articleDto, $user)
     {
         $this->template = (new TemplateEnum($articleDto->template))->getValue();
         $this->title = $articleDto->title;
@@ -243,6 +242,9 @@ class Article
         $this->widgets = $articleDto->widgets;
         $this->featuredImage = $articleDto->featuredImage;
         $this->tags = $articleDto->tags;
+        if (!$this->creator) {
+            $this->creator = $user;
+        }
     }
 
     public function createFromArrayData(array $data)
