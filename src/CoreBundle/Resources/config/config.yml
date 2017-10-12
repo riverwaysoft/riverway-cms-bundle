@@ -73,10 +73,3 @@ vich_uploader:
         article_image:
             uri_prefix:         /images/article
             upload_destination: '%kernel.root_dir%/../web/images/article'
-
-doctrine_migrations:
-    dir_name: "%kernel.root_dir%/DoctrineMigrations"
-    namespace: Application\Migrations
-    table_name: migration_versions
-    name: RiverwayCms Migrations
-    organize_migrations: BY_YEAR_AND_MONTH

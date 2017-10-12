@@ -70,6 +70,9 @@ Riverway\Cms\CoreBundle\Entity\Article:
             nullable: false
             options:
                 unsigned: false
+        creator:
+            type: string
+            nullable: true
     manyToOne:
         category:
             targetEntity: Category

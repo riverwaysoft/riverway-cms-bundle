@@ -29,7 +29,6 @@ class Kernel extends HttpKernel
             new \Riverway\Cms\CoreBundle\RiverwayCmsCoreBundle(),
             new \Riverway\Grid\RiverwayGridBundle(),
             new \WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
-            new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new \Sentry\SentryBundle\SentryBundle(),
         ];
 
