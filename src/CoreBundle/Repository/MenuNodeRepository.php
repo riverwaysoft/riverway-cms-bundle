@@ -8,10 +8,10 @@
 
 namespace Riverway\Cms\CoreBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
 use Riverway\Cms\CoreBundle\Entity\Article;
 use Riverway\Cms\CoreBundle\Entity\Category;
 use Riverway\Cms\CoreBundle\Entity\MenuNode;
-use Doctrine\ORM\EntityRepository;
 
 class MenuNodeRepository extends EntityRepository
 {
@@ -67,7 +67,9 @@ class MenuNodeRepository extends EntityRepository
         $node->updateFromCategory($category, $parentNode, $parentMenu);
 
         foreach ($category->getArticles() as $article) {
-            $this->addArticleToMenu($article, $node, $parentMenu);
+            if ($article->isPublished()) {
+                $this->addArticleToMenu($article, $node, $parentMenu);
+            }
         }
 
         if ($category->isRoot()) {
@@ -131,11 +133,12 @@ class MenuNodeRepository extends EntityRepository
      * @param MenuNode $parentNode
      * @param MenuNode $parentMenu
      */
-    public function addArticleToMenu(Article $article, MenuNode $parentNode, MenuNode $parentMenu) {
+    public function addArticleToMenu(Article $article, MenuNode $parentNode, MenuNode $parentMenu)
+    {
         $artMenu = $this->findOneBy([
             'article' => $article,
             'parentMenu' => $parentMenu,
-            'parent' => $parentNode
+            'parent' => $parentNode,
         ]);
 
         if (!$artMenu) {
