@@ -149,4 +149,15 @@ class MenuNodeRepository extends EntityRepository
         $this->getEntityManager()->flush();
     }
 
+    /**
+     * @param Article $article
+     */
+    public function removeArticleFromAll(Article $article) {
+        $menus = $this->findBy(['article' => $article]);
+        foreach ($menus as $menu) {
+            $this->getEntityManager()->remove($menu);
+            $this->getEntityManager()->flush();
+        }
+    }
+
 }

@@ -138,6 +138,7 @@ class ArticleController extends FOSRestController
     ) {
         $em = $this->getDoctrine()->getManager();
         $article->publish();
+        $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addArticleToParentCategoryMenuNodes($article);
         $em->persist($article);
         $em->flush();
 
@@ -151,6 +152,7 @@ class ArticleController extends FOSRestController
     ) {
         $em = $this->getDoctrine()->getManager();
         $article->unPublish();
+        $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->removeArticleFromAll($article);
         $em->persist($article);
         $em->flush();
 
