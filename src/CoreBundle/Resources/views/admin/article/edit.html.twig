@@ -28,8 +28,8 @@
                     {% if not article.published %}
                         <a href="{{ path('article_publish', {id: article.id}) }}">Publish</a><br/><br/>
                         <a href="{{ path('preview_article', {id: article.id}) }}" target="_blank">Preview</a><br/>
-                    {% endif %}
-                    {% if article.id %}
+                    {% else %}
+                        <a href="{{ path('article_unpublish', {id: article.id}) }}">Convert to draft</a><br/><br/>
                         <a href="{{ article.uri }}" target="_blank">View on site</a>
                     {% endif %}
                 </div>
@@ -57,6 +57,7 @@
             {{ form_row(form.category) }}
             {{ form_row(form.sidebar) }}
             {{ form_row(form.template) }}
+            {{ form_row(form.tags) }}
 
         </div>
         <div class="tab-pane" id="seo-content" role="tabpanel">

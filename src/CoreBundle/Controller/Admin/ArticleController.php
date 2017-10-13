@@ -139,6 +139,20 @@ class ArticleController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $article->publish();
         $em->persist($article);
+        $em->flush();
+
+        return $this->redirectToRoute('article_edit', ['id' => $article->getId()]);
+    }
+    /**
+     * @Route("/article/{id}/unpublish", name="article_unpublish")
+     */
+    public function unpublishAction(
+        Article $article
+    ) {
+        $em = $this->getDoctrine()->getManager();
+        $article->unPublish();
+        $em->persist($article);
+        $em->flush();
 
         return $this->redirectToRoute('article_edit', ['id' => $article->getId()]);
     }

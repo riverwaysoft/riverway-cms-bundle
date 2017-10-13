@@ -25,7 +25,7 @@ class ContentController extends Controller
      * @Route("/preview/{id}", name="preview_article")
      */
     public function previewAction(Article $article) {
-        return $this->render("RiverwayCmsCoreBundle:templates/{$article->getTemplate()}", [
+        return $this->render("@RiverwayCmsCore/templates/{$article->getTemplate()}", [
             'article' => $article,
             'sidebar' => $article->getSidebar() ? $article->getSidebar() : '',
         ]);

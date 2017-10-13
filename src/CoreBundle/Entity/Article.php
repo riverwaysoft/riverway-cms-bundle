@@ -279,7 +279,7 @@ class Article
     }
 
     /**
-     * @return Widget
+     * @return ArrayCollection
      */
     public function getWidgets()
     {
@@ -288,7 +288,12 @@ class Article
 
     public function publish()
     {
-        $this->status = ArticleStatusEnum::PUBLISHED();
+        $this->status = ArticleStatusEnum::PUBLISHED;
+    }
+
+    public function unPublish()
+    {
+        $this->status = ArticleStatusEnum::DRAFT;
     }
 
     /**

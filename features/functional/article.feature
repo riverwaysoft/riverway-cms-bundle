@@ -15,7 +15,17 @@ Feature: Article management
 
     Given I add "Accept" header equal to "application/json"
 
-  Scenario: fetch data in json
+  Scenario: Fetch data in html
+    Given I add "Accept" header equal to "application/html"
+    And I send a GET request to "/test"
+    And the response status code should be 200
+
+  Scenario: Article preview in html
+    Given I add "Accept" header equal to "application/html"
+    And I send a GET request to "/preview/1"
+    And the response status code should be 200
+
+  Scenario: Fetch data in json
     And I send a GET request to "/test"
     And the response status code should be 200
     And the response should be in JSON
