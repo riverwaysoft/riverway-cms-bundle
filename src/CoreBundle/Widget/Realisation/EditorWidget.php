@@ -42,7 +42,7 @@ final class EditorWidget extends AbstractWidgetRealisation implements EditableWi
 
     public function getContent(): string
     {
-        return $this->entity->getHtmlContent();
+        return (string)$this->entity->getHtmlContent();
     }
 
 }
