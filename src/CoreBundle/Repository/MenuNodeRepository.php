@@ -160,4 +160,41 @@ class MenuNodeRepository extends EntityRepository
         }
     }
 
+    public function addCategoryToParentMenuNodes(Category $category) {
+        if (($parent = $category->getParent()) && $parent->hasMenu()) {
+            foreach ($parent->getMenu() as $parentMenu) {
+                // remove from old nodes
+                $oldMenus = $this->createQueryBuilder('m')
+                    ->andWhere('m.category=:cid')
+                    ->andWhere('m.parent!=:pid')
+                    ->setParameter('cid', $category)
+                    ->setParameter('pid', $parentMenu)
+                    ->getQuery()->getResult();
+                if ($oldMenus) {
+                    foreach ($oldMenus as $oldMenu) {
+                        $this->getEntityManager()->remove($oldMenu);
+                        $this->getEntityManager()->flush();
+                    }
+                }
+                // add to new nodes
+                $this->addCategoryToMenu($category, $parentMenu, $parentMenu->getParentMenu());
+            }
+
+        } elseif (!$parent) {
+            $oldMenus = $this->createQueryBuilder('m')
+                ->innerJoin('m.parent', 'parent')
+                ->andWhere('m.category=:cid')
+                ->andWhere('parent!=:root_id')
+                ->setParameter('cid', $category)
+                ->setParameter('root_id', 1)
+                ->getQuery()->getResult();
+            if ($oldMenus) {
+                foreach ($oldMenus as $oldMenu) {
+                    $this->getEntityManager()->remove($oldMenu);
+                    $this->getEntityManager()->flush();
+                }
+            }
+        }
+    }
+
 }

@@ -54,13 +54,13 @@ class CategoryController extends Controller
     public function editAction(Category $category, Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $registry = $this->get('Riverway\Cms\CoreBundle\Widget\WidgetRegistry');
         $dto = $category->createPreparedDto();
         $form = $this->createForm(CategoryType::class, $dto);
         $form->handleRequest($request);
 
         if ($form->isValid() && $form->isSubmitted()) {
             $category->updateFromDTO($dto);
+            $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addCategoryToParentMenuNodes($category);
             $em->persist($category);
             $em->flush();
 
@@ -69,7 +69,6 @@ class CategoryController extends Controller
 
         return $this->render('@RiverwayCmsCore/admin/category/edit.html.twig', [
             'form' => $form->createView(),
-            'widgetTypes' => $registry->getWidgetList()
         ]);
     }
 
@@ -88,6 +87,7 @@ class CategoryController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $category = Category::createFromDto($dto);
+            $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addCategoryToParentMenuNodes($category);
             $em->persist($category);
             $em->flush();
 
