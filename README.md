@@ -17,7 +17,7 @@ Exclude app dir:
  ```
 
 Install:
-```composer require --prefer-dist riverway/riverway-cms-bundle```
+```composer require --prefer-dist riverwaysoft/riverway-cms-bundle```
 
 #### Step 2: Enable the Bundle
 
