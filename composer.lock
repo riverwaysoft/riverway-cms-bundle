@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "63d629a88d3fdc7400d9d511370374ce",
-    "content-hash": "f32bc51e3cc7aeae23dab84a302ff79d",
+    "hash": "11229de00c3a5383507eb6fa88098008",
+    "content-hash": "6181df1b2e74391935de0c127256ce4a",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -3312,6 +3312,41 @@
             ],
             "description": "Grid bundle",
             "time": "2017-09-15 09:24:35"
+        },
+        {
+            "name": "riverwaysoft/grid-bundle",
+            "version": "0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/riverwaysoft/riverway-grid-bundle.git",
+                "reference": "bed1911da54ec6a979878a5d6f0277c0558b08e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/riverwaysoft/riverway-grid-bundle/zipball/bed1911da54ec6a979878a5d6f0277c0558b08e8",
+                "reference": "bed1911da54ec6a979878a5d6f0277c0558b08e8",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-bundle": "^1.6",
+                "doctrine/doctrine-cache-bundle": "^1.2",
+                "doctrine/orm": "^2.5",
+                "knplabs/knp-paginator-bundle": "^2.5",
+                "php": ">=7.1",
+                "symfony/symfony": "^3.2"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Riverway\\Grid\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Grid bundle",
+            "time": "2017-10-18 08:40:42"
         },
         {
             "name": "sainsburys/guzzle-oauth2-plugin",
