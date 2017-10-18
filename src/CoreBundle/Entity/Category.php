@@ -74,6 +74,7 @@ class Category
         $this->name = $name;
         $this->isRoot = false;
         $this->children = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
     public static function createFromDto(CategoryDto $dto): Category
