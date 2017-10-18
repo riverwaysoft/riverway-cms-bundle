@@ -13,6 +13,7 @@ pipeline {
                 expression { env.FAST_FIX != 'true'  }
             }
             steps {
+                sh 'mkdir web/build && echo {} > web/build/manifest.json'
                 sh 'composer install --prefer-dist --no-progress --no-suggest  --optimize-autoloader'
             }
         }

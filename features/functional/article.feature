@@ -10,8 +10,8 @@ Feature: Article management
       | name    | article |
       | article | 1       |
     Given the following widgets exist:
-      | name    | article | type   | sequence |
-      | article | 1       | EDITOR | 1        |
+      | name                                                    | article | type   | sequence |
+      | Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget | 1       | EDITOR | 1        |
 
     Given I add "Accept" header equal to "application/json"
 
