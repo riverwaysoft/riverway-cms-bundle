@@ -39,7 +39,6 @@
         "knplabs/knp-paginator-bundle": "^2.6",
         "liip/imagine-bundle": "^1.8",
         "myclabs/php-enum": "^1.5",
-        "riverway/grid-bundle": "^0.2",
         "riverwaysoft/grid-bundle": "^0.3",
         "sainsburys/guzzle-oauth2-plugin": "^3.0",
         "sensio/distribution-bundle": "^5.0.19",
