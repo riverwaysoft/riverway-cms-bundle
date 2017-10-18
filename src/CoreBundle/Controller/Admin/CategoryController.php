@@ -87,9 +87,9 @@ class CategoryController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $category = Category::createFromDto($dto);
-            $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addCategoryToParentMenuNodes($category);
             $em->persist($category);
             $em->flush();
+            $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addCategoryToParentMenuNodes($category);
 
             return $this->redirectToRoute('category_index');
         }
