@@ -55,7 +55,7 @@ class CategoryController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $dto = $category->createPreparedDto();
-        $form = $this->createForm(CategoryType::class, $dto);
+        $form = $this->createForm(CategoryType::class, $dto, ['id' => $category->getId()]);
         $form->handleRequest($request);
 
         if ($form->isValid() && $form->isSubmitted()) {

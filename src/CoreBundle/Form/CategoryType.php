@@ -30,9 +30,13 @@ class CategoryType extends AbstractType
             ->add('type', ChoiceType::class, ['choices' => CategoryEnum::toArray()])
             ->add('parent', EntityType::class, [
                 'class' => Category::class,
-                'query_builder' => function (CategoryRepository $er) {
-                    return $er->createQueryBuilder('c')
+                'query_builder' => function (CategoryRepository $er) use ($options) {
+                    $qb = $er->createQueryBuilder('c')
                         ->andWhere('c.parent IS NULL');
+                    if ($options['id']) {
+                        $qb->andWhere('c.id!=:cid')->setParameter('cid', $options['id']);
+                    }
+                    return $qb;
                 },
                 'placeholder' => '',
                 'required' => false
@@ -44,6 +48,7 @@ class CategoryType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => CategoryDto::class,
+            'id' => null
         ));
     }
 
