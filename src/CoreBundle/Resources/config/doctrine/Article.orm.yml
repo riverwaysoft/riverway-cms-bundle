@@ -103,7 +103,7 @@ Riverway\Cms\CoreBundle\Entity\Article:
     manyToMany:
         tags:
             targetEntity: Riverway\Cms\CoreBundle\Entity\Tag
-            cascade: [persist,remove]
+            cascade: [persist]
             fetch: LAZY
             mappedBy: null
             inversedBy: article
