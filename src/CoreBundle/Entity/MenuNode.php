@@ -153,9 +153,9 @@ class MenuNode implements NodeInterface
     }
 
     /**
-     * @return Article
+     * @return Article|null
      */
-    public function getArticle(): Article {
+    public function getArticle() {
         return $this->article;
     }
 
