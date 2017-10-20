@@ -32,12 +32,6 @@ class Category
     private $type;
 
     /**
-     * @var boolean
-     *
-     */
-    private $isRoot;
-
-    /**
      * @var Category
      *
      */
@@ -72,7 +66,6 @@ class Category
     {
         $this->type = $categoryEnum->getValue();
         $this->name = $name;
-        $this->isRoot = false;
         $this->children = new ArrayCollection();
         $this->articles = new ArrayCollection();
     }
@@ -83,7 +76,6 @@ class Category
         if ($dto->parent) {
             $category->changeParent($dto->parent);
         }
-        $category->isRoot = $dto->isRoot;
 
         return $category;
     }
@@ -124,22 +116,12 @@ class Category
         return $this->parent;
     }
 
-    public function markAsRoot()
-    {
-        $this->isRoot = true;
-    }
-
-    public function resetRoot()
-    {
-        $this->isRoot = false;
-    }
-
     /**
      * @return bool
      */
     public function isRoot()
     {
-        return $this->isRoot;
+        return $this->parent === null;
     }
 
     public function changeParent(Category $parent)
@@ -153,7 +135,6 @@ class Category
         $this->parent = $categoryDto->parent;
         $this->type = $this->parent ? $this->parent->getType()->getValue() : (new CategoryEnum($categoryDto->type))->getValue();
         $this->name = $categoryDto->name;
-        $this->isRoot = $categoryDto->isRoot;
     }
 
     public function createPreparedDto(): CategoryDto
@@ -162,7 +143,6 @@ class Category
         $dto->parent = $this->parent;
         $dto->type = $this->type;
         $dto->name = $this->name;
-        $dto->isRoot = $this->isRoot;
 
         return $dto;
     }

@@ -70,7 +70,7 @@ class ArticleType extends AbstractType
                 'class' => Category::class,
                 'query_builder' => function (CategoryRepository $er) {
                     return $er->createQueryBuilder('c')
-                        ->andWhere('c.isRoot!=true');
+                        ->andWhere('c.parent IS NULL');
                 },
                 'choices' => $this->entityManager->getRepository('RiverwayCmsCoreBundle:Category')->findGrouped(),
                 'required' => false,

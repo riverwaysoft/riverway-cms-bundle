@@ -28,7 +28,6 @@ class LoadCategoryData implements FixtureInterface, OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $servicesRoot = new Category(CategoryEnum::SERVICE(), 'LOCKSMITH SERVICES');
-        $servicesRoot->markAsRoot();
         $manager->persist($servicesRoot);
 
 //        $productRoot = new Category(CategoryEnum::PRODUCT(), 'AUDIO, VIDEO AND DOOR ENTRY');

@@ -62,7 +62,7 @@ class MenuController extends Controller
         $menuData = $request->request->get('menu');
 
         foreach ($menuData as $child) {
-            $this->setNode($child, $menu, true);
+            $this->setNode($child, $menu);
         }
         $this->get('doctrine.orm.entity_manager')->flush();
         return new JsonResponse(['status' => 'success']);
@@ -71,17 +71,12 @@ class MenuController extends Controller
     /**
      * @param array $data
      * @param MenuNode $parent
-     * @param bool $root
      */
-    private function setNode(array $data, MenuNode $parent, bool $root = false)
+    private function setNode(array $data, MenuNode $parent)
     {
         $em = $this->get('doctrine.orm.entity_manager');
         /** @var MenuNode $node */
         $node = $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->find($data['id']);
-
-        if ($root && $node->getCategory()) {
-            $node->getCategory()->markAsRoot();
-        }
         $node->setParent($parent);
 
         if (isset($data['children'])) {
