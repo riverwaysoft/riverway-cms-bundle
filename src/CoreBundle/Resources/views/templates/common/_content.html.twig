@@ -11,6 +11,7 @@
     {{ render(controller('RiverwayCmsCoreBundle:Front/Content:renderWidget', {entity: aWidget})) }}
 {% endfor %}
 {% if article.tags %}
+    <br/>
     {% for tag in article.tags %}
         <a href="{{ path('tag_search', {id: tag.id, name: tag.name}) }}">#{{ tag }}</a>
     {% endfor %}

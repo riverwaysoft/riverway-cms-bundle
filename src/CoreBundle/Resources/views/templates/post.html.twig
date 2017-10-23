@@ -2,11 +2,11 @@
 
 {% block body %}
     <div class="container">
-        <div class="left-sidebar">
-            {% if sidebar %}
+        {% if sidebar %}
+            <div class="left-sidebar">
                 {% include('@RiverwayCmsCore/templates/common/_sidebar.html.twig') %}
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
         <div class="content-wrapper">
             {% include('RiverwayCmsCoreBundle:templates/common:_content.html.twig') %}
         </div>

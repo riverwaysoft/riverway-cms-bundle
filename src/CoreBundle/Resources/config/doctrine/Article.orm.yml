@@ -100,10 +100,18 @@ Riverway\Cms\CoreBundle\Entity\Article:
             mappedBy: article
             orderBy:
                 sequence: ASC
+        menu:
+            targetEntity: Riverway\Cms\CoreBundle\Entity\MenuNode
+            fetch: LAZY
+            mappedBy: article
+            joinColumns:
+                name: article_id
+                referencedColumnName: id
+            orphanRemoval: true
     manyToMany:
         tags:
             targetEntity: Riverway\Cms\CoreBundle\Entity\Tag
-            cascade: [persist,remove]
+            cascade: [persist]
             fetch: LAZY
             mappedBy: null
             inversedBy: article

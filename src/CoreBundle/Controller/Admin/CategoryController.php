@@ -55,7 +55,7 @@ class CategoryController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $dto = $category->createPreparedDto();
-        $form = $this->createForm(CategoryType::class, $dto);
+        $form = $this->createForm(CategoryType::class, $dto, ['id' => $category->getId()]);
         $form->handleRequest($request);
 
         if ($form->isValid() && $form->isSubmitted()) {
@@ -87,9 +87,9 @@ class CategoryController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $category = Category::createFromDto($dto);
-            $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addCategoryToParentMenuNodes($category);
             $em->persist($category);
             $em->flush();
+            $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addCategoryToParentMenuNodes($category);
 
             return $this->redirectToRoute('category_index');
         }

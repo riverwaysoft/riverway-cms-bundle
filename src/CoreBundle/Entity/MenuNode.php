@@ -153,9 +153,9 @@ class MenuNode implements NodeInterface
     }
 
     /**
-     * @return Article
+     * @return Article|null
      */
-    public function getArticle(): Article {
+    public function getArticle() {
         return $this->article;
     }
 
@@ -312,5 +312,19 @@ class MenuNode implements NodeInterface
         $this->setCategory($category);
         $this->setParentMenu($parentMenu);
         $parentNode->addChild($this);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getDisplay() {
+        return $this->display;
+    }
+
+    /**
+     * @param $display
+     */
+    public function setDisplay($display) {
+        $this->display = $display;
     }
 }

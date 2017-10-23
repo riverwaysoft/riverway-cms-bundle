@@ -10,5 +10,4 @@ class CategoryDto
     public $name;
     public $type;
     public $parent;
-    public $isRoot;
 }

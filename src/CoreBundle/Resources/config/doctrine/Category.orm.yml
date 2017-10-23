@@ -27,10 +27,6 @@ Riverway\Cms\CoreBundle\Entity\Category:
             nullable: false
             options:
                 unsigned: false
-        isRoot:
-            type: boolean
-            nullable: false
-            column: is_root
         externalId:
             type: integer
             nullable: true
@@ -63,6 +59,7 @@ Riverway\Cms\CoreBundle\Entity\Category:
             joinColumns:
                 name: category_id
                 referencedColumnName: id
+            orphanRemoval: true
         articles:
             targetEntity: Article
             fetch: LAZY
