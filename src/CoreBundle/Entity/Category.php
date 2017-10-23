@@ -50,7 +50,7 @@ class Category
     private $articles;
 
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection|MenuNode[]
      *
      */
     private $menu;
@@ -68,6 +68,7 @@ class Category
         $this->name = $name;
         $this->children = new ArrayCollection();
         $this->articles = new ArrayCollection();
+        $this->menu = new ArrayCollection();
     }
 
     public static function createFromDto(CategoryDto $dto): Category

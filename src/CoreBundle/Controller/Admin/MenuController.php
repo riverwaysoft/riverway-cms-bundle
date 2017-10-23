@@ -86,4 +86,16 @@ class MenuController extends Controller
         }
     }
 
+    /**
+     * @Route("menu/{id}/display/{display}", name="menu_display")
+     */
+    public function displayInMenuAction(MenuNode $menuNode, string $display, Request $request) {
+        $em = $this->get('doctrine.orm.default_entity_manager');
+        $menuNode->setDisplay($display);
+        $em->persist($menuNode);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
 }

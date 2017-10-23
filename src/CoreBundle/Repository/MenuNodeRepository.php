@@ -67,9 +67,7 @@ class MenuNodeRepository extends EntityRepository
         $node->updateFromCategory($category, $parentNode, $parentMenu);
 
         foreach ($category->getArticles() as $article) {
-            if ($article->isPublished()) {
-                $this->addArticleToMenu($article, $node, $parentMenu);
-            }
+            $this->addArticleToMenu($article, $node, $parentMenu);
         }
 
         if ($category->isRoot()) {
@@ -135,24 +133,27 @@ class MenuNodeRepository extends EntityRepository
      */
     public function addArticleToMenu(Article $article, MenuNode $parentNode, MenuNode $parentMenu)
     {
-        $artMenu = $this->findOneBy([
-            'article' => $article,
-            'parentMenu' => $parentMenu,
-            'parent' => $parentNode,
-        ]);
+        if ($article->isPublished()) {
+            $artMenu = $this->findOneBy([
+                'article' => $article,
+                'parentMenu' => $parentMenu,
+                'parent' => $parentNode,
+            ]);
 
-        if (!$artMenu) {
-            $artMenu = new MenuNode($article->getNameForMenu($parentMenu));
+            if (!$artMenu) {
+                $artMenu = new MenuNode($article->getNameForMenu($parentMenu));
+            }
+            $artMenu->updateFromArticle($article, $parentNode, $parentMenu);
+            $this->getEntityManager()->persist($artMenu);
+            $this->getEntityManager()->flush();
         }
-        $artMenu->updateFromArticle($article, $parentNode, $parentMenu);
-        $this->getEntityManager()->persist($artMenu);
-        $this->getEntityManager()->flush();
     }
 
     /**
      * @param Article $article
      */
-    public function removeArticleFromAll(Article $article) {
+    public function removeArticleFromAll(Article $article)
+    {
         $menus = $this->findBy(['article' => $article]);
         foreach ($menus as $menu) {
             $this->getEntityManager()->remove($menu);
@@ -160,7 +161,8 @@ class MenuNodeRepository extends EntityRepository
         }
     }
 
-    public function addCategoryToParentMenuNodes(Category $category) {
+    public function addCategoryToParentMenuNodes(Category $category)
+    {
         if (($parent = $category->getParent()) && $parent->hasMenu()) {
             foreach ($parent->getMenu() as $parentMenu) {
                 // remove from old nodes
