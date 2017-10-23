@@ -28,13 +28,14 @@ in the `app/AppKernel.php` file of your project:
 <?php
 // app/AppKernel.php
 
-// ...
+
 class AppKernel extends \Riverway\Cms\CoreBundle\Application\Kernel
 {
     public function registerBundles()
     {
         $bundles = [
-            new AppBundle\AppBundle()
+            new AppBundle\AppBundle(),
+            // ...
         ];
         return array_merge($bundles, parent::registerBundles());
     }
