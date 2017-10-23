@@ -38,6 +38,15 @@ Riverway\Cms\CoreBundle\Entity\Slider:
         creator:
             type: string
             nullable: true
+
+    oneToMany:
+        slides:
+            targetEntity: Riverway\Cms\CoreBundle\Entity\Slide
+            mappedBy: slider
+            cascade: [persist, remove]
+            orphanRemoval: true
+            onDelete: "CASCADE"
+
     lifecycleCallbacks:
         prePersist: [updatedTimestamps]
         preUpdate: [updatedTimestamps]

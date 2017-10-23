@@ -2,6 +2,7 @@
 
 namespace Riverway\Cms\CoreBundle\Controller\Admin;
 
+use Riverway\Cms\CoreBundle\Entity\Slide;
 use Riverway\Cms\CoreBundle\Entity\Slider;
 use Riverway\Cms\CoreBundle\Enum\WidgetTypeEnum;
 use Riverway\Cms\CoreBundle\Form\SliderType;
@@ -28,7 +29,7 @@ class SliderController extends Controller
      */
     public function editAction(Slider $slider, Request $request)
     {
-        $form = $this->createForm(SliderType::class, $slider);
+        $form = $this->createForm(SliderType::class, $slider, ['created' => true]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -68,6 +69,28 @@ class SliderController extends Controller
         return $this->render('@RiverwayCmsCore/admin/ajax-entity-form.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/slider/{id}/create-slide", name="slide_create")
+     */
+    public function createSlideAction(Request $request, Slider $slider)
+    {
+        $slide = new Slide();
+        $slider->addSlide($slide);
+
+        $em = $this->get('doctrine.orm.default_entity_manager');
+        $em->persist($slider);
+        $em->flush();
+    }
+
+    /**
+     * @Route("/slider/delete-slide/{id}", name="slide_delete")
+     */
+    public function deleteSlideAction(Request $request, Slide $slide) {
+        $em = $this->get('doctrine.orm.default_entity_manager');
+        $em->remove($slide);
+        $em->flush();
     }
 
 }

@@ -1,0 +1,36 @@
+Riverway\Cms\CoreBundle\Entity\SlideElementParameters:
+    type: entity
+    table: null
+    repositoryClass: Riverway\Cms\CoreBundle\Repository\SlideElementParametersRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        text:
+            type: string
+            length: 255
+            nullable: false
+        textColor:
+            type: string
+            length: 255
+            nullable: true
+        backColor:
+            type: string
+            length: 255
+            nullable: true
+        marginRight:
+            type: string
+            length: 255
+            nullable: true
+        width:
+            type: string
+            length: 255
+            nullable: true
+        url:
+            type: string
+            length: 255
+            nullable: true
+    lifecycleCallbacks: {  }
