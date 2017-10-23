@@ -1,0 +1,15 @@
+{% extends '@RiverwayCmsCore/admin/admin_base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.name) }}
+    {{ form_row(form.display) }}
+
+    {{ form_row(form.save) }}
+
+    {{ form_end(form) }}
+
+{% endblock %}

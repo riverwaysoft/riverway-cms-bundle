@@ -322,9 +322,9 @@ class MenuNode implements NodeInterface
     }
 
     /**
-     * @param $display
+     * @param bool $display
      */
-    public function setDisplay($display) {
+    public function setDisplay(bool $display) {
         $this->display = $display;
     }
 }
