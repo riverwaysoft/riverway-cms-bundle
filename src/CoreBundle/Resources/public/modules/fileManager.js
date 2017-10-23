@@ -120,13 +120,16 @@ module.exports = (function($) {
 
     function init(options) {
         this.on('click', (event) => {
+            
+            console.log();
+            const $target = $(event.target);
             const _ = require('underscore');
             const onSelect = options.onSelect;
             activeIndex = -1;
             isFetching = true;
             $('#customFileManager').modal('show');
             $('#customFileManager .select-file').on('click', _.once(() => {
-                onSelect && activeIndex >= 0 && onSelect(fileList[activeIndex]);
+                onSelect && activeIndex >= 0 && onSelect(fileList[activeIndex], $target);
                 $('#customFileManager').modal('hide');
             }));
             $contentContainer = $('#customFileManager').find('.modal-body');
