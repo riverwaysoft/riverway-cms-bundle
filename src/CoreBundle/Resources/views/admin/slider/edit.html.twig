@@ -1,14 +1,32 @@
 {% extends '@RiverwayCmsCore/admin/admin_base.html.twig' %}
 
 {% block body %}
+    <h1>Slider #{{ slider.id }}</h1><br/>
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
 
     {{ form_row(form.name) }}
     {{ form_row(form.display) }}
-    {{ form_row(form.slides) }}
-
+    {#{{ form_row(form.slides) }}#}
+    {% for key,slide in form.slides %}
+        <br/>
+        <h3>Slide #{{ key+1 }}</h3><br/>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group">
+                    <div class="col-6">
+                        <button type="button" data-key="{ key }}" class="btn btn-primary upload-btn">Upload image</button>
+                    </div>
+                    <div class="col-12">
+                        <img id="featured-img-{{ key }}" class="admin-preview" src="{{ slide.imageUrl.vars.value }}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ form_row(slide.header) }}
+        {{ form_row(slide.imageUrl) }}
+    {% endfor %}
     {{ form_row(form.save) }}
 
     {{ form_end(form) }}

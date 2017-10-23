@@ -39,7 +39,7 @@ class Slide
     /**
      * @var string
      */
-    public $imageUrl = '/uploads/slider_slug.png';
+    public $imageUrl = '/uploads/images/slider_slug.png';
 
     /**
      * @var SlideElementParameters
