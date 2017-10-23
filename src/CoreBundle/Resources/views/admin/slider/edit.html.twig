@@ -16,7 +16,7 @@
             <div class="col-8">
                 <div class="form-group">
                     <div class="col-6">
-                        <button type="button" data-key="{ key }}" class="btn btn-primary upload-btn">Upload image</button>
+                        <button type="button" data-key="{{ key }}" class="btn btn-primary upload-btn">Upload image</button>
                     </div>
                     <div class="col-12">
                         <img id="featured-img-{{ key }}" class="admin-preview" src="{{ slide.imageUrl.vars.value }}"/>
@@ -31,4 +31,16 @@
 
     {{ form_end(form) }}
 
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $('.upload-btn').manageFiles({
+            onSelect: function (data, target) {
+                var slideKey = target.data("key");
+                $('#app_slider_slides_' + slideKey + '_featuredImage').val(data.real_path);
+                $('#featured-img-' + slideKey).attr('src', data.real_path);
+            }
+        });
+    </script>
 {% endblock %}
