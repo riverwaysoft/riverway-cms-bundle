@@ -10,31 +10,18 @@
             <button class="btn btn-success" id="menu-saver">Save</button>
         </div>
         <div class="col-4">
-            <ul class="nav nav-tabs" role="tablist" >
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#categories" role="tab">Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#articles" role="tab">Articles</a>
-                </li>
+            <h3>Categories</h3><br/>
+            <ul class="list-group">
+                {% for category in categories %}
+                    <li class="list-group-item">
+                        <a class="pull-right"
+                           href="{{ path('category_add_to_menu', {'id': category.id, 'menu': menu.id}) }}">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                        {{ category.name }}
+                    </li>
+                {% endfor %}
             </ul>
-            <div class="tab-content">
-                <div class="tab-pane active" id="categories" role="tabpanel">
-                    <ul class="list-group">
-                        {% for category in categories %}
-                            <li class="list-group-item">
-                                <a class="pull-right" href="{{ path('category_add_to_menu', {'id': category.id, 'menu': menu.id}) }}">
-                                    <i class="fa fa-plus"></i>
-                                </a>
-                                {{ category.name }}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="tab-pane active" id="articles" role="tabpanel">
-                    <ul class="list-group"></ul>
-                </div>
-            </div>
         </div>
     </div>
 
