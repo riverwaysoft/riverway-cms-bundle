@@ -29,19 +29,19 @@ in the `app/AppKernel.php` file of your project:
 // app/AppKernel.php
 
 // ...
-class AppKernel extends Kernel
+class AppKernel extends \Riverway\Cms\CoreBundle\Application\Kernel
 {
     public function registerBundles()
     {
-        $bundles = array(
-            // ...
-
-            new Riverway\Cms\CoreBundle\RiverwayCmsCoreBundle(),
-        );
-
-        // ...
+        $bundles = [
+            new AppBundle\AppBundle()
+        ];
+        return array_merge($bundles, parent::registerBundles());
     }
 
-    // ...
+    public function getRootDir()
+    {
+        return __DIR__;
+    }
 }
 ```
