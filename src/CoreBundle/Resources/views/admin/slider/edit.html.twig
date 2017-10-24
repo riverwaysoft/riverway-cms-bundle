@@ -1,35 +1,50 @@
 {% extends '@RiverwayCmsCore/admin/admin_base.html.twig' %}
 
 {% block body %}
-    <h1>Slider #{{ slider.id }}</h1><br/>
+    <div id="slider">
+        <h1>Slider #{{ slider.id }}</h1><br/>
 
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
 
-    {{ form_row(form.name) }}
-    {{ form_row(form.display) }}
-    {#{{ form_row(form.slides) }}#}
-    {% for key,slide in form.slides %}
-        <br/>
-        <h3>Slide #{{ key+1 }}</h3><br/>
-        <div class="row">
-            <div class="col-8">
-                <div class="form-group">
-                    <div class="col-6">
-                        <button type="button" data-key="{{ key }}" class="btn btn-primary upload-btn">Upload image</button>
+        {{ form_row(form.name) }}
+        {{ form_row(form.display) }}
+
+        <div id="slides">
+            {% for key,slide in form.slides %}
+                <div class="slide">
+                    <h3>Slide #{{ key+1 }} <a href="{{ path('slide_delete', {id: slide.vars.value.id}) }}"><i class="fa fa-times"></i></a></h3><br/>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <div class="col-6">
+                                    <button type="button" data-key="{{ key }}" class="btn btn-primary upload-btn">Upload
+                                        image
+                                    </button>
+                                </div>
+                                <div class="col-12">
+                                    <img id="featured-img-{{ key }}" class="admin-preview"
+                                         src="{{ slide.imageUrl.vars.value }}"/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-12">
-                        <img id="featured-img-{{ key }}" class="admin-preview" src="{{ slide.imageUrl.vars.value }}"/>
-                    </div>
+                    {{ form_row(slide.header) }}
+                    {{ form_row(slide.imageUrl) }}
                 </div>
+            {% endfor %}
+        </div>
+
+        <div class="row">
+            <div class="col-sm-10">
+                <a id="add-slide" class="btn btn-success" href="{{ path('slide_create', {id: slider.id}) }}">Add
+                    Slide</a>
             </div>
         </div>
-        {{ form_row(slide.header) }}
-        {{ form_row(slide.imageUrl) }}
-    {% endfor %}
-    {{ form_row(form.save) }}
+        {{ form_row(form.save) }}
 
-    {{ form_end(form) }}
+        {{ form_end(form) }}
+    </div>
 
 {% endblock %}
 
@@ -38,7 +53,7 @@
         $('.upload-btn').manageFiles({
             onSelect: function (data, target) {
                 var slideKey = target.data("key");
-                $('#app_slider_slides_' + slideKey + '_featuredImage').val(data.real_path);
+                $('#app_slider_slides_' + slideKey + '_imageUrl').val(data.real_path);
                 $('#featured-img-' + slideKey).attr('src', data.real_path);
             }
         });

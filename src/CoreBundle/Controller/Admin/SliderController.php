@@ -6,8 +6,10 @@ use Riverway\Cms\CoreBundle\Entity\Slide;
 use Riverway\Cms\CoreBundle\Entity\Slider;
 use Riverway\Cms\CoreBundle\Enum\WidgetTypeEnum;
 use Riverway\Cms\CoreBundle\Form\SliderType;
+use Riverway\Cms\CoreBundle\Form\SlideType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 
 class SliderController extends Controller
@@ -82,6 +84,8 @@ class SliderController extends Controller
         $em = $this->get('doctrine.orm.default_entity_manager');
         $em->persist($slider);
         $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
@@ -91,6 +95,8 @@ class SliderController extends Controller
         $em = $this->get('doctrine.orm.default_entity_manager');
         $em->remove($slide);
         $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
     }
 
 }
