@@ -44,6 +44,9 @@ Riverway\Cms\CoreBundle\Entity\Slide:
         imageUrl:
             type: string
             nullable: false
+        url:
+            type: string
+            nullable: true
 
     oneToOne:
         header:

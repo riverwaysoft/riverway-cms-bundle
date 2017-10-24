@@ -39,50 +39,55 @@ class Slide
     /**
      * @var string
      */
-    public $imageUrl = '/uploads/images/slider_slug.png';
+    private $imageUrl = '/uploads/images/slider_slug.png';
 
     /**
      * @var SlideElementParameters
      */
-    public $header;
+    private $header;
 
 
     /**
      * @var SlideElementParameters
      */
-    public $subHeader;
+    private $subHeader;
 
     /**
      * @var SlideElementParameters
      */
-    public $description;
+    private $description;
 
     /**
      * @var SlideElementParameters
      */
-    public $button;
+    private $button;
 
     /**
      * @var string
      */
-    public $textAlign;
+    private $textAlign;
 
     /**
      * @var string
      */
-    public $verticalAlign;
+    private $verticalAlign;
 
     /**
      * @var int
      * @Assert\Range(min=0, max=90)
      */
-    public $marginRight = 0;
+    private $marginRight = 0;
 
     /**
      * @var int
      * @Assert\NotBlank(min=10, max=100)
      */
-    public $width = 100;
+    private $width = 100;
+
+    /**
+     * @var string
+     */
+    private $url;
 
     /**
      * @param Slider $slider
@@ -233,6 +238,22 @@ class Slide
     public function setWidth(int $width)
     {
         $this->width = $width;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
     }
 }
 
