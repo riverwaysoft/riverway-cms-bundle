@@ -17,10 +17,25 @@
         {% block body %}
         {% endblock %}
     </div>
+    {{ include('@RiverwayCmsCore/admin/_popup.html.twig') }}
 </div>
 {% include '@RiverwayCmsCore/_javascript.html.twig' %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+    <script>
+        $('.admin-modal').on('show.bs.modal', function (e) {
+            var link = $(e.relatedTarget);
+            var loaderPath = "{{asset('bundles/riverwaycmscore/img/loader.gif')}}";
+            var preloaderContent = '<div style="text-align: center">'
+                +'<img id="modal-loader" src=' + loaderPath + '>'
+                +'</div>';
+            $(".admin-modal .modal-body").html(preloaderContent);
+            $.get(link.attr('href'), function (data) {
+                $(".admin-modal .modal-body").html(data);
+                e.stopPropagation();
+            });
+        });
+    </script>
+{% endblock %}
 
-{{ include('@RiverwayCmsCore/admin/_popup.html.twig') }}
 </body>
 </html>
