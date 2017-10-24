@@ -19,8 +19,9 @@
     </div>
     {{ include('@RiverwayCmsCore/admin/_popup.html.twig') }}
 </div>
-{% include '@RiverwayCmsCore/_javascript.html.twig' %}
+
 {% block javascripts %}
+    {% include '@RiverwayCmsCore/_javascript.html.twig' %}
     <script>
         $('.admin-modal').on('show.bs.modal', function (e) {
             var link = $(e.relatedTarget);
