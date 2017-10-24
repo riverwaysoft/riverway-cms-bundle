@@ -1,0 +1,57 @@
+<script>
+    var drake = dragula([document.querySelector('#widget-areas')]);
+    drake.on('drop', function (el) {
+        var elId = el.getAttribute('id');
+        var element = $('#' + elId);
+
+        changeSequence(element);
+
+        var newIndex = element.index('.widget-area');
+        $('.widget-area:gt(' + newIndex + '):not(.gu-mirror)').each(function () {
+            changeSequence($(this));
+        });
+
+    });
+
+    function changeSequence(obj) {
+        var index = obj.index('.widget-area');
+        var seqNum = obj.attr('data-sequence');
+        $('#app_{{ owner }}_widgets_' + seqNum + '_sequence').val(index + 1);
+    }
+
+    $('#widget-areas').on('click', '.delete-widget-link', function (e) {
+        e.preventDefault();
+        if (confirm('You are going to delete widget. Confirm?')) {
+            $.post(
+                $(this).attr('href'),
+                {id: $(this).attr('data-target')},
+                function (response) {
+                    console.log(response);
+                    if (response.status == 'success') {
+                        var link = $('a[data-target=' + response.deleted_id + ']');
+                        var seqNum = link.closest('.widget-area').attr('data-sequence');
+                        $('#app_{{ owner }}_widgets_' + seqNum + '_sequence').remove();
+                        link.closest('.widget-area').remove();
+                    }
+                });
+        }
+        return false;
+    });
+
+    $('#add-widget-btn').on('click', function () {
+        var seqNum = $('.widget-area').length + 1;
+
+        $.get(Routing.generate('create_{{ owner }}_widget', {
+            type: $('select[name="widget-types"]').val(),
+            id: $('#object-data').attr('data-object-id'),
+            sequence: seqNum
+        }), function (data) {
+            $('#widget-areas').append(data);
+            var html = '<div><div id="app_{{ owner }}_widgets_' + (seqNum - 1) + '">' + '<input type="hidden" id="app_{{ owner }}_widgets_' + (seqNum - 1) + '_sequence" name="app_{{ owner }}[widgets][' + (seqNum - 1) + '][sequence]" value="' + seqNum + '">' + '</div></div>';
+            $('#app_{{ owner }}_widgets').append(html);
+
+            $("#widget-types-modal").modal('hide');
+            $('.widget-area:last-of-type .widget-edit-link').trigger('click');
+        });
+    });
+</script>

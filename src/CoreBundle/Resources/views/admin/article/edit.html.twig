@@ -70,6 +70,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ include('@RiverwayCmsCore/admin/_widgets_javascripts.html.twig', {owner: 'article'}) }}
     <script>
         $('.icp').iconpicker();
         $('#upload-btn').manageFiles({
