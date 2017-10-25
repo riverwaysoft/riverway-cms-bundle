@@ -8,8 +8,10 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Riverway\Cms\CoreBundle\Entity\Article;
+use Riverway\Cms\CoreBundle\Entity\Category;
 use Riverway\Cms\CoreBundle\Entity\MenuNode;
 use Riverway\Cms\CoreBundle\Entity\Widget;
+use Riverway\Cms\CoreBundle\Enum\CategoryEnum;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 /**
@@ -119,4 +121,16 @@ class FixtureContext implements Context
         $this->manager->flush();
     }
 
+    /**
+     * @Given the following categories exist:
+     */
+    public function theCategoriesExist(TableNode $table)
+    {
+        foreach ($table->getHash() as $row) {
+            $category = new Category(new CategoryEnum((int)$row['type']), $row['name']);
+            $category->createPreparedDto($row);
+            $this->manager->persist($category);
+            $this->manager->flush();
+        }
+    }
 }
