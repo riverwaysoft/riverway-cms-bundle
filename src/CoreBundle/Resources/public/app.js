@@ -4,6 +4,7 @@ global.redactor = require('./vendor/imperavi/redactor.min.js');
 require('./vendor/imperavi/plugins/imagemanager/imagemanager');
 require('./vendor/imperavi/plugins/customfilemanager/customfilemanager');
 require('./vendor/nestable/nestable');
+require('./vendor/colorselector/colorselector.js');
 global.dragula = require('dragula');
 require('fontawesome-iconpicker');
 
