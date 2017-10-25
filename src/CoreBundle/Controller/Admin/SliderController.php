@@ -31,10 +31,13 @@ class SliderController extends Controller
      */
     public function editAction(Slider $slider, Request $request)
     {
-        $form = $this->createForm(SliderType::class, $slider, ['created' => true]);
+        $dto = $slider->getDto();
+        $form = $this->createForm(SliderType::class, $dto, ['created' => true]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $dto = $form->getData();
+            $slider->updateFromDto($dto);
             $em = $this->getDoctrine()->getManager();
             $em->persist($slider);
             $em->flush();

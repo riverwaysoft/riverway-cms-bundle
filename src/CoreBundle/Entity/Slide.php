@@ -2,6 +2,7 @@
 
 namespace Riverway\Cms\CoreBundle\Entity;
 
+use Riverway\Cms\CoreBundle\Dto\SlideDto;
 use Riverway\Cms\CoreBundle\Enum\SliderTextAlignEnum;
 use Riverway\Cms\CoreBundle\Enum\SliderVerticalAlignEnum;
 
@@ -254,6 +255,50 @@ class Slide
     public function setUrl($url)
     {
         $this->url = $url;
+    }
+
+    /**
+     * @return SlideDto
+     */
+    public function getDto() {
+        $dto = new SlideDto();
+        $dto->id = $this->id;
+        $dto->header = $this->header;
+        $dto->subHeader = $this->subHeader;
+        $dto->description = $this->description;
+        $dto->button = $this->button;
+        $dto->textAlign = $this->textAlign;
+        $dto->verticalAlign = $this->verticalAlign;
+        $dto->marginRight = $this->marginRight;
+        $dto->width = $this->width;
+        $dto->url = $this->url;
+        $dto->imageUrl = $this->imageUrl;
+
+        return $dto;
+    }
+
+    /**
+     * @param SlideDto $dto
+     */
+    public function updateFromDto(SlideDto $dto) {
+        if ($dto->header->getText()) {
+            $this->header = $dto->header;
+        }
+        if ($dto->subHeader->getText()) {
+            $this->subHeader = $dto->subHeader;
+        }
+        if ($dto->description->getText()) {
+            $this->description = $dto->description;
+        }
+        if ($dto->button->getText()) {
+            $this->button = $dto->button;
+        }
+        $this->textAlign = $dto->textAlign;
+        $this->verticalAlign = $dto->verticalAlign;
+        $this->marginRight = $dto->marginRight;
+        $this->width = $dto->width;
+        $this->url = $dto->url;
+        $this->imageUrl = $dto->imageUrl;
     }
 }
 

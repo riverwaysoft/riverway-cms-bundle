@@ -2,6 +2,7 @@
 
 namespace Riverway\Cms\CoreBundle\Form;
 
+use Riverway\Cms\CoreBundle\Dto\SlideDto;
 use Riverway\Cms\CoreBundle\Entity\Slide;
 use Riverway\Cms\CoreBundle\Enum\SliderTextAlignEnum;
 use Riverway\Cms\CoreBundle\Enum\SliderVerticalAlignEnum;
@@ -52,7 +53,7 @@ class SlideType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Slide::class,
+            'data_class' => SlideDto::class,
         ));
     }
 

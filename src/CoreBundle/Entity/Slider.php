@@ -3,6 +3,8 @@
 namespace Riverway\Cms\CoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Riverway\Cms\CoreBundle\Dto\SlideDto;
+use Riverway\Cms\CoreBundle\Dto\SliderDto;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class Slider
@@ -156,6 +158,37 @@ class Slider
     public function getUnfoldedSlides() {
         foreach ($this->slides as $slide) {
             $slide->getData();
+        }
+    }
+
+    /**
+     * @return SliderDto
+     */
+    public function getDto() {
+        $dto = new SliderDto();
+        $dto->id = $this->id;
+        $dto->name = $this->name;
+        $dto->display = (bool)$this->display;
+        foreach ($this->slides as $slide) {
+            $dto->slides[] = $slide->getDto();
+        }
+
+        return $dto;
+    }
+
+    /**
+     * @param SliderDto $dto
+     */
+    public function updateFromDto(SliderDto $dto) {
+        $this->name = $dto->name;
+        $this->display = $dto->display;
+        foreach ($this->slides as $key => $slide) {
+            if (!isset($dto->slides[$key])) {
+                continue;
+            }
+            $slideDto =$dto->slides[$key];
+            /** @var SlideDto $slideDto */
+            $slide->updateFromDto($slideDto);
         }
     }
 

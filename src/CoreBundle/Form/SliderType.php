@@ -2,6 +2,7 @@
 
 namespace Riverway\Cms\CoreBundle\Form;
 
+use Riverway\Cms\CoreBundle\Dto\SliderDto;
 use Riverway\Cms\CoreBundle\Entity\Slider;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -45,7 +46,7 @@ class SliderType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Slider::class,
+            'data_class' => SliderDto::class,
             'created' => false
         ));
     }
