@@ -28,6 +28,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
     <script>
         $('.dd').nestable({maxDepth: 3});
         $('#menu-saver').on('click', function (e) {
