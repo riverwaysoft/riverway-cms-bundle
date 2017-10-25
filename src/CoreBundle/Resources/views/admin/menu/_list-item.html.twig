@@ -12,6 +12,9 @@
                 {% endif %}
             {% elseif child.article %}
                 {{ child.label }}
+                <a href="{{ path('menu_display', {'id': child.id, 'display': child.display == false ? 1 : 0 }) }}">
+                    <i class="fa fa{% if child.display %}-check{% endif %}-square-o"></i>
+                </a>
             {% endif %}
         </li>
     {% endfor %}

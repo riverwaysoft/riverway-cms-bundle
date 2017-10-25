@@ -99,11 +99,17 @@ class Article
      */
     private $creator;
 
+    /**
+     * @var ArrayCollection|MenuNode[]
+     */
+    private $menu;
+
     public function __construct()
     {
         $this->status = ArticleStatusEnum::DRAFT;
         $this->tags = new ArrayCollection();
         $this->widgets = new ArrayCollection();
+        $this->menu = new ArrayCollection();
     }
 
     /**

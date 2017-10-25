@@ -4,6 +4,7 @@
     {{ form(form) }}
 {% endblock %}
 {% block javascripts %}
+    {{ parent() }}
     {#<script>#}
         {#$(document).ready(function () {#}
             {#$("#{{ form.tags.vars.id }}").select2({#}

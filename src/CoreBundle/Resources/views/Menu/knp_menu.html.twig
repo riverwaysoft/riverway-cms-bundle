@@ -83,15 +83,17 @@
 {% block links %}
     {% set currentItem = item %}
     {% for item in item.children %}
-        <h6 class="dropdown-header" href="{{ item.uri ? item.uri : '#' }}">{{ block('label') }}</h6>
-        {% if item.hasChildren %}
-            {% set prevItem = item %}
+        {% if item.displayed %}
+            <h6 class="dropdown-header" href="{{ item.uri ? item.uri : '#' }}">{{ block('label') }}</h6>
+            {% if item.hasChildren %}
+                {% set prevItem = item %}
 
-            {% for item in item.children %}
-                <a class="dropdown-item" href="{{ item.uri }}">{{ block('label') }}</a>
-            {% endfor %}
+                {% for item in item.children %}
+                    <a class="dropdown-item" href="{{ item.uri }}">{{ block('label') }}</a>
+                {% endfor %}
 
-            {% set item = prevItem %}
+                {% set item = prevItem %}
+            {% endif %}
         {% endif %}
     {% endfor %}
     {% set item = currentItem %}

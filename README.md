@@ -28,20 +28,21 @@ in the `app/AppKernel.php` file of your project:
 <?php
 // app/AppKernel.php
 
-// ...
-class AppKernel extends Kernel
+
+class AppKernel extends \Riverway\Cms\CoreBundle\Application\Kernel
 {
     public function registerBundles()
     {
-        $bundles = array(
+        $bundles = [
+            new AppBundle\AppBundle(),
             // ...
-
-            new Riverway\Cms\CoreBundle\RiverwayCmsCoreBundle(),
-        );
-
-        // ...
+        ];
+        return array_merge($bundles, parent::registerBundles());
     }
 
-    // ...
+    public function getRootDir()
+    {
+        return __DIR__;
+    }
 }
 ```

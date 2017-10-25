@@ -313,4 +313,18 @@ class MenuNode implements NodeInterface
         $this->setParentMenu($parentMenu);
         $parentNode->addChild($this);
     }
+
+    /**
+     * @return bool
+     */
+    public function getDisplay() {
+        return $this->display;
+    }
+
+    /**
+     * @param $display
+     */
+    public function setDisplay($display) {
+        $this->display = $display;
+    }
 }

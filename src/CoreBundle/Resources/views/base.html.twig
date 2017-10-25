@@ -7,7 +7,6 @@
         {% include '@RiverwayCmsCore/_stylesheets.html.twig' %}
     {% endblock %}
     {% block stylesheets %}{% endblock %}
-    {% include '@RiverwayCmsCore/_javascript.html.twig' %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
@@ -40,6 +39,7 @@
 
     </div>
 </div>
+{% include '@RiverwayCmsCore/_javascript.html.twig' %}
 {% block javascripts %}{% endblock %}
 </body>
 </html>

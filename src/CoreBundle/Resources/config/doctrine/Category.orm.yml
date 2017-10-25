@@ -59,6 +59,7 @@ Riverway\Cms\CoreBundle\Entity\Category:
             joinColumns:
                 name: category_id
                 referencedColumnName: id
+            orphanRemoval: true
         articles:
             targetEntity: Article
             fetch: LAZY

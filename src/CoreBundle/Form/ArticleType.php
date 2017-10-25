@@ -2,6 +2,7 @@
 
 namespace Riverway\Cms\CoreBundle\Form;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Riverway\Cms\CoreBundle\Dto\ArticleDto;
 use Riverway\Cms\CoreBundle\Entity\Article;
 use Riverway\Cms\CoreBundle\Entity\Category;
@@ -27,7 +28,7 @@ class ArticleType extends AbstractType
     private $entityManager;
     private $router;
 
-    public function __construct(EntityManager $entityManager, Router $router)
+    public function __construct(EntityManagerInterface $entityManager, Router $router)
     {
         $this->entityManager = $entityManager;
         $this->router = $router;
