@@ -43,7 +43,9 @@ class SlideType extends AbstractType
                     'max' => 10
                 ]
             ])
-            ->add('url', TextType::class)
+            ->add('url', TextType::class, [
+                'required' => false
+            ])
             ->add('imageUrl', HiddenType::class, ['label' => false]);
     }
 

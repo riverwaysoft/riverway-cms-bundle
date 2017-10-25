@@ -16,6 +16,16 @@
     max-width: 130px;
 }
 
+.dropdown-colorselector>.dropdown-toggle {
+    border: 1px solid rgba(0, 0, 0, .15);
+    padding: 4px 5px 8px;
+    border-radius: 4px;
+}
+
+.dropdown-colorselector>.dropdown-toggle>.btn-colorselector {
+    border: 1px solid rgba(0, 0, 0, .15);
+}
+
 /*
 .dropdown-colorselector>.dropdown-menu.pull-right {
   right: -7px;
@@ -40,6 +50,7 @@
     position: relative;
     -webkit-transition: all ease 0.1s;
     transition: all ease 0.1s;
+    border: 1px solid rgba(0, 0, 0, .15);
 }
 
 .dropdown-colorselector>.dropdown-menu>li>.color-btn:hover {
@@ -52,11 +63,11 @@
 }
 
 .dropdown-colorselector>.dropdown-menu>li>.color-btn.selected:after {
-    content: "\e013";
-    font-family: 'Glyphicons Halflings';
+    content: "\F00C";
+    font-family: 'FontAwesome';
     display: inline-block;
     font-size: 11px;
-    color: #FFF;
+    color: #007bff;
     position: absolute;
     left: 0;
     right: 0;

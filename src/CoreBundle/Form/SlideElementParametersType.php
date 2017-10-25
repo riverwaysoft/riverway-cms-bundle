@@ -18,11 +18,19 @@ class SlideElementParametersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('text', TextType::class)
+            ->add('text', TextType::class, [
+                'required' => false
+            ])
             ->add('textColor', ChoiceType::class, [
                 'choices' => [
-                    'White' => '#fff',
-                    'Black' => '#000'
+                    'Black' => '#000000',
+                    'White' => '#FFFFFF',
+                ],
+                'choice_attr' => function($val, $key, $index) {
+                    return ['data-color' => $val];
+                },
+                'attr' => [
+                    'class' => 'colorselector'
                 ]
             ])
             ->add('backColor', ChoiceType::class, [
@@ -43,7 +51,9 @@ class SlideElementParametersType extends AbstractType
                     'max' => 10
                 ]
             ])
-            ->add('url', TextType::class);
+            ->add('url', TextType::class, [
+                'required' => false
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

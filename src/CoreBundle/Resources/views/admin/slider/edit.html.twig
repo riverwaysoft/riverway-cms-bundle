@@ -58,12 +58,15 @@
 
 {% block javascripts %}
     <script>
-        $('.upload-btn').manageFiles({
-            onSelect: function (data, target) {
-                var slideKey = target.data("key");
-                $('#app_slider_slides_' + slideKey + '_imageUrl').val(data.real_path);
-                $('#featured-img-' + slideKey).attr('src', data.real_path);
-            }
+        $(document).on('ready', function() {
+            $('.colorselector').colorselector();
+            $('.upload-btn').manageFiles({
+                onSelect: function (data, target) {
+                    var slideKey = target.data("key");
+                    $('#app_slider_slides_' + slideKey + '_imageUrl').val(data.real_path);
+                    $('#featured-img-' + slideKey).attr('src', data.real_path);
+                }
+            });
         });
     </script>
 {% endblock %}
