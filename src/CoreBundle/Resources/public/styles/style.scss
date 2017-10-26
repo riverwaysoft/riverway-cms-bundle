@@ -137,6 +137,12 @@ body {
       opacity: 1;
     }
   }
+
+  .range output {
+    vertical-align: top;
+    margin-left: 16px;
+    margin-top: 2px;
+  }
 }
 
 //COMPONENTS

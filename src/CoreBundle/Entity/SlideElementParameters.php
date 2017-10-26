@@ -28,20 +28,19 @@ class SlideElementParameters
     private $backColor;
 
     /**
-     * @var string
+     * @var int
      */
-    private $marginRight;
+    private $marginRight = 0;
 
     /**
-     * @var string
+     * @var int
      */
-    private $width;
+    private $width = 100;
 
     /**
      * @var string
      */
     private $url;
-
 
     /**
      * Get id

@@ -17,6 +17,9 @@ $(document).ready(() => {
             console.log(item);
         }
     });
+    $('.range input').on('change', function () {
+        $(this).siblings('output').text($(this).val());
+    });
 });
 require('bootstrap');
 require('select2');

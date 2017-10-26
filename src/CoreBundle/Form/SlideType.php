@@ -3,7 +3,6 @@
 namespace Riverway\Cms\CoreBundle\Form;
 
 use Riverway\Cms\CoreBundle\Dto\SlideDto;
-use Riverway\Cms\CoreBundle\Entity\Slide;
 use Riverway\Cms\CoreBundle\Enum\SliderTextAlignEnum;
 use Riverway\Cms\CoreBundle\Enum\SliderVerticalAlignEnum;
 use Symfony\Component\Form\AbstractType;
@@ -40,8 +39,8 @@ class SlideType extends AbstractType
             ])
             ->add('width', RangeType::class, [
                 'attr' => [
-                    'min' => 100,
-                    'max' => 10
+                    'max' => 100,
+                    'min' => 10
                 ]
             ])
             ->add('url', TextType::class, [

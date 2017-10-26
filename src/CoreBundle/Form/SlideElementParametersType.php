@@ -47,8 +47,8 @@ class SlideElementParametersType extends AbstractType
             ])
             ->add('width', RangeType::class, [
                 'attr' => [
-                    'min' => 100,
-                    'max' => 10
+                    'min' => 10,
+                    'max' => 100
                 ]
             ])
             ->add('url', TextType::class, [

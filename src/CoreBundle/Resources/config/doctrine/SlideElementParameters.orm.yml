@@ -25,10 +25,14 @@ Riverway\Cms\CoreBundle\Entity\SlideElementParameters:
             type: string
             length: 255
             nullable: true
+            options:
+                default: 0
         width:
             type: string
             length: 255
             nullable: true
+            options:
+                default: 100
         url:
             type: string
             length: 255

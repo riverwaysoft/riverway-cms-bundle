@@ -263,10 +263,10 @@ class Slide
     public function getDto() {
         $dto = new SlideDto();
         $dto->id = $this->id;
-        $dto->header = $this->header;
-        $dto->subHeader = $this->subHeader;
-        $dto->description = $this->description;
-        $dto->button = $this->button;
+        $dto->header = $this->header ? $this->header : new SlideElementParameters();
+        $dto->subHeader = $this->subHeader ? $this->subHeader : new SlideElementParameters();
+        $dto->description = $this->description ? $this->description : new SlideElementParameters();
+        $dto->button = $this->button ? $this->button : new SlideElementParameters();
         $dto->textAlign = $this->textAlign;
         $dto->verticalAlign = $this->verticalAlign;
         $dto->marginRight = $this->marginRight;
