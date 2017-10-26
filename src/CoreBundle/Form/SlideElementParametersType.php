@@ -33,13 +33,7 @@ class SlideElementParametersType extends AbstractType
                     'class' => 'colorselector'
                 ]
             ])
-            ->add('backColor', ChoiceType::class, [
-                'choices' => [
-                    'White' => '#fff',
-                    'Black' => '#000'
-                ]
-            ])
-            ->add('marginRight', RangeType::class, [
+            ->add('marginLeft', RangeType::class, [
                 'attr' => [
                     'min' => 0,
                     'max' => 90

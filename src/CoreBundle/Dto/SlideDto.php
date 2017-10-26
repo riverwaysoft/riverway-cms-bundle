@@ -29,7 +29,7 @@ class SlideDto
     public $button;
     public $textAlign;
     public $verticalAlign;
-    public $marginRight;
+    public $marginLeft;
     public $width;
     public $url;
     public $imageUrl;

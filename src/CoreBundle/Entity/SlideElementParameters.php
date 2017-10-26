@@ -23,14 +23,9 @@ class SlideElementParameters
     private $textColor;
 
     /**
-     * @var string
-     */
-    private $backColor;
-
-    /**
      * @var int
      */
-    private $marginRight = 0;
+    private $marginLeft = 0;
 
     /**
      * @var int
@@ -77,39 +72,15 @@ class SlideElementParameters
     }
 
     /**
-     * Set backColor
-     *
-     * @param string $backColor
-     *
-     * @return SlideElementParameters
-     */
-    public function setBackColor($backColor)
-    {
-        $this->backColor = $backColor;
-
-        return $this;
-    }
-
-    /**
-     * Get backColor
-     *
-     * @return string
-     */
-    public function getBackColor()
-    {
-        return $this->backColor;
-    }
-
-    /**
      * Set paddingRight
      *
-     * @param string $marginRight
+     * @param string $marginLeft
      *
      * @return SlideElementParameters
      */
-    public function setMarginRight($marginRight)
+    public function setMarginLeft($marginLeft)
     {
-        $this->marginRight = $marginRight;
+        $this->marginLeft = $marginLeft;
 
         return $this;
     }
@@ -119,9 +90,9 @@ class SlideElementParameters
      *
      * @return string
      */
-    public function getMarginRight()
+    public function getMarginLeft()
     {
-        return $this->marginRight;
+        return $this->marginLeft;
     }
 
     /**

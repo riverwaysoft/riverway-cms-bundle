@@ -34,7 +34,7 @@ Riverway\Cms\CoreBundle\Entity\Slide:
         width:
             type: integer
             nullable: false
-        marginRight:
+        marginLeft:
             type: integer
             nullable: false
         imageUrl:

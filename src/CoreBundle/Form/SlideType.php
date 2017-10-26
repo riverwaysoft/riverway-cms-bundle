@@ -31,7 +31,7 @@ class SlideType extends AbstractType
             ->add('verticalAlign', ChoiceType::class, [
                 'choices' => SliderVerticalAlignEnum::toArray()
             ])
-            ->add('marginRight', RangeType::class, [
+            ->add('marginLeft', RangeType::class, [
                 'attr' => [
                     'min' => 0,
                     'max' => 90

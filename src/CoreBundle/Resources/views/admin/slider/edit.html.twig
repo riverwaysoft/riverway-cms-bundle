@@ -13,31 +13,72 @@
         <div id="slides">
             {% for key,slide in form.slides %}
                 <div class="slide">
-                    <h3>Slide #{{ key+1 }} <a href="{{ path('slide_delete', {id: slide.vars.value.id}) }}"><i class="fa fa-times"></i></a></h3><br/>
+                    <h3>Slide #{{ key+1 }} <a href="{{ path('slide_delete', {id: slide.vars.value.id}) }}"><i
+                                    class="fa fa-times"></i></a></h3><br/>
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-12">
                             <div class="form-group">
-                                <div class="col-6">
+                                <div class="row">
                                     <button type="button" data-key="{{ key }}" class="btn btn-primary upload-btn">Upload
                                         image
                                     </button>
                                 </div>
-                                <div class="col-12">
-                                    <img id="featured-img-{{ key }}"
-                                         src="{{ slide.imageUrl.vars.value }}"/>
+                                <div class="row">
+                                    <div class="col-5">
+                                        {{ form_row(slide.header) }}
+                                        {{ form_row(slide.subHeader) }}
+                                        {{ form_row(slide.description) }}
+                                        {{ form_row(slide.button) }}
+                                        {{ form_row(slide.textAlign) }}
+                                        {{ form_row(slide.verticalAlign) }}
+                                        {{ form_row(slide.marginLeft) }}
+                                        {{ form_row(slide.width) }}
+                                        {{ form_row(slide.url) }}
+                                    </div>
+                                    <div class="col-6">
+                                        <div id="slider-preview-{{ key }}">
+                                            <div id="slide-img-{{ key }}"
+                                                 class="slider-preview-img"
+                                                 style="
+                                                         background-image: url('{{ slide.imageUrl.vars.value }}');
+                                                         text-align: {{ slide.textAlign.vars.value }};
+                                                         ">
+                                                <h1 class="slide-preview-header" style="
+                                                        color: {{ slide.header.textColor.vars.value }};
+                                                        margin-left: {{ slide.header.marginLeft.vars.value }}%;
+                                                        width: {{ slide.header.width.vars.value }}%;
+                                                        ">
+                                                    {{ slide.header.text.vars.value }}</h1>
+                                                <h2 class="slide-preview-subheader" style="
+                                                        color: {{ slide.subHeader.textColor.vars.value }};
+                                                        margin-left: {{ slide.subHeader.marginLeft.vars.value }}%;
+                                                        width: {{ slide.subHeader.width.vars.value }}%;
+                                                        ">
+                                                    {{ slide.subHeader.text.vars.value }}</h2>
+                                                <p class="slide-preview-description" style="
+                                                        color: {{ slide.description.textColor.vars.value }};
+                                                        margin-left: {{ slide.description.marginLeft.vars.value }}%;
+                                                        width: {{ slide.description.width.vars.value }}%;
+                                                        ">
+                                                    {{ slide.description.text.vars.value }}</p>
+                                                {% if slide.button.text.vars.value %}
+                                                    <button type="button"
+                                                            class="slide-preview-button"
+                                                            style="
+                                                                    color: {{ slide.button.textColor.vars.value }};
+                                                                    margin-left: {{ slide.button.marginLeft.vars.value }}%;
+                                                                    width: {{ slide.button.width.vars.value }}%;
+                                                                    ">
+                                                        {{ slide.button.text.vars.value }}
+                                                    </button>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {{ form_row(slide.header) }}
-                    {{ form_row(slide.subHeader) }}
-                    {{ form_row(slide.description) }}
-                    {{ form_row(slide.button) }}
-                    {{ form_row(slide.textAlign) }}
-                    {{ form_row(slide.verticalAlign) }}
-                    {{ form_row(slide.marginRight) }}
-                    {{ form_row(slide.width) }}
-                    {{ form_row(slide.url) }}
                     {{ form_row(slide.imageUrl) }}
                 </div>
             {% endfor %}
@@ -58,13 +99,13 @@
 
 {% block javascripts %}
     <script>
-        $(document).on('ready', function() {
+        $(document).on('ready', function () {
             $('.colorselector').colorselector();
             $('.upload-btn').manageFiles({
                 onSelect: function (data, target) {
                     var slideKey = target.data("key");
                     $('#app_slider_slides_' + slideKey + '_imageUrl').val(data.real_path);
-                    $('#featured-img-' + slideKey).attr('src', data.real_path);
+                    $('#slide-img-' + slideKey).attr('src', data.real_path);
                 }
             });
         });

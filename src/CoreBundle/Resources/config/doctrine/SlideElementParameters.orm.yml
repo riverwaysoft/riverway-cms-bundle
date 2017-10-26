@@ -17,11 +17,7 @@ Riverway\Cms\CoreBundle\Entity\SlideElementParameters:
             type: string
             length: 255
             nullable: true
-        backColor:
-            type: string
-            length: 255
-            nullable: true
-        marginRight:
+        marginLeft:
             type: string
             length: 255
             nullable: false

@@ -77,7 +77,7 @@ class Slide
      * @var int
      * @Assert\Range(min=0, max=90)
      */
-    private $marginRight = 0;
+    private $marginLeft = 0;
 
     /**
      * @var int
@@ -212,17 +212,17 @@ class Slide
     /**
      * @return int
      */
-    public function getMarginRight(): int
+    public function getMarginLeft(): int
     {
-        return $this->marginRight;
+        return $this->marginLeft;
     }
 
     /**
-     * @param int $marginRight
+     * @param int $marginLeft
      */
-    public function setMarginRight(int $marginRight)
+    public function setMarginLeft(int $marginLeft)
     {
-        $this->marginRight = $marginRight;
+        $this->marginLeft = $marginLeft;
     }
 
     /**
@@ -269,7 +269,7 @@ class Slide
         $dto->button = $this->button ? $this->button : new SlideElementParameters();
         $dto->textAlign = $this->textAlign;
         $dto->verticalAlign = $this->verticalAlign;
-        $dto->marginRight = $this->marginRight;
+        $dto->marginLeft = $this->marginLeft;
         $dto->width = $this->width;
         $dto->url = $this->url;
         $dto->imageUrl = $this->imageUrl;
@@ -295,7 +295,7 @@ class Slide
         }
         $this->textAlign = $dto->textAlign;
         $this->verticalAlign = $dto->verticalAlign;
-        $this->marginRight = $dto->marginRight;
+        $this->marginLeft = $dto->marginLeft;
         $this->width = $dto->width;
         $this->url = $dto->url;
         $this->imageUrl = $dto->imageUrl;
