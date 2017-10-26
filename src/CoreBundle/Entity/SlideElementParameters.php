@@ -10,32 +10,44 @@ class SlideElementParameters
     /**
      * @var int
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      */
-    private $text;
+    protected $text;
 
     /**
      * @var string
      */
-    private $textColor;
+    protected $textColor;
 
     /**
      * @var int
      */
-    private $marginLeft = 0;
+    protected $marginLeft;
 
     /**
      * @var int
      */
-    private $width = 100;
+    protected $width;
 
     /**
      * @var string
      */
-    private $url;
+    protected $url;
+
+    /**
+     * @var string
+     */
+    protected $type;
+
+    public function __construct()
+    {
+        $this->type = 'text';
+        $this->marginLeft = 0;
+        $this->width = 100;
+    }
 
     /**
      * Get id
@@ -154,7 +166,7 @@ class SlideElementParameters
     /**
      * @param string $text
      */
-    public function setText(string $text)
+    public function setText(?string $text)
     {
         $this->text = $text;
     }

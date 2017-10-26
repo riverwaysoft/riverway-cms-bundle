@@ -2,6 +2,13 @@ Riverway\Cms\CoreBundle\Entity\SlideElementParameters:
     type: entity
     table: null
     repositoryClass: Riverway\Cms\CoreBundle\Repository\SlideElementParametersRepository
+    inheritanceType: JOINED
+    discriminatorColumn:
+        name: type
+        type: string
+    discriminatorMap:
+        text: SlideElementParameters
+        button: SlideButtonElementParameters
     id:
         id:
             type: integer

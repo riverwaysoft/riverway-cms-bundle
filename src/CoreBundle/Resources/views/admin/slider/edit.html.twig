@@ -19,11 +19,6 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <div class="row">
-                                    <button type="button" data-key="{{ key }}" class="btn btn-primary upload-btn">Upload
-                                        image
-                                    </button>
-                                </div>
-                                <div class="row">
                                     <div class="col-5">
                                         {{ form_row(slide.header) }}
                                         {{ form_row(slide.subHeader) }}
@@ -36,6 +31,12 @@
                                         {{ form_row(slide.url) }}
                                     </div>
                                     <div class="col-6">
+                                        <div>
+                                            <button type="button" data-key="{{ key }}"
+                                                    class="btn btn-primary upload-btn">Upload
+                                                image
+                                            </button>
+                                        </div>
                                         <div id="slider-preview-{{ key }}">
                                             <div id="slide-img-{{ key }}"
                                                  class="slider-preview-img"
@@ -65,6 +66,7 @@
                                                     <button type="button"
                                                             class="slide-preview-button"
                                                             style="
+                                                                    background-color: {{ slide.button.bgColor.vars.value }};
                                                                     color: {{ slide.button.textColor.vars.value }};
                                                                     margin-left: {{ slide.button.marginLeft.vars.value }}%;
                                                                     width: {{ slide.button.width.vars.value }}%;

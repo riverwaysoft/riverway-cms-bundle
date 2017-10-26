@@ -3,6 +3,7 @@
 namespace Riverway\Cms\CoreBundle\Form;
 
 use Riverway\Cms\CoreBundle\Dto\SlideDto;
+use Riverway\Cms\CoreBundle\Entity\SlideButtonElementParameters;
 use Riverway\Cms\CoreBundle\Enum\SliderTextAlignEnum;
 use Riverway\Cms\CoreBundle\Enum\SliderVerticalAlignEnum;
 use Symfony\Component\Form\AbstractType;
@@ -24,7 +25,7 @@ class SlideType extends AbstractType
             ->add('header', SlideElementParametersType::class)
             ->add('subHeader', SlideElementParametersType::class)
             ->add('description', SlideElementParametersType::class)
-            ->add('button', SlideElementParametersType::class)
+            ->add('button', SlideButtonElementParametersType::class)
             ->add('textAlign', ChoiceType::class, [
                 'choices' => SliderTextAlignEnum::toArray()
             ])

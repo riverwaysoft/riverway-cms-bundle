@@ -48,24 +48,28 @@ Riverway\Cms\CoreBundle\Entity\Slide:
         header:
             targetEntity: Riverway\Cms\CoreBundle\Entity\SlideElementParameters
             cascade: [persist, remove]
+            orphanRemoval: true
             joinColumns:
                 header_id:
                     referencedColumnName: id
         subHeader:
             targetEntity: Riverway\Cms\CoreBundle\Entity\SlideElementParameters
             cascade: [persist, remove]
+            orphanRemoval: true
             joinColumns:
                 sub_header_id:
                     referencedColumnName: id
         description:
             targetEntity: Riverway\Cms\CoreBundle\Entity\SlideElementParameters
             cascade: [persist, remove]
+            orphanRemoval: true
             joinColumns:
                 description_id:
                     referencedColumnName: id
         button:
-            targetEntity: Riverway\Cms\CoreBundle\Entity\SlideElementParameters
+            targetEntity: Riverway\Cms\CoreBundle\Entity\SlideButtonElementParameters
             cascade: [persist, remove]
+            orphanRemoval: true
             joinColumns:
                 button_id:
                     referencedColumnName: id

@@ -59,7 +59,7 @@ class Slide
     private $description;
 
     /**
-     * @var SlideElementParameters
+     * @var SlideButtonElementParameters
      */
     private $button;
 
@@ -266,7 +266,7 @@ class Slide
         $dto->header = $this->header ? $this->header : new SlideElementParameters();
         $dto->subHeader = $this->subHeader ? $this->subHeader : new SlideElementParameters();
         $dto->description = $this->description ? $this->description : new SlideElementParameters();
-        $dto->button = $this->button ? $this->button : new SlideElementParameters();
+        $dto->button = $this->button ? $this->button : new SlideButtonElementParameters();
         $dto->textAlign = $this->textAlign;
         $dto->verticalAlign = $this->verticalAlign;
         $dto->marginLeft = $this->marginLeft;
@@ -283,15 +283,23 @@ class Slide
     public function updateFromDto(SlideDto $dto) {
         if ($dto->header->getText()) {
             $this->header = $dto->header;
+        } else {
+            $this->header = null;
         }
         if ($dto->subHeader->getText()) {
             $this->subHeader = $dto->subHeader;
+        } else {
+            $this->subHeader = null;
         }
         if ($dto->description->getText()) {
             $this->description = $dto->description;
+        } else {
+            $this->description = null;
         }
         if ($dto->button->getText()) {
             $this->button = $dto->button;
+        } else {
+            $this->button = null;
         }
         $this->textAlign = $dto->textAlign;
         $this->verticalAlign = $dto->verticalAlign;
