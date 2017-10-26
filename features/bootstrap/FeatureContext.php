@@ -208,6 +208,30 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
     }
 
     /**
+     * @Given entity :arg1 #:arg4 should have category type in :arg3
+     */
+    public function entityShouldHaveCategoryIn($arg1, $arg3, $arg4)
+    {
+        $entity = $this->manager->find($arg1, $arg4);
+        TestCase::assertNotEmpty($entity);
+        $cat = $this->pa->getValue($entity, 'category');
+        $type = $cat->getType()->getValue();
+        TestCase::assertEquals($arg3, $type);
+    }
+
+    /**
+     * @Given entity :arg1 #:arg4 should have parent menu in :arg3
+     */
+    public function entityShouldHaveParentMenuFieldIn($arg1, $arg3, $arg4)
+    {
+        $entity = $this->manager->find($arg1, $arg4);
+        TestCase::assertNotEmpty($entity);
+        $parentMenu = $this->pa->getValue($entity, 'parentMenu');
+        $parent = $parentMenu->getId();
+        TestCase::assertEquals($arg3, $parent);
+    }
+
+    /**
      * @Given entity :arg1 #:arg4 should have :arg2 in date :arg3
      */
     public function entityShouldHaveInDate($arg1, $arg2, $arg3, $arg4)

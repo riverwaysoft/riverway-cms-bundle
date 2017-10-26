@@ -5,7 +5,15 @@ Feature: Category management
   Background:
     Given I add "Accept" header equal to "application/json"
 
-  Scenario: I create a category
+  Scenario: I can see some categories
+    Given the following categories exist:
+      | type | name          | parent |
+      | 1    | category_name |        |
+      | 3    | category_edit |        |
+    When I send a GET request to "/admin/category/index"
+    Then the response status code should be 200
+
+  Scenario: I can create a category
     When I send a POST request to "/admin/category/create" with parameters:
       | key                  | value      |
       | app_category[parent] |            |
@@ -24,17 +32,3 @@ Feature: Category management
       | app_category[type]   | 2          |
       | app_category[name]   | name1 edit |
     Then the response status code should be 201
-
-  Scenario: I can add category to menu
-    Given the following categories exist:
-      | type | name        | parent |
-      | 1    | cat1        |        |
-      | 1    | name_parent |        |
-
-
-#  Scenario: I can delete any category
-#    Given the following categories exist:
-#      | type | name            | parent |
-#      | 1    | category remove |        |
-#    When I send a DELETE request to "/admin/category/1/delete"
-#    And the response status code should be 200

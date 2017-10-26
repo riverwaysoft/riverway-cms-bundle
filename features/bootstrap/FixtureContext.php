@@ -111,12 +111,21 @@ class FixtureContext implements Context
     {
         $mainMenu = $this->manager->getRepository('RiverwayCmsCoreBundle:MenuNode')->initializeMainMenu();
         foreach ($table->getHash() as $row) {
-            $articleNode = new MenuNode($row['name']);
-            if ($row['article']) {
-                $articleNode->setArticle($this->manager->find('RiverwayCmsCoreBundle:Article', $row['article']));
+            $menuNode = new MenuNode($row['name']);
+            if (isset($row['uri'])) {
+                $menuNode->setUri($row['uri']);
             }
-            $articleNode->setParent($mainMenu);
-            $this->manager->persist($articleNode);
+            if (isset($row['category'])) {
+                $menuNode->setCategory($this->manager->find('RiverwayCmsCoreBundle:Category', $row['category']));
+            }
+            if (isset($row['menuNode'])) {
+                $menuNode->setParentMenu($this->manager->find('RiverwayCmsCoreBundle:MenuNode', $row['menuNode']));
+            }
+            if (isset($row['article'])) {
+                $menuNode->setArticle($this->manager->find('RiverwayCmsCoreBundle:Article', $row['article']));
+            }
+            $menuNode->setParent($mainMenu);
+            $this->manager->persist($menuNode);
         }
         $this->manager->flush();
     }

@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends FOSRestController
 {
@@ -123,10 +124,9 @@ class CategoryController extends FOSRestController
         if (!$parentMenu) {
             $parentMenu = $menu;
         }
-
         $menuRepo->addCategoryToMenu($category, $parentMenu, $menu);
 
-        return $this->redirect($request->headers->get('referer'));
+        return $this->handleView($this->routeRedirectView('menu_edit', ['id' => $menu->getId()]));
     }
 
     /**
@@ -143,6 +143,6 @@ class CategoryController extends FOSRestController
         $em->remove($node);
         $em->flush();
 
-        return $this->redirect($request->headers->get('referer'));
+        return $this->handleView($this->routeRedirectView('menu_edit', ['id' => $menu->getId()]));
     }
 }
