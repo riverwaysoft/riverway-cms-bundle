@@ -32,7 +32,6 @@ Riverway\Cms\CoreBundle\Entity\Category:
             nullable: true
             options:
                 unsigned: false
-                default: 'NULL'
             column: external_id
     manyToOne:
         parent:

@@ -46,3 +46,14 @@ class AppKernel extends \Riverway\Cms\CoreBundle\Application\Kernel
     }
 }
 ```
+
+#### Step 3: Prepare Database
+Create database
+```php
+bin/console doctrine:database:create
+```
+
+Apply CMS-specific migrations:
+```php
+bin/console riverway:migration:migrate
+```

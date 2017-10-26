@@ -1,0 +1,4 @@
+migrations_directory: "../../DoctrineMigrations"
+migrations_namespace: Riverway\Cms\CoreBundle\DoctrineMigrations
+table_name: riverway_cms_migration_versions
+name: Riverway Cms Migrations

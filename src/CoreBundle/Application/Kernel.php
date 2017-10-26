@@ -1,6 +1,7 @@
 <?php
 
 namespace Riverway\Cms\CoreBundle\Application;
+use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as HttpKernel;
 
@@ -30,6 +31,7 @@ class Kernel extends HttpKernel
             new \Riverway\Grid\RiverwayGridBundle(),
             new \WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new \Sentry\SentryBundle\SentryBundle(),
+            new DoctrineMigrationsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
