@@ -34,13 +34,9 @@ Riverway\Cms\CoreBundle\Entity\Slide:
         width:
             type: integer
             nullable: false
-            options:
-                default: 100
         marginRight:
             type: integer
             nullable: false
-            options:
-                default: 0
         imageUrl:
             type: string
             nullable: false

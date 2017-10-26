@@ -24,15 +24,11 @@ Riverway\Cms\CoreBundle\Entity\SlideElementParameters:
         marginRight:
             type: string
             length: 255
-            nullable: true
-            options:
-                default: 0
+            nullable: false
         width:
             type: string
             length: 255
-            nullable: true
-            options:
-                default: 100
+            nullable: false
         url:
             type: string
             length: 255
