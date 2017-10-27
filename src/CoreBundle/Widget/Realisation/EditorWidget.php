@@ -37,7 +37,7 @@ final class EditorWidget extends AbstractWidgetRealisation implements EditableWi
 
     public function getAdminPreview(): string
     {
-        return substr(strip_tags($this->entity->getHtmlContent()), 0, 10) . '...';
+        return "<div class='summernote-editor'>".$this->entity->getHtmlContent().'</div>';
     }
 
     public function getContent(): string
