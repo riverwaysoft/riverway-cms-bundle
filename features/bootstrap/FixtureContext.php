@@ -10,6 +10,7 @@ use Doctrine\ORM\Tools\SchemaTool;
 use Riverway\Cms\CoreBundle\Entity\Article;
 use Riverway\Cms\CoreBundle\Entity\Category;
 use Riverway\Cms\CoreBundle\Entity\MenuNode;
+use Riverway\Cms\CoreBundle\Entity\Tag;
 use Riverway\Cms\CoreBundle\Entity\Widget;
 use Riverway\Cms\CoreBundle\Enum\CategoryEnum;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -141,5 +142,18 @@ class FixtureContext implements Context
             $this->manager->persist($category);
             $this->manager->flush();
         }
+    }
+
+    /**
+     * @Given the following tags exist:
+     */
+    public function theTagsExist(TableNode $table)
+    {
+        foreach ($table->getHash() as $row) {
+           $tag = new Tag();
+           $tag->createFromArrayData($row);
+           $this->manager->persist($tag);
+        }
+        $this->manager->flush();
     }
 }
