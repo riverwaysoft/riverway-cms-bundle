@@ -52,7 +52,7 @@
 
             {% if article.id %}
 
-                {{ include('@RiverwayCmsCore/admin/_widgets.html.twig', {widgets: article.widgets, owner: 'article', id: article.id}) }}
+                {{ include('@RiverwayCmsCore/admin/_widgets.html.twig', {widgets: article.widgets, id: article.id}) }}
 
             {% endif %}
 
@@ -69,6 +69,7 @@
 
     {{ form_rest(form) }}
     {{ form_end(form) }}
+    {{ include('@RiverwayCmsCore/admin/_widgets_modals.html.twig', {owner: 'article', id: article.id}) }}
 {% endblock %}
 
 {% block javascripts %}

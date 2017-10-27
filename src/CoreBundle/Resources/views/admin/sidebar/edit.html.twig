@@ -7,16 +7,17 @@
 
     {{ form_row(form.name) }}
 
-    {{ include('@RiverwayCmsCore/admin/_widgets.html.twig', {widgets: sidebar.widgets, owner: 'sidebar', id: sidebar.id}) }}
+    {{ include('@RiverwayCmsCore/admin/_widgets.html.twig', {widgets: sidebar.widgets, id: sidebar.id}) }}
 
     {{ form_row(form.widgets) }}
 
     {{ form_row(form.save) }}
 
     {{ form_end(form) }}
-
+    {{ include('@RiverwayCmsCore/admin/_widgets_modals.html.twig', {owner: 'sidebar', id: sidebar.id}) }}
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
     {{ include('@RiverwayCmsCore/admin/_widgets_javascripts.html.twig', {owner: 'sidebar'}) }}
 {% endblock %}

@@ -1,0 +1,27 @@
+<div class="modal fade" id="widget-types-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ path('create_' ~ owner ~ '_widget', {id: id}) }}" method="post">
+                <div class="modal-header">
+                    <h5>Select a widget type</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <select name="type">
+                            {% for key in widgetTypes %}
+                                <option value="{{ key }}">{{ key|trans }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="add-widget-btn" type="submit" class="btn btn-primary">Select</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

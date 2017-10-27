@@ -38,14 +38,4 @@
         return false;
     });
 
-    $('#add-widget-btn').on('click', function () {
-        $.ajax({
-            url: Routing.generate('create_{{ owner }}_widget'),
-            type: $('select[name="widget-types"]').val(),
-            id: $('#object-data').attr('data-object-id')
-        }).complete(function () {
-                location.href.refresh()
-            }
-        )
-    });
 </script>
