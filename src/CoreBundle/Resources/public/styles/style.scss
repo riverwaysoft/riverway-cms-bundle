@@ -179,6 +179,23 @@ body {
     font-size: 7px;
     padding: 4px 12px;
   }
+
+  #slider {
+    clear: both;
+    margin-bottom: 20px;
+  }
+
+  .slide {
+    box-sizing: border-box;
+    display: block;
+    width: 1000px;
+    height: 500px;
+    padding: 0px;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
 }
 
 //COMPONENTS

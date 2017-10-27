@@ -3,6 +3,10 @@
 {% block body %}
     <div class="container">
         <div class="content-wrapper">
+            {% if article.slider %}
+                {% include('RiverwayCmsCoreBundle:templates/common:_slider.html.twig') %}
+            {% endif %}
+
             {% include('RiverwayCmsCoreBundle:templates/common:_content.html.twig') %}
         </div>
     </div>

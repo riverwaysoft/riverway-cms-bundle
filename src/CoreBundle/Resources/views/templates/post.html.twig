@@ -2,6 +2,10 @@
 
 {% block body %}
     <div class="container">
+        {% if article.slider %}
+            {% include('RiverwayCmsCoreBundle:templates/common:_slider.html.twig') %}
+        {% endif %}
+
         {% if sidebar %}
             <div class="left-sidebar">
                 {% include('@RiverwayCmsCore/templates/common/_sidebar.html.twig') %}

@@ -70,6 +70,12 @@ class Article
      *
      */
     private $sidebar;
+
+    /**
+     * @var Slider
+     */
+    private $slider;
+
     /**
      * @var string
      * @Serializer\Expose()
@@ -230,6 +236,7 @@ class Article
         $dto->category = $this->category;
         $dto->featuredImage = $this->featuredImage;
         $dto->tags = $this->tags;
+        $dto->slider = $this->slider;
 
         return $dto;
     }
@@ -248,6 +255,7 @@ class Article
         $this->widgets = $articleDto->widgets;
         $this->featuredImage = $articleDto->featuredImage;
         $this->tags = $articleDto->tags;
+        $this->slider = $articleDto->slider;
         if (!$this->creator) {
             $this->creator = $user;
         }
@@ -377,6 +385,13 @@ class Article
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * @return null|Slider
+     */
+    public function getSlider(): ?Slider {
+        return $this->slider;
     }
 }
 
