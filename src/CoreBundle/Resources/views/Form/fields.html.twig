@@ -1,12 +1,9 @@
 {% block imperavi_widget %}
-    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+    <div {{ block('widget_attributes') }}>{{ value }}</div>
     <script type="text/javascript">
         $(document).ready(
             function () {
-                $("[data-imperavi]").redactor({
-                    plugins: ['customfilemanager'],
-                    cleanOnPaste: false
-                })
+                    $("[data-summernote]").summernote()
             }
         );
     </script>

@@ -39,19 +39,13 @@
     });
 
     $('#add-widget-btn').on('click', function () {
-        var seqNum = $('.widget-area').length + 1;
-
-        $.get(Routing.generate('create_{{ owner }}_widget', {
+        $.ajax({
+            url: Routing.generate('create_{{ owner }}_widget'),
             type: $('select[name="widget-types"]').val(),
-            id: $('#object-data').attr('data-object-id'),
-            sequence: seqNum
-        }), function (data) {
-            $('#widget-areas').append(data);
-            var html = '<div><div id="app_{{ owner }}_widgets_' + (seqNum - 1) + '">' + '<input type="hidden" id="app_{{ owner }}_widgets_' + (seqNum - 1) + '_sequence" name="app_{{ owner }}[widgets][' + (seqNum - 1) + '][sequence]" value="' + seqNum + '">' + '</div></div>';
-            $('#app_{{ owner }}_widgets').append(html);
-
-            $("#widget-types-modal").modal('hide');
-            $('.widget-area:last-of-type .widget-edit-link').trigger('click');
-        });
+            id: $('#object-data').attr('data-object-id')
+        }).complete(function () {
+                location.href.refresh()
+            }
+        )
     });
 </script>
