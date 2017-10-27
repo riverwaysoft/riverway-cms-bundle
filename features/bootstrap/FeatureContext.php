@@ -11,6 +11,7 @@ use Behatch\HttpCall\Request;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\SchemaTool;
 use PHPUnit\Framework\TestCase;
+use Riverway\Cms\CoreBundle\Entity\MenuNode;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -260,6 +261,29 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
         $entity = $this->manager->find($arg1, $arg2);
         TestCase::assertEmpty($entity);
 
+    }
+
+    /**
+     * @When entity Menu Node should have :arg2 fields
+     */
+    public function entityShouldHaveFields($quantity)
+    {
+        /**
+         * @var MenuNode $menuNode
+         */
+        $menuNode = $this->manager->getRepository(MenuNode::class)->findAll();
+        TestCase::assertCount($quantity, $menuNode);
+    }
+
+    /**
+     * @Given entity Menu Node #:number should have parentId in :value
+     */
+    public function MenuNodeShouldHave($number, $value)
+    {
+        $menuNode = $this->manager->find(MenuNode::class, $number);
+        TestCase::assertNotEmpty($menuNode);
+        $parent = $menuNode->getParentId();
+        TestCase::assertEquals($parent->getId(), $value);
     }
 
     private function getImagePath()

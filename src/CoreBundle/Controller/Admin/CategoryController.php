@@ -11,10 +11,7 @@ use Riverway\Cms\CoreBundle\Enum\WidgetTypeEnum;
 use Riverway\Cms\CoreBundle\Form\CategoryType;
 use Riverway\Cms\CoreBundle\Repository\MenuNodeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends FOSRestController
 {

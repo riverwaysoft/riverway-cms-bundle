@@ -12,6 +12,34 @@ Feature: Menu management
       | 3    | category_name |        |
       | 3    | category_edit |        |
 
+  Scenario: I can get list of available menus
+    Given the following menu nodes exist:
+      | name      | category | label | menuNode |
+      | cat test  | 1        | test  | 2        |
+    When I send a GET request to "/admin/menu/index"
+    And the response status code should be 200
+    And entity Menu Node should have 4 fields
+
+  Scenario: I can rearrange some nodes in menu
+    Given the following menu nodes exist:
+      | name       | category | label | menuNode |
+      | cat test 1 | 1        | test  | 2        |
+      | cat test 2 | 2        | test  | 2        |
+    When I send a POST request to "/admin/menu/2/rearrange" with parameters:
+      | key                       | value |
+      | menu[0][id]               | 4     |
+      | menu[0][children][0][id]  | 5     |
+    Then the response status code should be 200
+    And entity Menu Node #5 should have parentId in 4
+    And entity Menu Node should have 5 fields
+
+  Scenario: I can turn off display
+    Given the following menu nodes exist:
+      | name       | article  | label | menuNode |
+      | cat test 1 | 1        | test  | 2        |
+    When I send a POST request to "/admin/menu/4/display/0"
+    And entity "RiverwayCmsCoreBundle:MenuNode" #4 should have display in 0
+
   Scenario: I can add some category new menu node
     And the following menu nodes exist:
       | name    | article | category_id |
