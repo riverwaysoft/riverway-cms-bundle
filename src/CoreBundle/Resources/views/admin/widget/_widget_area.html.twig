@@ -3,12 +3,10 @@
         <a class="delete-widget-link" data-target="{{ widget.id }}"
            href="{{ path('delete_widget') }}"><i class="fa fa-times"></i></a>
 
-        {% if is_editable %}
-            <a class="modal-link widget-edit-link" data-toggle="modal" data-target="#admin-modal-lg"
-               href="{{ path('get_widget', {id: widget.id}) }}"><i class="fa fa-edit"></i></a>
-        {% endif %}
         <a class="modal-link" data-toggle="modal" data-target="#admin-modal-lg"
            href="{{ path('get_widget_preview', {id: widget.id}) }}"><i class="fa fa-eye"></i></a>
     </div>
-    {{ widget.name|trans }} <span class="widget-content">{{ widget.adminPreview }}</span>
+    <div>
+        {{ widget.name|trans }} <span class="widget-content">{{ widget.adminPreview|raw }}</span>
+    </div>
 </div>
