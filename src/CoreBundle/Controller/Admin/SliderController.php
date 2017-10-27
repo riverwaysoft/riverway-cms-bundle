@@ -2,6 +2,7 @@
 
 namespace Riverway\Cms\CoreBundle\Controller\Admin;
 
+use Riverway\Cms\CoreBundle\Dto\SliderDto;
 use Riverway\Cms\CoreBundle\Entity\Slide;
 use Riverway\Cms\CoreBundle\Entity\Slider;
 use Riverway\Cms\CoreBundle\Enum\WidgetTypeEnum;
@@ -9,7 +10,7 @@ use Riverway\Cms\CoreBundle\Form\SliderType;
 use Riverway\Cms\CoreBundle\Form\SlideType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 class SliderController extends Controller
@@ -94,12 +95,36 @@ class SliderController extends Controller
     /**
      * @Route("/slider/delete-slide/{id}", name="slide_delete")
      */
-    public function deleteSlideAction(Request $request, Slide $slide) {
+    public function deleteSlideAction(Request $request, Slide $slide)
+    {
         $em = $this->get('doctrine.orm.default_entity_manager');
         $em->remove($slide);
         $em->flush();
 
         return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/slider/renderSlide/{key}/{id}", name="render_form_slide", options={"expose"=true})
+     */
+    public function renderFormSlideAction(Request $request, Slider $slider, $key)
+    {
+        $form = $this->createForm(SliderType::class, $slider->getDto(), ['created' => true]);
+        $form->handleRequest($request);
+        /** @var Form $slideData */
+        $slideData = $form->get('slides')[$key];
+        return $this->render('@RiverwayCmsCore/admin/slider/_slide_preview.html.twig', [
+            'key' => $key,
+            'slide' => $slideData->getData()
+        ]);
+    }
+
+    public function renderSlidePreviewAction(Slide $slide, $key)
+    {
+        return $this->render('@RiverwayCmsCore/admin/slider/_slide_preview.html.twig', [
+            'key' => $key,
+            'slide' => $slide->getDto()
+        ]);
     }
 
 }

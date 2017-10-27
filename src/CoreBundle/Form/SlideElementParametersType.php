@@ -26,7 +26,7 @@ class SlideElementParametersType extends AbstractType
                     'Black' => '#000000',
                     'White' => '#FFFFFF',
                 ],
-                'choice_attr' => function($val, $key, $index) {
+                'choice_attr' => function ($val, $key, $index) {
                     return ['data-color' => $val];
                 },
                 'attr' => [

@@ -3,6 +3,7 @@
 namespace Riverway\Cms\CoreBundle\Dto;
 
 
+use Riverway\Cms\CoreBundle\Entity\SlideButtonElementParameters;
 use Riverway\Cms\CoreBundle\Entity\SlideElementParameters;
 
 class SlideDto
@@ -24,7 +25,7 @@ class SlideDto
     public $description;
 
     /**
-     * @var SlideElementParameters
+     * @var SlideButtonElementParameters
      */
     public $button;
     public $textAlign;

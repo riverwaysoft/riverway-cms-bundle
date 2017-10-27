@@ -149,7 +149,7 @@ body {
     display: block;
     width: 600px;
     height: 300px;
-    padding: 10px;
+    padding: 20px;
     margin: 0;
     background-repeat: no-repeat;
     background-position: center center;
@@ -157,16 +157,27 @@ body {
   }
 
   .slide-preview-header {
-    font-size: 1.8rem;
+    font-size: 30px;
+    line-height: 32px;
+    margin: 0 auto 2px;
   }
 
   .slide-preview-subheader {
-    font-size: 1.4rem;
+    font-size: 15px;
+    line-height: 20px;
+    margin: 0 auto 13px;
+  }
+
+  .slide-preview-description {
+    margin: 0 auto 15px;
+    font-size: 7px;
   }
 
   .slide-preview-button {
     border: none;
     border-radius: 2px;
+    font-size: 7px;
+    padding: 4px 12px;
   }
 }
 

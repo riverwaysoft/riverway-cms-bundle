@@ -1,7 +1,7 @@
 {% extends '@RiverwayCmsCore/admin/admin_base.html.twig' %}
 
 {% block body %}
-    <div id="slider">
+    <div id="slider" data-key="{{ slider.id }}">
         <h1>Slider #{{ slider.id }}</h1><br/>
 
         {{ form_start(form) }}
@@ -12,7 +12,7 @@
 
         <div id="slides">
             {% for key,slide in form.slides %}
-                <div class="slide">
+                <div class="slide" data-key="{{ key }}">
                     <h3>Slide #{{ key+1 }} <a href="{{ path('slide_delete', {id: slide.vars.value.id}) }}"><i
                                     class="fa fa-times"></i></a></h3><br/>
                     <div class="row">
@@ -20,15 +20,15 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-5">
-                                        {{ form_row(slide.header) }}
-                                        {{ form_row(slide.subHeader) }}
-                                        {{ form_row(slide.description) }}
-                                        {{ form_row(slide.button) }}
                                         {{ form_row(slide.textAlign) }}
                                         {{ form_row(slide.verticalAlign) }}
                                         {{ form_row(slide.marginLeft) }}
                                         {{ form_row(slide.width) }}
                                         {{ form_row(slide.url) }}
+                                        {{ form_row(slide.header) }}
+                                        {{ form_row(slide.subHeader) }}
+                                        {{ form_row(slide.description) }}
+                                        {{ form_row(slide.button) }}
                                     </div>
                                     <div class="col-6">
                                         <div>
@@ -38,43 +38,10 @@
                                             </button>
                                         </div>
                                         <div id="slider-preview-{{ key }}">
-                                            <div id="slide-img-{{ key }}"
-                                                 class="slider-preview-img"
-                                                 style="
-                                                         background-image: url('{{ slide.imageUrl.vars.value }}');
-                                                         text-align: {{ slide.textAlign.vars.value }};
-                                                         ">
-                                                <h1 class="slide-preview-header" style="
-                                                        color: {{ slide.header.textColor.vars.value }};
-                                                        margin-left: {{ slide.header.marginLeft.vars.value }}%;
-                                                        width: {{ slide.header.width.vars.value }}%;
-                                                        ">
-                                                    {{ slide.header.text.vars.value }}</h1>
-                                                <h2 class="slide-preview-subheader" style="
-                                                        color: {{ slide.subHeader.textColor.vars.value }};
-                                                        margin-left: {{ slide.subHeader.marginLeft.vars.value }}%;
-                                                        width: {{ slide.subHeader.width.vars.value }}%;
-                                                        ">
-                                                    {{ slide.subHeader.text.vars.value }}</h2>
-                                                <p class="slide-preview-description" style="
-                                                        color: {{ slide.description.textColor.vars.value }};
-                                                        margin-left: {{ slide.description.marginLeft.vars.value }}%;
-                                                        width: {{ slide.description.width.vars.value }}%;
-                                                        ">
-                                                    {{ slide.description.text.vars.value }}</p>
-                                                {% if slide.button.text.vars.value %}
-                                                    <button type="button"
-                                                            class="slide-preview-button"
-                                                            style="
-                                                                    background-color: {{ slide.button.bgColor.vars.value }};
-                                                                    color: {{ slide.button.textColor.vars.value }};
-                                                                    margin-left: {{ slide.button.marginLeft.vars.value }}%;
-                                                                    width: {{ slide.button.width.vars.value }}%;
-                                                                    ">
-                                                        {{ slide.button.text.vars.value }}
-                                                    </button>
-                                                {% endif %}
-                                            </div>
+                                            {{ render(controller('RiverwayCmsCoreBundle:Admin/Slider:renderSlidePreview', {
+                                                slide: slider.slides[key],
+                                                key: key
+                                            })) }}
                                         </div>
                                     </div>
                                 </div>
@@ -107,9 +74,23 @@
                 onSelect: function (data, target) {
                     var slideKey = target.data("key");
                     $('#app_slider_slides_' + slideKey + '_imageUrl').val(data.real_path);
-                    $('#slide-img-' + slideKey).attr('src', data.real_path);
+                    $('#slide-img-' + slideKey).css('background-image', "url('" + data.real_path + "')");
                 }
             });
+            $('*[id^=app_slider_slides_]').on('change', function () {
+                var key = $(this).closest('.slide').data("key");
+                $.ajax({
+                    url: Routing.generate('render_form_slide', {
+                        key: $(this).closest('.slide').data("key"),
+                        id: $('#slider').data("key")
+                    }),
+                    data: $(this).closest('form').serialize(),
+                    type: 'POST',
+                    success: function (data) {
+                        $('#slider-preview-' + key).html(data);
+                    }
+                });
+            })
         });
     </script>
 {% endblock %}

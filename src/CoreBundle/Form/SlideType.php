@@ -3,7 +3,6 @@
 namespace Riverway\Cms\CoreBundle\Form;
 
 use Riverway\Cms\CoreBundle\Dto\SlideDto;
-use Riverway\Cms\CoreBundle\Entity\SlideButtonElementParameters;
 use Riverway\Cms\CoreBundle\Enum\SliderTextAlignEnum;
 use Riverway\Cms\CoreBundle\Enum\SliderVerticalAlignEnum;
 use Symfony\Component\Form\AbstractType;
