@@ -18,7 +18,7 @@ class MigrationCommand extends Command
             ->setHelp('This command allows you to apply cms-specific migrations...');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $einput, OutputInterface $output)
     {
         $application = $this->getApplication();
         $application->setAutoExit(false);
@@ -28,7 +28,8 @@ class MigrationCommand extends Command
             [
                 'command' => 'doctrine:migration:migrate',
                 '-n' => true,
-                '--configuration' => __DIR__.'/../Resources/config/migration.yml',
+                '-e'=>$einput->getOption('env'),
+                '--configuration' => __DIR__.'/../Resources/config/migration.yml'
             ]
         );
         $command->run($input, $output);
