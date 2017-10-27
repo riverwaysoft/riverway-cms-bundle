@@ -5,8 +5,10 @@ namespace Riverway\Cms\CoreBundle\Controller\Admin;
 use Doctrine\ORM\EntityManager;
 use Riverway\Cms\CoreBundle\Dto\ArticleDto;
 use Riverway\Cms\CoreBundle\Entity\Article;
+use Riverway\Cms\CoreBundle\Entity\Widget;
 use Riverway\Cms\CoreBundle\Form\ArticleType;
 use FOS\RestBundle\Controller\FOSRestController;
+use Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -107,6 +109,13 @@ class ArticleController extends FOSRestController
 
                 $em->persist($article);
                 $em->flush();
+
+                $em = $this->getDoctrine()->getManager();
+                $entity = Widget::createForArticle(EditorWidget::class, $article);
+
+                $em->persist($entity);
+                $em->flush();
+                $em->refresh($entity);
 
                 return $this->handleView($this->routeRedirectView('article_edit', ['id' => $article->getId()]));
             } else {

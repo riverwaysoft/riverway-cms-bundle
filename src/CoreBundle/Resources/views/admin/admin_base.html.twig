@@ -6,7 +6,6 @@
     {% block common_stylesheets %}
         {% include '@RiverwayCmsCore/_stylesheets.html.twig' %}
     {% endblock %}
-    {% include '@RiverwayCmsCore/_javascript.html.twig' %}
 
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
@@ -22,6 +21,22 @@
     {{ include('@RiverwayCmsCore/admin/_popup.html.twig') }}
 </div>
 
-
+{% block javascripts %}
+    {% include '@RiverwayCmsCore/_javascript.html.twig' %}
+    <script>
+        $('.admin-modal').on('show.bs.modal', function (e) {
+            var link = $(e.relatedTarget);
+            var loaderPath = "{{asset('bundles/riverwaycmscore/img/loader.gif')}}";
+            var preloaderContent = '<div style="text-align: center">'
+                +'<img id="modal-loader" src=' + loaderPath + '>'
+                +'</div>';
+            $(".admin-modal .modal-body").html(preloaderContent);
+            $.get(link.attr('href'), function (data) {
+                $(".admin-modal .modal-body").html(data);
+                e.stopPropagation();
+            });
+        });
+    </script>
+{% endblock %}
 </body>
 </html>

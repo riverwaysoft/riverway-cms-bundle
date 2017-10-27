@@ -212,5 +212,35 @@ class Widget
             $this->htmlContent = $data['html_content'];
         }
     }
+
+    /**
+     * @param string $type
+     * @param Article $article
+     * @return Widget
+     */
+    public static function createForArticle(string $type, Article $article)
+    {
+        $entity = new self($type);
+        $entity->setArticle($article);
+        $entity->setHtmlContent('Hello world!');
+        $entity->setSequence($article->getWidgets() ? $article->getWidgets()->count() : 0);
+
+        return $entity;
+    }
+
+    /**
+     * @param string $type
+     * @param Sidebar $sidebar
+     * @return Widget
+     */
+    public static function createForSidebar(string $type, Sidebar $sidebar)
+    {
+        $entity = new self($type);
+        $entity->setSidebar($sidebar);
+        $entity->setHtmlContent('Hello world!');
+        $entity->setSequence($sidebar->getWidgets() ? $sidebar->getWidgets()->count() : 0);
+
+        return $entity;
+    }
 }
 

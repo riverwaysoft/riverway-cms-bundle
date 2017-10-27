@@ -3,8 +3,10 @@
 namespace Riverway\Cms\CoreBundle\Controller\Admin;
 
 use Riverway\Cms\CoreBundle\Entity\Sidebar;
+use Riverway\Cms\CoreBundle\Entity\Widget;
 use Riverway\Cms\CoreBundle\Enum\WidgetTypeEnum;
 use Riverway\Cms\CoreBundle\Form\SidebarType;
+use Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,6 +64,13 @@ class SidebarController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($sidebar);
             $em->flush();
+
+            $em = $this->getDoctrine()->getManager();
+            $entity = Widget::createForSidebar(EditorWidget::class, $sidebar);
+
+            $em->persist($entity);
+            $em->flush();
+            $em->refresh($entity);
 
             return $this->redirectToRoute('sidebar_index');
         }

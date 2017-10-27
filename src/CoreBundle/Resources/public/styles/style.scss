@@ -20,7 +20,7 @@ body {
     padding: 20px;
 
     form {
-      div {
+      & > div {
         margin-bottom: 20px;
       }
       label {
@@ -53,8 +53,15 @@ body {
     border: 4px dashed #E0E0E0;
     .widget-area {
       background-color: #f8f8f8;
-      padding: 8px 16px;
       margin: 8px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(0,0,0,.125);
+
+      .widget-header {
+        padding: 8px 16px;
+        border-bottom: 1px solid rgba(0,0,0,.125);
+      }
 
       .modal-link {
         display: inline-block;
@@ -65,8 +72,7 @@ body {
 
       .widget-content {
         color: #6E6E6E;
-        display: inline-block;
-        margin-left: 16px;
+        margin-bottom: 0px;
       }
 
       .delete-widget-link {
@@ -76,6 +82,10 @@ body {
         margin-left: 8px;
       }
     }
+  }
+
+  .note-editor.note-frame, .card {
+    border: none;
   }
 
   .modal {

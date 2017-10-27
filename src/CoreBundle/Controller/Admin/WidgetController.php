@@ -94,22 +94,19 @@ class WidgetController extends Controller
     }
 
     /**
-     * @Route("/widget/create-for-sidebar/{id}/{sequence}",
-     *     name="create_sidebar_widget",
-     *     options={"expose"=true},
-     *     condition="request.isXmlHttpRequest()")
+     * @Route("/widget/create-for-sidebar/{id}",
+     *     name="create_sidebar_widget")
      */
-    public function createSidebarWidgetAction(Sidebar $sidebar, $sequence, Request $request)
+    public function createSidebarWidgetAction(Sidebar $sidebar, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = new Widget($request->get('type'));
-        $entity->setSidebar($sidebar);
-        $entity->setSequence($sequence);
+        $entity = Widget::createForSidebar($request->get('type'), $sidebar);
 
         $em->persist($entity);
         $em->flush();
 
-        return $this->widgetAreaAction($sequence - 1, $entity);
+//        return $this->widgetAreaAction($sequence - 1, $entity);
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
@@ -119,14 +116,13 @@ class WidgetController extends Controller
     public function createArticleWidgetAction(Article $article, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = new Widget($request->get('type'));
-        $entity->setArticle($article);
-        $entity->setSequence($article->getWidgets()->count());
+        $entity = Widget::createForArticle($request->get('type'), $article);
 
         $em->persist($entity);
         $em->flush();
         $em->refresh($entity);
-        return $this->widgetAreaAction($article->getWidgets()->count(), $entity);
+
+        return $this->redirect($request->headers->get('referer'));
     }
 
     public function widgetAreaAction($sequence, Widget $entity)
