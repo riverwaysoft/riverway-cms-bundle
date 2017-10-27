@@ -16,3 +16,7 @@
     {{ form_end(form) }}
 
 {% endblock %}
+
+{% block javascripts %}
+    {{ include('@RiverwayCmsCore/admin/_widgets_javascripts.html.twig', {owner: 'sidebar'}) }}
+{% endblock %}

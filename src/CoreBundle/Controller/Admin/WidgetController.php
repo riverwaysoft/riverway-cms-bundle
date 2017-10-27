@@ -113,22 +113,20 @@ class WidgetController extends Controller
     }
 
     /**
-     * @Route("/widget/create-for-article/{id}/{sequence}",
-     *     name="create_article_widget",
-     *     options={"expose"=true},
-     *     condition="request.isXmlHttpRequest()")
+     * @Route("/widget/create-for-article/{id}",
+     *     name="create_article_widget")
      */
-    public function createArticleWidgetAction(Article $article, $sequence, Request $request)
+    public function createArticleWidgetAction(Article $article, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = new Widget($request->get('type'));
         $entity->setArticle($article);
-        $entity->setSequence($sequence);
+        $entity->setSequence($article->getWidgets()->count());
 
         $em->persist($entity);
         $em->flush();
-
-        return $this->widgetAreaAction($sequence - 1, $entity);
+        $em->refresh($entity);
+        return $this->widgetAreaAction($article->getWidgets()->count(), $entity);
     }
 
     public function widgetAreaAction($sequence, Widget $entity)

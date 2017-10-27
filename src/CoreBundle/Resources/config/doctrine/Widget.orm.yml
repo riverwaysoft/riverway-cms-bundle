@@ -20,11 +20,8 @@ Riverway\Cms\CoreBundle\Entity\Widget:
                 strategy: IDENTITY
     fields:
         extraData:
-            type: json_array
-            nullable: true
-            length: null
-            options:
-                fixed: false
+            type: json
+            nullable: false
             column: extra_data
         htmlContent:
             type: text
@@ -32,7 +29,6 @@ Riverway\Cms\CoreBundle\Entity\Widget:
             length: null
             options:
                 fixed: false
-                default: 'NULL'
             column: html_content
         sequence:
             type: integer

@@ -6,8 +6,9 @@
     {% block common_stylesheets %}
         {% include '@RiverwayCmsCore/_stylesheets.html.twig' %}
     {% endblock %}
-    {% block stylesheets %}{% endblock %}
     {% include '@RiverwayCmsCore/_javascript.html.twig' %}
+
+    {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
@@ -20,7 +21,7 @@
     </div>
     {{ include('@RiverwayCmsCore/admin/_popup.html.twig') }}
 </div>
-{% block javascripts %}{% endblock %}
+
 
 </body>
 </html>

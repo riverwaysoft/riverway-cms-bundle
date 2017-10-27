@@ -54,36 +54,34 @@ Riverway\Cms\CoreBundle\Entity\MenuNode:
             length: 255
             options:
                 fixed: false
-                default: 'NULL'
         route:
             type: string
             nullable: true
             length: 255
             options:
                 fixed: false
-                default: 'NULL'
         attributes:
-            type: json_array
+            type: json
             nullable: false
             length: 255
             options:
                 fixed: false
         childrenAttributes:
-            type: json_array
+            type: json
             nullable: false
             length: 255
             options:
                 fixed: false
             column: children_attributes
         linkAttributes:
-            type: json_array
+            type: json
             nullable: false
             length: 255
             options:
                 fixed: false
             column: link_attributes
         labelAttributes:
-            type: json_array
+            type: json
             nullable: false
             length: 255
             options:
