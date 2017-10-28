@@ -57,3 +57,8 @@ Apply CMS-specific migrations:
 ```php
 bin/console riverway:migration:migrate
 ```
+#### Step 4: Install assets
+```
+yarn install
+yarn dev-server
+```
