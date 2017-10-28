@@ -2,18 +2,18 @@
 
 namespace Riverway\Cms\CoreBundle\Controller\Admin;
 
+use FOS\RestBundle\Controller\FOSRestController;
 use Riverway\Cms\CoreBundle\Entity\Article;
 use Riverway\Cms\CoreBundle\Entity\Sidebar;
 use Riverway\Cms\CoreBundle\Entity\Widget;
 use Riverway\Cms\CoreBundle\Widget\EditableWidgetInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class WidgetController extends Controller
+class WidgetController extends FOSRestController
 {
     /**
      * @Route("/widget/{id}/form", name="get_widget")
@@ -106,7 +106,7 @@ class WidgetController extends Controller
         $em->flush();
 
 //        return $this->widgetAreaAction($sequence - 1, $entity);
-        return $this->redirect($request->headers->get('referer'));
+        return $this->handleView($this->routeRedirectView('sidebar_edit', ['id' => $entity->getSidebar()->getId()]));
     }
 
     /**
@@ -122,7 +122,7 @@ class WidgetController extends Controller
         $em->flush();
         $em->refresh($entity);
 
-        return $this->redirect($request->headers->get('referer'));
+        return $this->handleView($this->routeRedirectView('article_edit', ['id' => $entity->getArticle()->getId()]));
     }
 
     public function widgetAreaAction($sequence, Widget $entity)
@@ -135,6 +135,4 @@ class WidgetController extends Controller
             'is_editable' => $widget instanceof EditableWidgetInterface,
         ]);
     }
-
-
 }
