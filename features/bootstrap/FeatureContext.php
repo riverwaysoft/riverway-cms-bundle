@@ -11,6 +11,8 @@ use Behatch\HttpCall\Request;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\SchemaTool;
 use PHPUnit\Framework\TestCase;
+use Riverway\Cms\CoreBundle\Entity\MenuNode;
+use Riverway\Cms\CoreBundle\Entity\Widget;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -187,13 +189,7 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
     public function screenshotOnFailure(AfterScenarioScope $scope)
     {
         if ($scope->getTestResult()->isPassed() === false) {
-
-//            if ($this->getSession()->getDriver() instanceof Selenium2Driver) {
-//                $imageData = $this->getSession()->getDriver()->getScreenshot();
-//                file_put_contents($this->getImagePath().'.png', $imageData);
-//            } else {
             file_put_contents($this->getImagePath().'.html', $this->getSession()->getPage()->getContent());
-//            }
         }
     }
 
@@ -238,9 +234,83 @@ class FeatureContext extends \Behat\MinkExtension\Context\MinkContext implements
 
     }
 
+// TODO: FOR MenuNodeContext:
+
+// TODO: make only for MenuNode entity
+
+    /**
+     * @Given entity :arg1 #:arg4 should have category type in :arg3
+     */
+    public function entityShouldHaveCategoryIn($arg1, $arg3, $arg4)
+    {
+        $entity = $this->manager->find($arg1, $arg4);
+        TestCase::assertNotEmpty($entity);
+        $cat = $this->pa->getValue($entity, 'category');
+        $type = $cat->getType()->getValue();
+        TestCase::assertEquals($arg3, $type);
+    }
+
+    /**
+     * @Given entity :arg1 #:arg4 should have parent menu in :arg3
+     */
+    public function entityShouldHaveParentMenuFieldIn($arg1, $arg3, $arg4)
+    {
+        $entity = $this->manager->find($arg1, $arg4);
+        TestCase::assertNotEmpty($entity);
+        $parentMenu = $this->pa->getValue($entity, 'parentMenu');
+        $parent = $parentMenu->getId();
+        TestCase::assertEquals($arg3, $parent);
+    }
+
+    /**
+     * @When entity Menu Node should have :arg2 fields
+     */
+    public function entityShouldHaveFields($quantity)
+    {
+        /**
+         * @var MenuNode $menuNode
+         */
+        $menuNode = $this->manager->getRepository(MenuNode::class)->findAll();
+        TestCase::assertCount($quantity, $menuNode);
+    }
+
+    /**
+     * @Given entity Menu Node #:number should have parentId in :value
+     */
+    public function MenuNodeShouldHave($number, $value)
+    {
+        $menuNode = $this->manager->find(MenuNode::class, $number);
+        TestCase::assertNotEmpty($menuNode);
+        $parent = $menuNode->getParentId();
+        TestCase::assertEquals($parent->getId(), $value);
+    }
+
+// TODO: FOR WidgetContext:
+
+    /**
+     * @Then entity Widget #:arg1 should have Article id in :arg2
+     */
+    public function entityWidgetShouldHaveArticleIdIn($arg1, $arg2)
+    {
+        $entity = $this->manager->find(Widget::class, $arg1);
+        TestCase::assertNotEmpty($entity);
+        TestCase::assertNotEmpty($entity->getArticle());
+        TestCase::assertEquals($entity->getArticle()->getId(), $arg2);
+    }
+
+    /**
+     * @Then entity Widget #:arg1 should have Sidebar id in :arg2
+     */
+    public function entityWidgetShouldHaveSidebarIdIn($arg1, $arg2)
+    {
+        $entity = $this->manager->find(Widget::class, $arg1);
+        TestCase::assertNotEmpty($entity);
+        TestCase::assertNotEmpty($entity->getSidebar());
+        TestCase::assertEquals($entity->getSidebar()->getId(), $arg2);
+    }
+
     private function getImagePath()
     {
         return __DIR__.'/../../var/cache/screens/'.time();
     }
-
 }

@@ -2,6 +2,8 @@
 
 namespace Riverway\Cms\CoreBundle\Controller\Admin;
 
+use Doctrine\ORM\EntityManager;
+use FOS\RestBundle\Controller\FOSRestController;
 use Riverway\Cms\CoreBundle\Dto\CategoryDto;
 use Riverway\Cms\CoreBundle\Entity\Category;
 use Riverway\Cms\CoreBundle\Entity\MenuNode;
@@ -9,11 +11,9 @@ use Riverway\Cms\CoreBundle\Enum\WidgetTypeEnum;
 use Riverway\Cms\CoreBundle\Form\CategoryType;
 use Riverway\Cms\CoreBundle\Repository\MenuNodeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class CategoryController extends Controller
+class CategoryController extends FOSRestController
 {
     /**
      * @Route("/category/index", name="category_index")
@@ -58,13 +58,15 @@ class CategoryController extends Controller
         $form = $this->createForm(CategoryType::class, $dto, ['id' => $category->getId()]);
         $form->handleRequest($request);
 
-        if ($form->isValid() && $form->isSubmitted()) {
-            $category->updateFromDTO($dto);
-            $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addCategoryToParentMenuNodes($category);
-            $em->persist($category);
-            $em->flush();
-
-            return $this->redirectToRoute('category_edit', ['id' => $category->getId()]);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $dto = $form->getData();
+                $category->updateFromDTO($dto);
+                $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addCategoryToParentMenuNodes($category);
+                $em->persist($category);
+                $em->flush();
+                return $this->handleView($this->routeRedirectView('category_edit', ['id' => $category->getId()]));
+            }
         }
 
         return $this->render('@RiverwayCmsCore/admin/category/edit.html.twig', [
@@ -83,20 +85,21 @@ class CategoryController extends Controller
             'action' => $this->generateUrl('category_create'),
         ]);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-            $category = Category::createFromDto($dto);
-            $em->persist($category);
-            $em->flush();
-            $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addCategoryToParentMenuNodes($category);
-
-            return $this->redirectToRoute('category_index');
+        /**
+         * @var EntityManager $em
+         */
+        $em = $this->getDoctrine()->getManager();
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $dto = $form->getData();
+                $category = Category::createFromDto($dto);
+                $em->persist($category);
+                $em->flush();
+                $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addCategoryToParentMenuNodes($category);
+                return $this->handleView($this->routeRedirectView('category_index'));
+            }
         }
-
-        return $this->render('@RiverwayCmsCore/admin/ajax-entity-form.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render('@RiverwayCmsCore/admin/ajax-entity-form.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -118,10 +121,9 @@ class CategoryController extends Controller
         if (!$parentMenu) {
             $parentMenu = $menu;
         }
-
         $menuRepo->addCategoryToMenu($category, $parentMenu, $menu);
 
-        return $this->redirect($request->headers->get('referer'));
+        return $this->handleView($this->routeRedirectView('menu_edit', ['id' => $menu->getId()]));
     }
 
     /**
@@ -138,6 +140,6 @@ class CategoryController extends Controller
         $em->remove($node);
         $em->flush();
 
-        return $this->redirect($request->headers->get('referer'));
+        return $this->handleView($this->routeRedirectView('menu_edit', ['id' => $menu->getId()]));
     }
 }

@@ -2,13 +2,13 @@
 
 namespace Riverway\Cms\CoreBundle\Controller\Admin;
 
+use FOS\RestBundle\Controller\FOSRestController;
 use Riverway\Cms\CoreBundle\Entity\MenuNode;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class MenuController extends Controller
+class MenuController extends FOSRestController
 {
     /**
      * @Route("/menu/index", name="admin_menu_index")
@@ -84,6 +84,7 @@ class MenuController extends Controller
                 $this->setNode($child, $node);
             }
         }
+        $em->persist($node);
     }
 
     /**

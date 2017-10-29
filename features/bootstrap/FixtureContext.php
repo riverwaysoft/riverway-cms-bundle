@@ -8,8 +8,12 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Riverway\Cms\CoreBundle\Entity\Article;
+use Riverway\Cms\CoreBundle\Entity\Category;
 use Riverway\Cms\CoreBundle\Entity\MenuNode;
+use Riverway\Cms\CoreBundle\Entity\Sidebar;
+use Riverway\Cms\CoreBundle\Entity\Tag;
 use Riverway\Cms\CoreBundle\Entity\Widget;
+use Riverway\Cms\CoreBundle\Enum\CategoryEnum;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 /**
@@ -73,7 +77,7 @@ class FixtureContext implements Context
     /**
      * @Given the following articles exist:
      */
-    public function theArticleExist(TableNode $table)
+    public function theFollowingArticleExist(TableNode $table)
     {
         foreach ($table->getHash() as $row) {
             $entity = new Article();
@@ -86,7 +90,7 @@ class FixtureContext implements Context
     /**
      * @Given the following widgets exist:
      */
-    public function theWidgetsExist(TableNode $table)
+    public function theFollowingWidgetsExist(TableNode $table)
     {
         foreach ($table->getHash() as $row) {
             $entity = new Widget($row['name']);
@@ -105,18 +109,65 @@ class FixtureContext implements Context
     /**
      * @Given the following menu nodes exist:
      */
-    public function theMenuExist(TableNode $table)
+    public function theFollowingMenuNodeExist(TableNode $table)
     {
         $mainMenu = $this->manager->getRepository('RiverwayCmsCoreBundle:MenuNode')->initializeMainMenu();
         foreach ($table->getHash() as $row) {
-            $articleNode = new MenuNode($row['name']);
-            if ($row['article']) {
-                $articleNode->setArticle($this->manager->find('RiverwayCmsCoreBundle:Article', $row['article']));
+            $menuNode = new MenuNode($row['name']);
+            if (isset($row['uri'])) {
+                $menuNode->setUri($row['uri']);
             }
-            $articleNode->setParent($mainMenu);
-            $this->manager->persist($articleNode);
+            if (isset($row['category'])) {
+                $menuNode->setCategory($this->manager->find('RiverwayCmsCoreBundle:Category', $row['category']));
+            }
+            if (isset($row['menuNode'])) {
+                $menuNode->setParentMenu($this->manager->find('RiverwayCmsCoreBundle:MenuNode', $row['menuNode']));
+            }
+            if (isset($row['article'])) {
+                $menuNode->setArticle($this->manager->find('RiverwayCmsCoreBundle:Article', $row['article']));
+            }
+            $menuNode->setParent($mainMenu);
+            $this->manager->persist($menuNode);
         }
         $this->manager->flush();
     }
 
+    /**
+     * @Given the following categories exist:
+     */
+    public function theFollowingCategoriesExist(TableNode $table)
+    {
+        foreach ($table->getHash() as $row) {
+            $category = new Category(new CategoryEnum((int)$row['type']), $row['name']);
+            $category->createPreparedDto($row);
+            $this->manager->persist($category);
+        }
+        $this->manager->flush();
+    }
+
+    /**
+     * @Given the following tags exist:
+     */
+    public function theFollowingTagsExist(TableNode $table)
+    {
+        foreach ($table->getHash() as $row) {
+           $tag = new Tag();
+           $tag->createFromArrayData($row);
+           $this->manager->persist($tag);
+        }
+        $this->manager->flush();
+    }
+
+    /**
+     * @Given the following sidebar exist:
+     */
+    public function theFollowingSidebarExist(TableNode $table)
+    {
+        foreach ($table->getHash() as $row) {
+            $sidebar = new Sidebar($row['name']);
+            $sidebar->setName($row['name']);
+            $this->manager->persist($sidebar);
+        }
+        $this->manager->flush();
+    }
 }

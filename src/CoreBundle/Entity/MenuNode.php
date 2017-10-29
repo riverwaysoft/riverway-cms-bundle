@@ -293,6 +293,13 @@ class MenuNode implements NodeInterface
     }
 
     /**
+     * @return MenuNode
+     */
+    public function getParentId() {
+        return $this->parent;
+    }
+
+    /**
      * @param Article $article
      * @param MenuNode $parentNode
      * @param MenuNode $parentMenu

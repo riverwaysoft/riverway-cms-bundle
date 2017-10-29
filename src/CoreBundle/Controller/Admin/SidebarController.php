@@ -2,16 +2,16 @@
 
 namespace Riverway\Cms\CoreBundle\Controller\Admin;
 
+use FOS\RestBundle\Controller\FOSRestController;
 use Riverway\Cms\CoreBundle\Entity\Sidebar;
 use Riverway\Cms\CoreBundle\Entity\Widget;
 use Riverway\Cms\CoreBundle\Enum\WidgetTypeEnum;
 use Riverway\Cms\CoreBundle\Form\SidebarType;
 use Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class SidebarController extends Controller
+class SidebarController extends FOSRestController
 {
     /**
      * @Route("/sidebar/index", name="sidebar_index")
@@ -39,7 +39,7 @@ class SidebarController extends Controller
             $em->persist($sidebar);
             $em->flush();
 
-            return $this->redirectToRoute('sidebar_edit', ['id' => $sidebar->getId()]);
+            return $this->handleView($this->routeRedirectView('sidebar_edit', ['id' => $sidebar->getId()]));
         }
 
         return $this->render('@RiverwayCmsCore/admin/sidebar/edit.html.twig', [
@@ -54,6 +54,7 @@ class SidebarController extends Controller
      */
     public function createAction(Request $request)
     {
+//        print_r($request->request);die;
         $sidebar = new Sidebar();
 
         $form = $this->createForm(SidebarType::class, $sidebar, [
@@ -72,7 +73,9 @@ class SidebarController extends Controller
             $em->flush();
             $em->refresh($entity);
 
-            return $this->redirectToRoute('sidebar_index');
+//            return $this->redirectToRoute('sidebar_index');
+            return $this->handleView($this->routeRedirectView('sidebar_index'));
+
         }
 
         return $this->render('@RiverwayCmsCore/admin/ajax-entity-form.html.twig', [
