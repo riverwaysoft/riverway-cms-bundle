@@ -18,7 +18,7 @@ Feature: Sidebar management
       | app_sidebar[name] | sidebarTest  |
     Then the response status code should be 201
     And entity "RiverwayCmsCoreBundle:Sidebar" #2 should have name in "sidebarTest"
-    And entity Widget #1 should have Sidebar id in 2
+    And entity Widget #1 should have Sidebar id in 1
 
   Scenario: Validation before sidebar creation
     When I send a POST request to "/admin/sidebar/create" with parameters:
