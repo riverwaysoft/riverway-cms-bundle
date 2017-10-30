@@ -8,9 +8,9 @@ Feature: Sidebar management
       | name          |
       | SidebarExist  |
     And the following widgets exist:
-      | name                                                    | article | type   | sequence | sidebar |
-      | Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget | 1       | EDITOR | 1        | 1       |
-      | Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget | 1       | EDITOR | 2        | 1       |
+      | name                                                    | type   | sequence | sidebar |
+      | Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget | EDITOR | 0        | 1       |
+      | Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget | EDITOR | 1        | 1       |
 
   Scenario: I can create sidebar
     When I send a POST request to "/admin/sidebar/create" with parameters:
@@ -26,12 +26,14 @@ Feature: Sidebar management
       | app_sidebar[name] |       |
     Then the response status code should be 500
 
-# TODO  'name' changed successful, 'sequence' - error
-
-#  Scenario: I can edit some sidebar
-#    When I send a POST request to "/admin/sidebar/1/edit" with parameters:
-#      | key                               | value  |
-#      | app_sidebar[name]                 | change |
-#      | app_sidebar[widgets][0][sequence] | 2      |
-#      | app_sidebar[widgets][1][sequence] | 1      |
-#    Then the response status code should be 201
+  Scenario: I can edit some sidebar
+    When I send a POST request to "/admin/sidebar/1/edit" with parameters:
+      | key                               | value  |
+      | app_sidebar[name]                 | change |
+      | app_sidebar[widgets][0][sequence] | 2      |
+      | app_sidebar[widgets][1][sequence] | 1      |
+      | app_sidebar[save]                 | 1      |
+    Then the response status code should be 201
+    And entity "RiverwayCmsCoreBundle:Sidebar" #1 should have name in change
+    And entity "RiverwayCmsCoreBundle:Widget" #1 should have sequence in 2
+    And entity "RiverwayCmsCoreBundle:Widget" #2 should have sequence in 1

@@ -104,6 +104,13 @@ class FixtureContext implements Context
             $this->manager->persist($entity);
         }
         $this->manager->flush();
+        if (isset($row['sidebar'])) {
+            /**
+             * @var Sidebar $sidebar
+             */
+            $sidebar = $this->manager->find('RiverwayCmsCoreBundle:Sidebar', $row['sidebar']);
+            $this->manager->refresh($sidebar);
+        }
     }
 
     /**
