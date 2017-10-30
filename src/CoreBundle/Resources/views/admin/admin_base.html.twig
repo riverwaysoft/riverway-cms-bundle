@@ -18,7 +18,9 @@
         {% block body %}
         {% endblock %}
     </div>
-    {{ include('@RiverwayCmsCore/admin/_popup.html.twig') }}
+    {% block popup %}
+        {{ include('@RiverwayCmsCore/admin/_popup.html.twig') }}
+    {% endblock %}
 </div>
 
 {% block javascripts %}
