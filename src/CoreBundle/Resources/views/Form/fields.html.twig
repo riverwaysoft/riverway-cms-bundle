@@ -1,12 +1,5 @@
 {% block imperavi_widget %}
     <input {{ block('widget_attributes') }} value={{ value }} />
-    <script type="text/javascript">
-        $(document).ready(
-            function () {
-                $("[data-summernote]").summernote();
-            }
-        );
-    </script>
 {% endblock %}
 
 {% block file_widget %}
