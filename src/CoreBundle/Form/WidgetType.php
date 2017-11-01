@@ -27,7 +27,7 @@ class WidgetType extends AbstractType
             $form = $event->getForm();
 
             if ($entity->getName() === EditorWidget::class) {
-                $form->add('htmlContent', ImperaviType::class, ['label' => 'Content']);
+                $form->add('htmlContent', ImperaviType::class, ['label' => false]);
             }
         });
 

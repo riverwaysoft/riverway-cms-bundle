@@ -15,7 +15,16 @@ $(document).ready(() => {
             console.log(item);
         }
     });
-    $(".summernote-editor").summernote();
+    $(".summernote-editor").summernote({
+        callbacks: {
+            onInit: function (e) {
+                $(e.editable).html($(this).val())
+            },
+            onChange: function(contents) {
+                $(this).val(contents);
+            }
+        }
+    });
 });
 require('select2');
 require('./vendor/select2/select2entity');
