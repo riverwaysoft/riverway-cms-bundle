@@ -6,8 +6,6 @@ interface WidgetInterface
 {
     public function getName(): string;
 
-    public function getAdminPreview(): string;
-
     public function getContent(): string;
 
     public function getId(): int;

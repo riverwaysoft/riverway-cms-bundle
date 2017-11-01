@@ -55,7 +55,7 @@ class ArticleType extends AbstractType
                     'required' => false,
                 ])
                 ->add('widgets', CollectionType::class, [
-                    'entry_type' => WidgetSequenceType::class,
+                    'entry_type' => WidgetType::class,
                     'label' => false,
                     'entry_options' => [
                         'label' => false,

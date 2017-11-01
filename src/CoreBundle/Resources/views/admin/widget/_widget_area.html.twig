@@ -9,5 +9,8 @@
                href="{{ path('get_widget_preview', {id: widget.id}) }}"><i class="fa fa-eye"></i></a>
         </div>
     </div>
-    <div class="widget-content">{{ widget.adminPreview|raw }}</div>
+    <div class="widget-content">
+        {{ form_rest(form) }}
+    </div>
+    {{ form_row(form.sequence) }}
 </div>

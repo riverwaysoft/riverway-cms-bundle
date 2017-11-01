@@ -6,40 +6,14 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Riverway\Cms\CoreBundle\Entity\Article;
 use Riverway\Cms\CoreBundle\Entity\Sidebar;
 use Riverway\Cms\CoreBundle\Entity\Widget;
-use Riverway\Cms\CoreBundle\Widget\EditableWidgetInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class WidgetController extends FOSRestController
 {
-    /**
-     * @Route("/widget/{id}/form", name="get_widget")
-     */
-    public function getWidgetFormAction(Widget $entity)
-    {
-        $factory = $this->get('Riverway\Cms\CoreBundle\Widget\WidgetRegistry');
-        /** @var EditableWidgetInterface $widget */
-        $widget = $factory->createWidget($entity);
-
-        $form = $widget->createForm([
-            'action' => $this->generateUrl('update_widget', ['id' => $entity->getId()]),
-        ]);
-        $form->add('save', SubmitType::class, [
-            'attr' => [
-                'class' => 'modal-submit',
-            ],
-        ]);
-
-        return $this->render(
-            '@RiverwayCmsCore/admin/widget/form.html.twig', [
-                'form' => $form->createView(),
-                'widget' => $widget,
-            ]
-        );
-    }
 
     /**
      * @Route("/widget/{id}/preview", name="get_widget_preview")
@@ -50,32 +24,6 @@ class WidgetController extends FOSRestController
         $widget = $factory->createWidget($entity);
 
         return new Response($widget->getContent());
-    }
-
-    /**
-     * @Route("/widget/{id}/update", name="update_widget")
-     */
-    public function updateWidgetAction(Widget $entity, Request $request)
-    {
-        $factory = $this->get('Riverway\Cms\CoreBundle\Widget\WidgetRegistry');
-        /** @var EditableWidgetInterface $widget */
-        $widget = $factory->createWidget($entity);
-
-        $form = $widget->createForm();
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $widget->handleForm($form);
-
-            return new JsonResponse([
-                'status' => 'success',
-                'updated_id' => $widget->getId(),
-                'content' => $widget->getAdminPreview(),
-            ]);
-        }
-
-        return new JsonResponse(['errors' => $form->getErrors(true, false)], 422);
-
     }
 
     /**
@@ -125,14 +73,15 @@ class WidgetController extends FOSRestController
         return $this->handleView($this->routeRedirectView('article_edit', ['id' => $entity->getArticle()->getId()]));
     }
 
-    public function widgetAreaAction($sequence, Widget $entity)
+    public function widgetAreaAction($sequence, Widget $entity, FormView $form)
     {
         $factory = $this->get('Riverway\Cms\CoreBundle\Widget\WidgetRegistry');
         $widget = $factory->createWidget($entity);
         return $this->render('@RiverwayCmsCore/admin/widget/_widget_area.html.twig', [
             'sequence' => $sequence,
             'widget' => $widget,
-            'is_editable' => $widget instanceof EditableWidgetInterface,
+            'form' => $form,
+            'is_editable' => true,
         ]);
     }
 }

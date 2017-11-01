@@ -1,9 +1,9 @@
 {% block imperavi_widget %}
-    <div {{ block('widget_attributes') }}>{{ value }}</div>
+    <input {{ block('widget_attributes') }} value={{ value }} />
     <script type="text/javascript">
         $(document).ready(
             function () {
-                    $("[data-summernote]").summernote()
+                $("[data-summernote]").summernote();
             }
         );
     </script>
@@ -17,24 +17,24 @@
             <div>
                 <img src="{{ asset(image_url) | imagine_filter('thumb') }}" id="image_{{ id }}"/>
                 {% if delete_route is defined %}
-                <a href="{{ delete_route }}" id="link_{{ id }}">X</a>
-            </div>
-            <script>
-                $(document).ready(function () {
-                    $('#link_' + '{{ id }}').on("click", function (e) {
-                        $.ajax({
-                            url: '{{ delete_route }}',
-                            type: 'POST',
-                            success: function () {
-                                $('#image_{{ id }}').parent().remove();
-                            }
+                    <a href="{{ delete_route }}" id="link_{{ id }}">X</a>
+                    <script>
+                        $(document).ready(function () {
+                            $('#link_' + '{{ id }}').on("click", function (e) {
+                                $.ajax({
+                                    url: '{{ delete_route }}',
+                                    type: 'POST',
+                                    success: function () {
+                                        $('#image_{{ id }}').parent().remove();
+                                    }
+                                });
+                                e.preventDefault();
+                                return false;
+                            })
                         });
-                        e.preventDefault();
-                        return false;
-                    })
-                });
-            </script>
-        {% endif %}
+                    </script>
+                {% endif %}
+            </div>
         {% endif %}
 
     {% endspaceless %}

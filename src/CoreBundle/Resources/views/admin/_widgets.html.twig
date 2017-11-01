@@ -5,7 +5,8 @@
             {% for key,widget in widgets %}
                 {{ render(controller('RiverwayCmsCoreBundle:Admin/Widget:widgetArea', {
                     sequence: key,
-                    entity: widget
+                    entity: widget,
+                    form: form.widgets[key]
                 })) }}
             {% endfor %}
 
