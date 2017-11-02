@@ -18,7 +18,7 @@ class SidebarType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('widgets', CollectionType::class, [
-                'entry_type' => WidgetSequenceType::class,
+                'entry_type' => WidgetType::class,
                 'label' => false,
                 'entry_options' => [
                     'label' => false

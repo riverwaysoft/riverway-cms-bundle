@@ -1,7 +1,11 @@
 <script>
-    var drake = dragula([document.querySelector('#widget-areas')]);
+    var drake = dragula([document.querySelector('#widget-areas')], {
+        moves: function (el, container, handle) {
+            return handle.classList.contains('draggable-link');
+        }
+    });
     drake.on('drop', function (el) {
-        var elId = el.getAttribute('id');
+        var elId = el.getData('id');
         var element = $('#' + elId);
 
         changeSequence(element);

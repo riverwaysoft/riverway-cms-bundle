@@ -34,11 +34,6 @@ abstract class AbstractWidgetRealisation
         return $this->entity->getId();
     }
 
-    public function getAdminPreview(): string
-    {
-        return '';
-    }
-
     public function setEntityManager(EntityManager $entityManager)
     {
         $this->repo = $entityManager->getRepository('RiverwayCmsCoreBundle:Widget');

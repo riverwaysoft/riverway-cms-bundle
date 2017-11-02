@@ -58,7 +58,7 @@
 
             {% if article.id %}
 
-                {{ include('@RiverwayCmsCore/admin/_widgets.html.twig', {widgets: article.widgets, id: article.id}) }}
+                {{ include('@RiverwayCmsCore/admin/_widgets.html.twig', {widgets: article.widgets, id: article.id, form: form}) }}
 
             {% endif %}
 
@@ -75,6 +75,10 @@
 
     {{ form_rest(form) }}
     {{ form_end(form) }}
+{% endblock %}
+
+{% block popup %}
+    {{ parent() }}
     {{ include('@RiverwayCmsCore/admin/_widgets_modals.html.twig', {owner: 'article', id: article.id}) }}
 {% endblock %}
 
