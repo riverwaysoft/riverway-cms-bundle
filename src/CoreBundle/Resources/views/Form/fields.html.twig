@@ -6,7 +6,7 @@
     {% spaceless %}
 
         {{ block('form_widget') }}
-        {% if image_url is not null %}
+        {% if image_url is defined and image_url is not null %}
             <div>
                 <img src="{{ asset(image_url) | imagine_filter('thumb') }}" id="image_{{ id }}"/>
                 {% if delete_route is defined %}
