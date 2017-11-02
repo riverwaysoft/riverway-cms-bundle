@@ -2,8 +2,8 @@
 @import "~fontawesome-iconpicker/dist/css/fontawesome-iconpicker.css";
 @import '~dragula/dist/dragula.css';
 @import '~select2/dist/css/select2.css';
+@import 'vendor/imperavi/redactor.css';
 @import "vendor/font-awesome/css/font-awesome.css";
-@import '~summernote/dist/summernote-bs4.css';
 @import 'mixins';
 
 body {
@@ -52,7 +52,7 @@ body {
     padding: 8px;
     border: 4px dashed #E0E0E0;
     .widget-area {
-      background-color: #f8f8f8;
+      //background-color: #f8f8f8;
       margin: 8px;
       display: flex;
       flex-direction: column;
