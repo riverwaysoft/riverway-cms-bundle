@@ -59,11 +59,13 @@ class SliderController extends Controller
     {
         $slider = new Slider();
 
-        $form = $this->createForm(SliderType::class, $slider, [
+        $form = $this->createForm(SliderType::class, $slider->getDto(), [
             'action' => $this->generateUrl('slider_create')
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $dto = $form->getData();
+            $slider->updateFromDto($dto);
             $slider->setCreator($this->getUser());
             $em = $this->getDoctrine()->getManager();
             $em->persist($slider);
