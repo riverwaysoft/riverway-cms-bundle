@@ -5,6 +5,7 @@
 @import "vendor/font-awesome/css/font-awesome.css";
 @import '~summernote/dist/summernote-bs4.css';
 @import 'mixins';
+@import "vendor/colorselector/colorselector.css";
 
 body {
   .admin-modal .close {
@@ -145,6 +146,65 @@ body {
     .fade {
       opacity: 1;
     }
+  }
+
+  .range output {
+    vertical-align: top;
+    margin-left: 16px;
+    margin-top: 2px;
+  }
+
+  .slider-preview-img {
+    box-sizing: border-box;
+    display: block;
+    width: 600px;
+    height: 300px;
+    padding: 20px;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+
+  .slide-preview-header {
+    font-size: 30px;
+    line-height: 32px;
+    margin: 0 auto 2px;
+  }
+
+  .slide-preview-subheader {
+    font-size: 15px;
+    line-height: 20px;
+    margin: 0 auto 13px;
+  }
+
+  .slide-preview-description {
+    margin: 0 auto 15px;
+    font-size: 7px;
+  }
+
+  .slide-preview-button {
+    border: none;
+    border-radius: 2px;
+    font-size: 7px;
+    padding: 4px 12px;
+  }
+
+  #slider {
+    clear: both;
+    margin-bottom: 20px;
+  }
+
+  .slide {
+    box-sizing: border-box;
+    display: block;
+    width: 1000px;
+    height: 500px;
+    padding: 0px;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
   }
 }
 

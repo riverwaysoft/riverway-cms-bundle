@@ -6,8 +6,8 @@ use MyCLabs\Enum\Enum;
 
 
 /**
- * @method static WidgetTypeEnum DRAFT()
- * @method static WidgetTypeEnum PUBLISHED()
+ * @method static ArticleStatusEnum DRAFT()
+ * @method static ArticleStatusEnum PUBLISHED()
  */
 class ArticleStatusEnum extends Enum
 {

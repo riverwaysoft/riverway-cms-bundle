@@ -1,0 +1,84 @@
+Riverway\Cms\CoreBundle\Entity\Slide:
+    type: entity
+    table: null
+    repositoryClass: Riverway\Cms\CoreBundle\Repository\SlideRepository
+    indexes:
+        IDX_23A0E663A432111:
+            columns:
+                - slider_id
+        IDX_23A0E663A432112:
+            columns:
+                - header_id
+        IDX_23A0E663A432113:
+            columns:
+                - sub_header_id
+        IDX_23A0E663A432114:
+            columns:
+                - description_id
+        IDX_23A0E663A432115:
+            columns:
+                - button_id
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        textAlign:
+            type: string
+            nullable: false
+        verticalAlign:
+            type: string
+            nullable: false
+        width:
+            type: integer
+            nullable: false
+        marginLeft:
+            type: integer
+            nullable: false
+        imageUrl:
+            type: string
+            nullable: false
+        url:
+            type: string
+            nullable: true
+
+    oneToOne:
+        header:
+            targetEntity: Riverway\Cms\CoreBundle\Entity\SlideElementParameters
+            cascade: [persist, remove]
+            orphanRemoval: true
+            joinColumns:
+                header_id:
+                    referencedColumnName: id
+        subHeader:
+            targetEntity: Riverway\Cms\CoreBundle\Entity\SlideElementParameters
+            cascade: [persist, remove]
+            orphanRemoval: true
+            joinColumns:
+                sub_header_id:
+                    referencedColumnName: id
+        description:
+            targetEntity: Riverway\Cms\CoreBundle\Entity\SlideElementParameters
+            cascade: [persist, remove]
+            orphanRemoval: true
+            joinColumns:
+                description_id:
+                    referencedColumnName: id
+        button:
+            targetEntity: Riverway\Cms\CoreBundle\Entity\SlideButtonElementParameters
+            cascade: [persist, remove]
+            orphanRemoval: true
+            joinColumns:
+                button_id:
+                    referencedColumnName: id
+
+    manyToOne:
+        slider:
+            targetEntity: Riverway\Cms\CoreBundle\Entity\Slider
+            inversedBy: slides
+            joinColumns:
+                slider_id:
+                    referencedColumnName: id
+    lifecycleCallbacks: {  }

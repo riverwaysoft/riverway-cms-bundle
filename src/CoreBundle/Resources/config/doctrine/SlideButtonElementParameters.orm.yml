@@ -1,0 +1,7 @@
+Riverway\Cms\CoreBundle\Entity\SlideButtonElementParameters:
+    type: entity
+    fields:
+        bgColor:
+            type: string
+            length: 255
+            nullable: true

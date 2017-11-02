@@ -1,0 +1,6 @@
+<div id="slider">
+    {% for slide in article.slider.slides %}
+        <div class="slide" style="background-image: url('{{ slide.imageUrl }}')">
+        </div>
+    {% endfor %}
+</div>

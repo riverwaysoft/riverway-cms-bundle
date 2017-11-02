@@ -7,10 +7,10 @@ use Riverway\Cms\CoreBundle\Dto\ArticleDto;
 use Riverway\Cms\CoreBundle\Entity\Article;
 use Riverway\Cms\CoreBundle\Entity\Category;
 use Riverway\Cms\CoreBundle\Entity\Sidebar;
+use Riverway\Cms\CoreBundle\Entity\Slider;
 use Riverway\Cms\CoreBundle\Entity\Tag;
 use Riverway\Cms\CoreBundle\Enum\TemplateEnum;
 use Riverway\Cms\CoreBundle\Repository\CategoryRepository;
-use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -91,6 +91,11 @@ class ArticleType extends AbstractType
                     ])
                 ->add('sidebar', EntityType::class, [
                     'class' => Sidebar::class,
+                    'choice_label' => 'name',
+                    'placeholder' => 'none',
+                    'required' => false,
+                ])->add('slider', EntityType::class, [
+                    'class' => Slider::class,
                     'choice_label' => 'name',
                     'placeholder' => 'none',
                     'required' => false,

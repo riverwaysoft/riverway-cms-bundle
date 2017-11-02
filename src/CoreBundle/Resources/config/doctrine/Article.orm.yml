@@ -94,6 +94,12 @@ Riverway\Cms\CoreBundle\Entity\Article:
                 sidebar_id:
                     referencedColumnName: id
             orphanRemoval: false
+        slider:
+            targetEntity: Riverway\Cms\CoreBundle\Entity\Slider
+            joinColumns:
+                slider_id:
+                    referencedColumnId: id
+            orphanRemoval: false
     oneToMany:
         widgets:
             targetEntity: Riverway\Cms\CoreBundle\Entity\Widget

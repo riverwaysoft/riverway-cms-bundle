@@ -1,4 +1,4 @@
-<h2>
+<h1>
     {% if article.titleIcon %}
         <i class="fa {{ article.titleIcon }}"></i>
     {% endif %}
@@ -6,7 +6,7 @@
         <img src="{{ article.featuredImage }}"/>
     {% endif %}
     {{ article.title }}
-</h2>
+</h1>
 {% for aWidget in article.widgets %}
     {{ render(controller('RiverwayCmsCoreBundle:Front/Content:renderWidget', {entity: aWidget})) }}
 {% endfor %}

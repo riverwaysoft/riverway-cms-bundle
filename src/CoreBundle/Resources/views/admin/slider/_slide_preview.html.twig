@@ -1,0 +1,39 @@
+<div id="slide-img-{{ key }}"
+     class="slider-preview-img"
+     style="
+             background-image: url('{{ slide.imageUrl }}');
+             text-align: {{ slide.textAlign }};
+             ">
+    <div class="elements" style="margin-left: {{ slide.marginLeft }}%; width:{{ slide.width }}%">
+        <h1 class="slide-preview-header" style="
+                color: {{ slide.header.textColor }};
+                padding-left: {{ slide.header.marginLeft }}%;
+                width: {{ slide.header.width }}%;
+                ">
+            {{ slide.header.text }}</h1>
+        <h2 class="slide-preview-subheader" style="
+                color: {{ slide.subHeader.textColor }};
+                padding-left: {{ slide.subHeader.marginLeft }}%;
+                width: {{ slide.subHeader.width }}%;
+                ">
+            {{ slide.subHeader.text }}</h2>
+        <p class="slide-preview-description" style="
+                color: {{ slide.description.textColor }};
+                padding-left: {{ slide.description.marginLeft }}%;
+                width: {{ slide.description.width }}%;
+                ">
+            {{ slide.description.text }}</p>
+        {% if slide.button.text %}
+            <button type="button"
+                    class="slide-preview-button"
+                    style="
+                            background-color: {{ slide.button.bgColor }};
+                            color: {{ slide.button.textColor }};
+                            margin-left: {{ slide.button.marginLeft }}%;
+                            width: {{ slide.button.width }}%;
+                            ">
+                {{ slide.button.text }}
+            </button>
+        {% endif %}
+    </div>
+</div>

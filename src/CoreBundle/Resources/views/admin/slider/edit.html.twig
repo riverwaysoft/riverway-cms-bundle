@@ -1,0 +1,96 @@
+{% extends '@RiverwayCmsCore/admin/admin_base.html.twig' %}
+
+{% block body %}
+    <div id="slider" data-key="{{ slider.id }}">
+        <h1>Slider #{{ slider.id }}</h1><br/>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.display) }}
+
+        <div id="slides">
+            {% for key,slide in form.slides %}
+                <div class="slide" data-key="{{ key }}">
+                    <h3>Slide #{{ key+1 }} <a href="{{ path('slide_delete', {id: slide.vars.value.id}) }}"><i
+                                    class="fa fa-times"></i></a></h3><br/>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-5">
+                                        {{ form_row(slide.textAlign) }}
+                                        {{ form_row(slide.verticalAlign) }}
+                                        {{ form_row(slide.marginLeft) }}
+                                        {{ form_row(slide.width) }}
+                                        {{ form_row(slide.url) }}
+                                        {{ form_row(slide.header) }}
+                                        {{ form_row(slide.subHeader) }}
+                                        {{ form_row(slide.description) }}
+                                        {{ form_row(slide.button) }}
+                                    </div>
+                                    <div class="col-6">
+                                        <div>
+                                            <button type="button" data-key="{{ key }}"
+                                                    class="btn btn-primary upload-btn">Upload
+                                                image
+                                            </button>
+                                        </div>
+                                        <div id="slider-preview-{{ key }}">
+                                            {{ render(controller('RiverwayCmsCoreBundle:Admin/Slider:renderSlidePreview', {
+                                                slide: slider.slides[key],
+                                                key: key
+                                            })) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_row(slide.imageUrl) }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="row">
+            <div class="col-sm-10">
+                <a id="add-slide" class="btn btn-success" href="{{ path('slide_create', {id: slider.id}) }}">Add
+                    Slide</a>
+            </div>
+        </div>
+        {{ form_row(form.save) }}
+
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).on('ready', function () {
+            $('.colorselector').colorselector();
+            $('.upload-btn').manageFiles({
+                onSelect: function (data, target) {
+                    var slideKey = target.data("key");
+                    $('#app_slider_slides_' + slideKey + '_imageUrl').val(data.real_path);
+                    $('#slide-img-' + slideKey).css('background-image', "url('" + data.real_path + "')");
+                }
+            });
+            $('*[id^=app_slider_slides_]').on('change', function () {
+                var key = $(this).closest('.slide').data("key");
+                $.ajax({
+                    url: Routing.generate('render_form_slide', {
+                        key: $(this).closest('.slide').data("key"),
+                        id: $('#slider').data("key")
+                    }),
+                    data: $(this).closest('form').serialize(),
+                    type: 'POST',
+                    success: function (data) {
+                        $('#slider-preview-' + key).html(data);
+                    }
+                });
+            })
+        });
+    </script>
+{% endblock %}
