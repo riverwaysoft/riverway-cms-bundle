@@ -4,9 +4,8 @@
         <div class="action-bar widget-action-bar">
             <a class="delete-widget-link" data-target="{{ widget.id }}"
                href="{{ path('delete_widget') }}"><i class="fa fa-times"></i></a>
-
-            <a class="modal-link" data-toggle="modal" data-target="#admin-modal-lg"
-               href="{{ path('get_widget_preview', {id: widget.id}) }}"><i class="fa fa-eye"></i></a>
+            <a data-target="{{ widget.id }}"
+               href="#"><i class="fa fa-arrows draggable-link"></i></a>
         </div>
     </div>
     <div class="widget-content">
