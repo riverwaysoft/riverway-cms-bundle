@@ -3,6 +3,8 @@
 namespace Riverway\Cms\CoreBundle\Form;
 
 use Riverway\Cms\CoreBundle\Entity\Widget;
+use Riverway\Cms\CoreBundle\Widget\AbstractWidgetRealisation;
+use Riverway\Cms\CoreBundle\Widget\WidgetInterface;
 use Riverway\Cms\CoreBundle\Widget\WidgetRegistry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -27,14 +29,25 @@ class WidgetType extends AbstractType
     {
         $builder
             ->add('sequence', HiddenType::class, ['label' => false]);
-        foreach ($this->widgetRegistry->getWidgets() as $widget) {
+        foreach ($this->widgetRegistry->getWidgets() as $widget) {/** @var AbstractWidgetRealisation $widget */
             $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $formEvent) use ($widget) {
                 /** @var Widget $data */
                 $data = $formEvent->getData();
                 if ($data->getName() === $widget->getName()) {
+                    $widget->setEntity($data);
                     $widget->subscribePreSetData($formEvent);
                 }
             });
+
+            $builder->addEventListener(FormEvents::POST_SUBMIT,
+                function (FormEvent $formEvent) use ($widget) {
+                    /** @var Widget $data */
+                    $data = $formEvent->getForm()->getData();
+                    if ($data->getName() === $widget->getName()) {
+                        $widget->setEntity($data);
+                        $widget->subscribePostSubmit($formEvent);
+                    }
+                });
         }
 
     }
