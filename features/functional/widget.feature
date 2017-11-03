@@ -45,9 +45,7 @@ Feature: Widget management
     Given the following widgets exist:
       | name                                                    | article | type   | sequence |
       | Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget | 1       | EDITOR | 1        |
-    When I send a GET request to "/admin/widget/1/form" with parameters:
-      | key        | value  |
-      | widget[id] | 1      |
+    When I send a GET request to "/admin/widget/1/preview"
     Then the response status code should be 200
 
   Scenario: I can available to see preview of some widget

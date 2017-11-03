@@ -58,47 +58,6 @@ Feature: Article management
     And entity "RiverwayCmsCoreBundle:Article" #2 should have title in "Test title"
     And entity "RiverwayCmsCoreBundle:Article" #2 should have template in "post.html.twig"
 
-  Scenario: Validation errors article
-    And I send a POST request to "/admin/article/1/edit" with parameters:
-      | key                | value         |
-      | app_article[title] | Changed title |
-    And the response status code should be 400
-    And the JSON should be equal to:
-    """
-    {
-        "children": {
-            "title": {},
-            "template": {
-                "errors": [
-                    "This value should not be blank."
-                ],
-                "children": [
-                    {},
-                    {},
-                    {},
-                    {},
-                    {}
-                ]
-            },
-            "uri": {},
-            "titleIcon": {},
-            "widgets": {
-                "children": [
-                    {
-                        "children": {
-                            "sequence": {}
-                        }
-                    }
-                ]
-            },
-            "featuredImage": {},
-            "category": {},
-            "tags": {},
-            "sidebar": {}
-        }
-    }
-    """
-
   Scenario: Updated
     And I send a POST request to "/admin/article/1/edit" with parameters:
       | key                               | value          |
