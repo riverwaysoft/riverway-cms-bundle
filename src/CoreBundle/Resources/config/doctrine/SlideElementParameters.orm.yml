@@ -7,8 +7,8 @@ Riverway\Cms\CoreBundle\Entity\SlideElementParameters:
         name: type
         type: string
     discriminatorMap:
-        text: SlideElementParameters
-        button: SlideButtonElementParameters
+        text: Riverway\Cms\CoreBundle\Entity\SlideElementParameters
+        button: Riverway\Cms\CoreBundle\Entity\SlideButtonElementParameters
     id:
         id:
             type: integer
