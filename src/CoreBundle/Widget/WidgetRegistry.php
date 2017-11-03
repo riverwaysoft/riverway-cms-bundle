@@ -35,6 +35,13 @@ class WidgetRegistry
         return array_keys($this->widgets);
     }
 
+    /**
+     * @return WidgetInterface[]
+     */
+    public function getWidgets(): array{
+        return $this->widgets;
+    }
+
     public function addWidget(WidgetInterface $widget)
     {
         $this->widgets[$widget->getName()] = $widget;

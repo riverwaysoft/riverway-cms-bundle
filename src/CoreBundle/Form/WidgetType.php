@@ -3,8 +3,7 @@
 namespace Riverway\Cms\CoreBundle\Form;
 
 use Riverway\Cms\CoreBundle\Entity\Widget;
-use Riverway\Cms\CoreBundle\Form\Extension\ImperaviType;
-use Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget;
+use Riverway\Cms\CoreBundle\Widget\WidgetRegistry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,6 +13,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class WidgetType extends AbstractType
 {
+    private $widgetRegistry;
+
+    public function __construct(WidgetRegistry $widgetRegistry)
+    {
+        $this->widgetRegistry = $widgetRegistry;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -21,17 +27,18 @@ class WidgetType extends AbstractType
     {
         $builder
             ->add('sequence', HiddenType::class, ['label' => false]);
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($builder) {
-            /** @var Widget $entity */
-            $entity = $event->getData();
-            $form = $event->getForm();
-
-            if ($entity->getName() === EditorWidget::class) {
-                $form->add('htmlContent', ImperaviType::class, ['label' => false]);
-            }
-        });
+        foreach ($this->widgetRegistry->getWidgets() as $widget) {
+            $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $formEvent) use ($widget) {
+                /** @var Widget $data */
+                $data = $formEvent->getData();
+                if ($data->getName() === $widget->getName()) {
+                    $widget->subscribePreSetData($formEvent);
+                }
+            });
+        }
 
     }
+
 
     /**
      * {@inheritdoc}

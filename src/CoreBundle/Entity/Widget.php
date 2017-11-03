@@ -118,6 +118,15 @@ class Widget
 
     /**
      *
+     * @return mixed
+     */
+    public function getExtraDataByKey(string $key)
+    {
+        return $this->extraData;
+    }
+
+    /**
+     *
      * @return array
      */
     public function getExtraData(): array

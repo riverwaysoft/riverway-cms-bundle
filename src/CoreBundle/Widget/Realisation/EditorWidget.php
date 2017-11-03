@@ -2,8 +2,11 @@
 
 namespace Riverway\Cms\CoreBundle\Widget\Realisation;
 
+use Riverway\Cms\CoreBundle\Entity\Widget;
+use Riverway\Cms\CoreBundle\Form\Extension\ImperaviType;
 use Riverway\Cms\CoreBundle\Widget\AbstractWidgetRealisation;
 use Riverway\Cms\CoreBundle\Widget\WidgetInterface;
+use Symfony\Component\Form\FormEvent;
 
 final class EditorWidget extends AbstractWidgetRealisation implements WidgetInterface
 {
@@ -11,6 +14,12 @@ final class EditorWidget extends AbstractWidgetRealisation implements WidgetInte
     public function getContent(): string
     {
         return (string)$this->entity->getHtmlContent();
+    }
+
+    public function subscribePreSetData(FormEvent $event)
+    {
+        $form = $event->getForm();
+        $form->add('htmlContent', ImperaviType::class, ['label' => false]);
     }
 
 }

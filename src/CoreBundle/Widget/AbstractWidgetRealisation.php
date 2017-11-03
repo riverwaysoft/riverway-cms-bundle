@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManager;
 use Riverway\Cms\CoreBundle\Entity\Widget;
 use Riverway\Cms\CoreBundle\Repository\WidgetRepository;
 use Symfony\Bridge\Twig\TwigEngine;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Templating\EngineInterface;
 
 abstract class AbstractWidgetRealisation
@@ -52,5 +53,9 @@ abstract class AbstractWidgetRealisation
     public function getUniqueId(): string
     {
         return uniqid($this->getName());
+    }
+
+    public function subscribePreSetData(FormEvent $event)
+    {
     }
 }

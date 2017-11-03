@@ -36,7 +36,7 @@ class ImperaviType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'attr' => ['class' => 'imperavi-editor'],
+            'attr' => ['class' => 'imperavi-editor', 'style'=>'display:none'],
             'image_upload' => null,
             'image_manager' => null,
         ));
