@@ -29,7 +29,8 @@ class WidgetType extends AbstractType
     {
         $builder
             ->add('sequence', HiddenType::class, ['label' => false]);
-        foreach ($this->widgetRegistry->getWidgets() as $widget) {/** @var AbstractWidgetRealisation $widget */
+        foreach ($this->widgetRegistry->getWidgets() as $widget) {
+            /** @var AbstractWidgetRealisation $widget */
             $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $formEvent) use ($widget) {
                 /** @var Widget $data */
                 $data = $formEvent->getData();
@@ -39,12 +40,12 @@ class WidgetType extends AbstractType
                 }
             });
 
-            $builder->addEventListener(FormEvents::POST_SUBMIT,
+            $builder->addEventListener(FormEvents::PRE_SUBMIT,
                 function (FormEvent $formEvent) use ($widget) {
-                    /** @var Widget $data */
-                    $data = $formEvent->getForm()->getData();
-                    if ($data->getName() === $widget->getName()) {
-                        $widget->setEntity($data);
+                    /** @var Widget $entity */
+                    $entity = $formEvent->getForm()->getData();
+                    if ($entity->getName() === $widget->getName()) {
+                        $widget->setEntity($entity);
                         $widget->subscribePostSubmit($formEvent);
                     }
                 });

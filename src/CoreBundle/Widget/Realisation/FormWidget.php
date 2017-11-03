@@ -18,10 +18,6 @@ final class FormWidget extends AbstractWidgetRealisation implements WidgetInterf
 
     public function subscribePreSetData(FormEvent $event)
     {
-        /** @var Widget $entity */
-        $entity = $event->getData();
-//        dump($entity->getExtraDataByKey('formType') ? $entity->getExtraDataByKey('formType') : '');exit;
-
         $form = $event->getForm();
         $form->add('extraData', ChoiceType::class, [
             'label' => false,
@@ -34,7 +30,7 @@ final class FormWidget extends AbstractWidgetRealisation implements WidgetInterf
 
     public function subscribePostSubmit(FormEvent $event)
     {
-        $data = $event->getForm()->getData();
-        $this->entity->setExtraData(['formType' => $data->getExtraData()]);
+        $data = $event->getData();
+        $this->entity->setExtraData(['formType' => $data['extraData']]);
     }
 }
