@@ -4,6 +4,7 @@ namespace Riverway\Cms\CoreBundle\Controller\Front;
 
 use Doctrine\ORM\EntityManager;
 use Riverway\Cms\CoreBundle\Dto\ContactDto;
+use Riverway\Cms\CoreBundle\Entity\Contact;
 use Riverway\Cms\CoreBundle\Form\ContactType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ContactController extends Controller
 {
     /**
-     * @Route("contact/create", name="contact_create")
+     * @Route("/contact/create", name="contact_create")
      */
     public function createAction(Request $request)
     {
@@ -32,7 +33,7 @@ class ContactController extends Controller
                 $contact = Contact::createFromDto($dto);
                 $em->persist($contact);
                 $em->flush();
-                return $this->handleView($request->getReferer());
+                return $this->redirect($_SERVER['HTTP_REFERER']);
             }
         }
         return $this->render('@RiverwayCmsCore/ajax-entity-form.html.twig', ['form' => $form->createView()]);

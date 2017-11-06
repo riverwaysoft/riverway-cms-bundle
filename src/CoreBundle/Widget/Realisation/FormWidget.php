@@ -81,4 +81,8 @@ final class FormWidget extends AbstractWidgetRealisation implements WidgetInterf
         $data = $event->getData();
         $this->entity->setExtraData(['formType' => $data['extraData']]);
     }
+
+    public function addForm(){
+
+    }
 }
