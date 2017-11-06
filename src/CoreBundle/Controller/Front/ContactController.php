@@ -33,7 +33,7 @@ class ContactController extends Controller
                 $contact = Contact::createFromDto($dto);
                 $em->persist($contact);
                 $em->flush();
-                return $this->redirect($_SERVER['HTTP_REFERER']);
+                return $this->redirect($request->headers->get('referer'));
             }
         }
         return $this->render('@RiverwayCmsCore/ajax-entity-form.html.twig', ['form' => $form->createView()]);

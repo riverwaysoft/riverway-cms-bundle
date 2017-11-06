@@ -45,10 +45,10 @@ final class FormWidget extends AbstractWidgetRealisation implements WidgetInterf
         $formTypeInfo = $this->widgetFormTypeRegistry->getFormTypeInfoByKey($formTypeClass);
 
         $dtoClassName = $formTypeInfo['dto_class'];
-        $entityName = $formTypeInfo['entity_name'];
+        $action = $formTypeInfo['action'];
 
         $form = $this->formFactory->create($formTypeClass, new $dtoClassName, [
-            'action' => $this->router->generate($entityName . '_create', [], UrlGeneratorInterface::ABSOLUTE_PATH)
+            'action' => $this->router->generate($action, [], UrlGeneratorInterface::ABSOLUTE_PATH)
         ]);
 
         return $this->twig->render('@RiverwayCmsCore/ajax-entity-form.html.twig', array(

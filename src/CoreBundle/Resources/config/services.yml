@@ -58,7 +58,7 @@ services:
 
     Riverway\Cms\CoreBundle\Form\ContactType:
         tags:
-            - { name: 'riverway.cms.widget.form_type', entity_name: 'contact', dto_class: 'Riverway\Cms\CoreBundle\Dto\ContactDto' }
+            - { name: 'riverway.cms.widget.form_type', action: 'contact_create', dto_class: 'Riverway\Cms\CoreBundle\Dto\ContactDto' }
 
     Riverway\Cms\CoreBundle\Widget\WidgetFormTypeRegistry:
         public: true

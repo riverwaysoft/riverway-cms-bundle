@@ -20,7 +20,7 @@ class WidgetFormTypeCompilerPass implements CompilerPassInterface
             foreach ($tags as $attributes) {
                 $definition->addMethodCall('addFormType', array(
                     $id,
-                    $attributes["entity_name"],
+                    $attributes["action"],
                     $attributes["dto_class"]
                 ));
             }

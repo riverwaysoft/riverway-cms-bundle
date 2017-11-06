@@ -15,13 +15,15 @@ class WidgetFormTypeRegistry
 
     /**
      * @param string $formTypeClass
+     * @param $action
+     * @param $dtoClass
      */
-    public function addFormType(string $formTypeClass, $entityName, $dtoClass)
+    public function addFormType(string $formTypeClass, $action, $dtoClass)
     {
         $this->formTypeClasses[$formTypeClass] = $formTypeClass;
         $this->formTypeInfo[$formTypeClass] = [
             'form_type_class' => $formTypeClass,
-            'entity_name' => $entityName,
+            'action' => $action,
             'dto_class' => $dtoClass
         ];
     }
