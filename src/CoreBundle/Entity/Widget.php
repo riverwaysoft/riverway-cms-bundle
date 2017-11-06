@@ -122,7 +122,7 @@ class Widget
      */
     public function getExtraDataByKey(string $key)
     {
-        return $this->extraData;
+        return array_key_exists($key, $this->extraData) ? $this->extraData[$key] : null;
     }
 
     /**

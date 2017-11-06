@@ -25,6 +25,11 @@ services:
         tags:
           - { name: 'riverway.cms.widget' }
 
+    Riverway\Cms\CoreBundle\Widget\Realisation\FormWidget:
+        arguments: ['@form.factory', '@Riverway\Cms\CoreBundle\Widget\WidgetFormTypeRegistry', '@router', '@twig']
+        tags:
+          - { name: 'riverway.cms.widget' }
+
     Riverway\Cms\CoreBundle\Service\FileManager:
         public: true
         arguments:
@@ -50,3 +55,10 @@ services:
     doctrine_cache:
         class: Doctrine\Common\Cache\FilesystemCache
         arguments: ["%kernel.cache_dir%/app_cache"]
+
+    Riverway\Cms\CoreBundle\Form\ContactType:
+        tags:
+            - { name: 'riverway.cms.widget.form_type', action: 'contact_create', dto_class: 'Riverway\Cms\CoreBundle\Dto\ContactDto' }
+
+    Riverway\Cms\CoreBundle\Widget\WidgetFormTypeRegistry:
+        public: true
