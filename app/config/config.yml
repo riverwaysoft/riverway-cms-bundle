@@ -81,3 +81,15 @@ doctrine_migrations:
     namespace: Riverway\Cms\CoreBundle\DoctrineMigrations
     table_name: riverway_cms_migration_versions
     name: Riverway Cms Migrations
+open_graph_protocol:
+    libraries:
+        base:
+            class: Beyerz\OpenGraphProtocolBundle\Libraries\Base
+            default_values:
+                site_name: "K4U"
+                title: "Article title"
+                url: "Article URL"
+                description: "Article from K4U"
+        facebook:
+            class: Beyerz\OpenGraphProtocolBundle\Libraries\Facebook
+            default_values: { app_id: "2012452870397" }

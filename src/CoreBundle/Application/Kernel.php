@@ -32,6 +32,7 @@ class Kernel extends HttpKernel
             new \WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new \Sentry\SentryBundle\SentryBundle(),
             new DoctrineMigrationsBundle(),
+            new \Beyerz\OpenGraphProtocolBundle\OpenGraphProtocolBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% block metas %}
+        {{ ogp()|raw }}
+    {% endblock %}
     <meta charset="UTF-8"/>
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block common_stylesheets %}
@@ -10,6 +13,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
+{#{{ dump(ogp()) }}#}
 {% block riverway_cms_navbar %}
     <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
