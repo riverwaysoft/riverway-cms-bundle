@@ -15,8 +15,9 @@ class Version20171107180347 extends AbstractMigration
      */
     public function up(Schema $schema)
     {
-        $this->addSql('ALTER TABLE article ADD meta_description VARCHAR(255)');
-        $this->addSql('ALTER TABLE article ADD meta_keywords VARCHAR(255)');
+        $this->addSql('ALTER TABLE article ADD meta_description VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE article ADD meta_keywords VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE article ADD meta_referrer VARCHAR(255)');
     }
 
     /**
@@ -26,5 +27,6 @@ class Version20171107180347 extends AbstractMigration
     {
         $this->addSql('ALTER TABLE article DROP COLUMN meta_description');
         $this->addSql('ALTER TABLE article DROP COLUMN meta_keywords');
+        $this->addSql('ALTER TABLE article DROP COLUMN meta_referrer');
     }
 }

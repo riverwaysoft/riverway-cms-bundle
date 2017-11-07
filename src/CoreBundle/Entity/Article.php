@@ -116,6 +116,12 @@ class Article
      * @var string
      * @Serializer\Expose()
      */
+    private $metaReferrer;
+
+    /**
+     * @var string
+     * @Serializer\Expose()
+     */
     private $creator;
 
     /**
@@ -160,6 +166,15 @@ class Article
     public function getMetaKeyWords()
     {
         return $this->metaKeywords;
+    }
+
+    /**
+     * Get metaReferrer
+     * @return string
+     */
+    public function getMetaReferrer()
+    {
+        return $this->metaReferrer;
     }
 
     /**
@@ -270,6 +285,7 @@ class Article
         $dto->slider = $this->slider;
         $dto->metaDescription = $this->metaDescription;
         $dto->metaKeywords = $this->metaKeywords;
+        $dto->metaReferrer = $this->metaReferrer;
 
         return $dto;
     }
@@ -291,6 +307,7 @@ class Article
         $this->slider = $articleDto->slider;
         $this->metaDescription = $articleDto->metaDescription;
         $this->metaKeywords = $articleDto->metaKeywords;
+        $this->metaReferrer = $articleDto->metaReferrer;
         if (!$this->creator) {
             $this->creator = $user;
         }

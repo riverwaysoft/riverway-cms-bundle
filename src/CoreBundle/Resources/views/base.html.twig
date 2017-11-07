@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {% block metas %}
-        {{ ogp()|raw }}
-    {% endblock %}
     <meta charset="UTF-8"/>
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block meta_title %}
-        <meta name="Description" content="{{ metaDescription }}">
-        <meta name="Keywords" content="{{ metaKeywords }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% if article.metaDescription is not null %}
+            <meta name="description" content="{{ article.metaDescription }}">
+        {% endif %}
+        {% if article.metaKeywords is not null %}
+            <meta name="keywords" content="{{ article.metaKeywords }}">
+        {% else %}
+            <meta name="keywords" content="{{ article.title }}">
+        {% endif %}
+        {% if article.metaReferrer is not null %}
+            <meta name="referrer" content="{{ article.metaReferrer }}">
+        {% endif %}
+    {% endblock %}
+    {% block metas %}
+        {{ ogp()|raw }}
     {% endblock %}
     {% block common_stylesheets %}
         {% include '@RiverwayCmsCore/_stylesheets.html.twig' %}

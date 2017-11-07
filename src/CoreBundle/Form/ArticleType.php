@@ -9,6 +9,7 @@ use Riverway\Cms\CoreBundle\Entity\Category;
 use Riverway\Cms\CoreBundle\Entity\Sidebar;
 use Riverway\Cms\CoreBundle\Entity\Slider;
 use Riverway\Cms\CoreBundle\Entity\Tag;
+use Riverway\Cms\CoreBundle\Enum\MetaReferrerEnum;
 use Riverway\Cms\CoreBundle\Enum\TemplateEnum;
 use Riverway\Cms\CoreBundle\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -101,8 +102,18 @@ class ArticleType extends AbstractType
                     'required' => false,
                 ]);
             $builder
-                ->add('metaDescription', TextType::class)
-                ->add('metaKeywords', TextType::class);
+                ->add('metaDescription', TextType::class, [
+                    'required' => false
+                ])
+                ->add('metaKeywords', TextType::class, [
+                    'required' => false
+                ])
+                ->add('metaReferrer', ChoiceType::class, [
+                    'choices' => MetaReferrerEnum::toArray(),
+                    'expanded' => true,
+                    'multiple' => false,
+                    'required' => false
+                ]);
         }
         $builder->add('save', SubmitType::class);
 

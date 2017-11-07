@@ -85,6 +85,12 @@ Riverway\Cms\CoreBundle\Entity\Article:
             length: 255
             options:
                 fixed: false
+        metaReferrer:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
     manyToOne:
         category:
             targetEntity: Category
