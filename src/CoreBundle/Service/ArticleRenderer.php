@@ -48,8 +48,9 @@ class ArticleRenderer
                 $base->addMeta('description', substr(strip_tags($editor->getHtmlContent()), 0, 140) . '...');
                 $doc = new \DOMDocument();
                 @$doc->loadHTML($editor->getHtmlContent());
-                $tag = $doc->getElementsByTagName('img')->item(0);
-                $base->addMeta('image', ($tag->getAttribute('src')));
+                if ($tag = $doc->getElementsByTagName('img')->item(0)) {
+                    $base->addMeta('image', ($tag->getAttribute('src')));
+                }
             }
             $base->addMeta('type', 'article');
             $base->addMeta('title', $article->getTitle());
