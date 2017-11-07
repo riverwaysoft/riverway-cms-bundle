@@ -25,30 +25,6 @@ Feature: Article management
     And I send a GET request to "/preview/1"
     And the response status code should be 200
 
-  Scenario: Fetch data in json
-    And I send a GET request to "/test"
-    And the response status code should be 200
-    And the response should be in JSON
-    And the JSON should be equal to:
-    """
-    {
-      "article": {
-          "category": null,
-          "creator": "john",
-          "featured_image": null,
-          "id": 1,
-          "status": 2,
-          "status_key": "PUBLISHED",
-          "template": "post.html.twig",
-          "template_key": "POST",
-          "title": "Test1",
-          "title_icon": null,
-          "uri": "\/test"
-      },
-      "sidebar": ""
-    }
-    """
-
   Scenario: Create article
     And I send a POST request to "/admin/article/create" with parameters:
       | key                   | value          |
