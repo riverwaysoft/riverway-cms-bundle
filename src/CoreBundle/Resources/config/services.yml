@@ -39,7 +39,7 @@ services:
             $filesystem: '@filesystem'
 
     Riverway\Cms\CoreBundle\Service\ArticleRenderer:
-        arguments: ["@fos_rest.view_handler", "@=service('doctrine.orm.entity_manager').getRepository('RiverwayCmsCoreBundle:Article')"]
+        arguments: ["@fos_rest.view_handler", "@=service('doctrine.orm.entity_manager').getRepository('RiverwayCmsCoreBundle:Article')", '@beyerz.ogp.open_graph']
 
     twig.ext:
         class: Twig_Extensions_Extension_Text
