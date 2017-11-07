@@ -100,6 +100,9 @@ class ArticleType extends AbstractType
                     'placeholder' => 'none',
                     'required' => false,
                 ]);
+            $builder
+                ->add('metaDescription', TextType::class)
+                ->add('metaKeywords', TextType::class);
         }
         $builder->add('save', SubmitType::class);
 

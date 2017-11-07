@@ -6,6 +6,10 @@
     {% endblock %}
     <meta charset="UTF-8"/>
     <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block meta_title %}
+        <meta name="Description" content="{{ metaDescription }}">
+        <meta name="Keywords" content="{{ metaKeywords }}">
+    {% endblock %}
     {% block common_stylesheets %}
         {% include '@RiverwayCmsCore/_stylesheets.html.twig' %}
     {% endblock %}

@@ -57,6 +57,8 @@ class ArticleRenderer
             $base->addMeta('url', $request->getSchemeAndHttpHost().$request->getRequestUri());
             $view = View::create([
                 'article' => $article,
+                'metaDescription' => $article->getMetaDescription(),
+                'metaKeywords' => $article->getMetaKeyWords(),
                 'sidebar' => $article->getSidebar() ? $article->getSidebar() : '',
             ], 200);
             $view->setTemplate("@RiverwayCmsCore/templates/{$article->getTemplate()}");

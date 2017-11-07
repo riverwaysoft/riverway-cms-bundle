@@ -73,6 +73,18 @@ Riverway\Cms\CoreBundle\Entity\Article:
         creator:
             type: string
             nullable: true
+        metaDescription:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        metaKeywords:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
     manyToOne:
         category:
             targetEntity: Category

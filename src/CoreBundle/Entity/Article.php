@@ -99,6 +99,19 @@ class Article
      *
      */
     private $tags;
+
+    /**
+     * @var string
+     * @Serializer\Expose()
+     */
+    private $metaDescription;
+
+    /**
+     * @var string
+     * @Serializer\Expose()
+     */
+    private $metaKeywords;
+
     /**
      * @var string
      * @Serializer\Expose()
@@ -129,6 +142,24 @@ class Article
         $entity->updateFromDTO($dto, $user);
 
         return $entity;
+    }
+
+    /**
+     * Get metaDescription
+     * @return string
+     */
+    public function getMetaDescription()
+    {
+        return $this->metaDescription;
+    }
+
+    /**
+     * Get metaKeyords
+     * @return string
+     */
+    public function getMetaKeyWords()
+    {
+        return $this->metaKeywords;
     }
 
     /**
@@ -237,6 +268,8 @@ class Article
         $dto->featuredImage = $this->featuredImage;
         $dto->tags = $this->tags;
         $dto->slider = $this->slider;
+        $dto->metaDescription = $this->metaDescription;
+        $dto->metaKeywords = $this->metaKeywords;
 
         return $dto;
     }
@@ -256,6 +289,8 @@ class Article
         $this->featuredImage = $articleDto->featuredImage;
         $this->tags = $articleDto->tags;
         $this->slider = $articleDto->slider;
+        $this->metaDescription = $articleDto->metaDescription;
+        $this->metaKeywords = $articleDto->metaKeywords;
         if (!$this->creator) {
             $this->creator = $user;
         }

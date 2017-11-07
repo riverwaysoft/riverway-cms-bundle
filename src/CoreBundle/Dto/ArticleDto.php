@@ -20,6 +20,8 @@ class ArticleDto
     public $featuredImage;
     public $tags;
     public $slider;
+    public $metaDescription;
+    public $metaKeywords;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
