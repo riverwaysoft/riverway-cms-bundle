@@ -14,5 +14,7 @@ interface WidgetInterface
 
     public function subscribePreSetData(FormEvent $formEvent);
 
+    public function subscribePostSubmit(FormEvent $formEvent);
+
     public function getUniqueId(): string;
 }
