@@ -267,6 +267,15 @@ class Article
         }
     }
 
+    public function updateUri()
+    {
+        if ($this->uri) {
+            if ($this->category !== null) {
+                $this->uri = UrlGenerator::generateFromString($this->category) . UrlGenerator::generateFromString($this->title);
+            }
+        }
+    }
+
     /**
      * @return ArticleDto
      */

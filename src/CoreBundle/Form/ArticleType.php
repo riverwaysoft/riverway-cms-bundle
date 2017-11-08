@@ -50,7 +50,10 @@ class ArticleType extends AbstractType
                 'multiple' => false,
             ]);
         if (in_array('update', $options['validation_groups'])) {
-            $builder->add('uri', TextType::class)
+            $builder
+                ->add('uri', TextType::class, [
+                    'disabled' => true,
+                ])
                 ->add('titleIcon', TextType::class, [
                     'attr' => ['class' => 'icp icp-auto'],
                     'required' => false,

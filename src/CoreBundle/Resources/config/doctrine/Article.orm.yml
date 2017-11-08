@@ -153,4 +153,4 @@ Riverway\Cms\CoreBundle\Entity\Article:
             orderBy: null
     lifecycleCallbacks:
         prePersist: [updatedTimestamps,createUri]
-        preUpdate: [updatedTimestamps]
+        preUpdate: [updatedTimestamps, updateUri]
