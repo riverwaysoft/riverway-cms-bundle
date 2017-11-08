@@ -4,7 +4,6 @@
     <meta charset="UTF-8"/>
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block meta_title %}
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         {% if article.metaDescription is not null %}
             <meta name="description" content="{{ article.metaDescription }}">
         {% endif %}
