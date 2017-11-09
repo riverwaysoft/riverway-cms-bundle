@@ -46,11 +46,16 @@
             <div class="row">
                 <div class="col-8">
                     <div class="form-group">
-                        <div class="col-6">
-                            <button type="button" id="upload-btn" class="btn btn-primary">Upload image</button>
-                        </div>
-                        <div class="col-6">
-                            <img id="featured-img" class="admin-preview" src="{{ article.featuredImage }}"/>
+                        <div class="row">
+                            <div class="col-2">
+                                <button type="button" id="upload-btn" class="btn btn-primary">Upload image</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" id="remove-image-btn" class="btn btn-primary">Remove image</button>
+                            </div>
+                            <div class="col-12 align-self-start">
+                                <img id="featured-img" class="admin-preview" src="{{ article.featuredImage }}"/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -97,5 +102,7 @@
                 $('#featured-img').attr('src', data.real_path);
             }
         });
-    </script>
+        $('#remove-image-btn').click(function(){
+            window.location.href='image-delete';
+        })    </script>
 {% endblock %}

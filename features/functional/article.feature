@@ -15,33 +15,33 @@ Feature: Article management
 
     Given I add "Accept" header equal to "application/json"
 
-  Scenario: Fetch data in html
-    Given I add "Accept" header equal to "application/html"
-    And I send a GET request to "/test"
-    And the response status code should be 200
-
-  Scenario: Article preview in html
-    Given I add "Accept" header equal to "application/html"
-    And I send a GET request to "/preview/1"
-    And the response status code should be 200
-#
-  Scenario: Create article
-    And I send a POST request to "/admin/article/create" with parameters:
-      | key                   | value          |
-      | app_article[title]    | Test title     |
-      | app_article[template] | post.html.twig |
-    And the response status code should be 201
-    And entity "RiverwayCmsCoreBundle:Article" #2 should have title in "Test title"
-    And entity "RiverwayCmsCoreBundle:Article" #2 should have template in "post.html.twig"
-
-  Scenario: Updated
-    And I send a POST request to "/admin/article/1/edit" with parameters:
+  Scenario: I can update some article
+    When I send a POST request to "/admin/article/1/edit" with parameters:
       | key                   | value          |
       | app_article[title]    | Test title123  |
       | app_article[template] | post.html.twig |
       | app_article[uri]      | /test-test     |
     And the response status code should be 201
     And entity "RiverwayCmsCoreBundle:Article" #1 should have title in "Test title123"
+
+  Scenario: Fetch data in html
+    Given I add "Accept" header equal to "application/html"
+    When I send a GET request to "/test"
+    And the response status code should be 200
+
+  Scenario: Article preview in html
+    Given I add "Accept" header equal to "application/html"
+    When I send a GET request to "/preview/1"
+    And the response status code should be 200
+
+  Scenario: Create article
+    When I send a POST request to "/admin/article/create" with parameters:
+      | key                   | value          |
+      | app_article[title]    | Test title     |
+      | app_article[template] | post.html.twig |
+    And the response status code should be 201
+    And entity "RiverwayCmsCoreBundle:Article" #2 should have title in "Test title"
+    And entity "RiverwayCmsCoreBundle:Article" #2 should have template in "post.html.twig"
 
 
     #  Scenario: Update successful
@@ -57,5 +57,5 @@ Feature: Article management
 #    And the response status code should be 201
 
   Scenario: Remove article
-    And I send a DELETE request to "/admin/article/1/delete"
+    When I send a DELETE request to "/admin/article/1/delete"
     And the response status code should be 200
