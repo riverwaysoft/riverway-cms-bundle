@@ -50,9 +50,11 @@
                             <div class="col-2">
                                 <button type="button" id="upload-btn" class="btn btn-primary">Upload image</button>
                             </div>
+                            {% if article.featuredImage %}
                             <div class="col-3">
                                 <button type="button" id="remove-image-btn" class="btn btn-primary">Remove image</button>
                             </div>
+                            {% endif %}
                             <div class="col-12 align-self-start">
                                 <img id="featured-img" class="admin-preview" src="{{ article.featuredImage }}"/>
                             </div>
