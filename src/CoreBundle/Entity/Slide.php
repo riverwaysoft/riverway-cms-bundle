@@ -34,7 +34,7 @@ class Slide
     public function __construct()
     {
         $this->textAlign = SliderTextAlignEnum::LEFT();
-        $this->verticalAlign = SliderVerticalAlignEnum::TOP();
+        $this->marginTop = SliderVerticalAlignEnum::TOP();
     }
 
     /**
@@ -71,7 +71,7 @@ class Slide
     /**
      * @var string
      */
-    private $verticalAlign;
+    private $marginTop;
 
     /**
      * @var int
@@ -196,17 +196,17 @@ class Slide
     /**
      * @return string
      */
-    public function getVerticalAlign(): string
+    public function getMarginTop(): string
     {
-        return $this->verticalAlign;
+        return $this->marginTop;
     }
 
     /**
-     * @param string $verticalAlign
+     * @param string $marginTop
      */
-    public function setVerticalAlign(string $verticalAlign)
+    public function setMarginTop(string $marginTop)
     {
-        $this->verticalAlign = $verticalAlign;
+        $this->marginTop = $marginTop;
     }
 
     /**
@@ -268,7 +268,7 @@ class Slide
         $dto->description = $this->description ? $this->description : new SlideElementParameters();
         $dto->button = $this->button ? $this->button : new SlideButtonElementParameters();
         $dto->textAlign = $this->textAlign;
-        $dto->verticalAlign = $this->verticalAlign;
+        $dto->marginTop = $this->marginTop;
         $dto->marginLeft = $this->marginLeft;
         $dto->width = $this->width;
         $dto->url = $this->url;
@@ -302,7 +302,7 @@ class Slide
             $this->button = null;
         }
         $this->textAlign = $dto->textAlign;
-        $this->verticalAlign = $dto->verticalAlign;
+        $this->marginTop = $dto->marginTop;
         $this->marginLeft = $dto->marginLeft;
         $this->width = $dto->width;
         $this->url = $dto->url;
