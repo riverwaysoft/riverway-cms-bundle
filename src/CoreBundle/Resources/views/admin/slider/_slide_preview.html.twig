@@ -4,7 +4,11 @@
              background-image: url('{{ slide.imageUrl }}');
              text-align: {{ slide.textAlign }};
              ">
-    <div class="elements" style="margin-left: {{ slide.marginLeft }}%; width:{{ slide.width }}%">
+    <div class="elements" style="
+            margin-left: {{ slide.marginLeft }}%;
+            width:{{ slide.width }}%;
+            margin-top: {{ slide.marginTop }}%;
+            ">
         <h1 class="slide-preview-header" style="
                 color: {{ slide.header.textColor }};
                 padding-left: {{ slide.header.marginLeft }}%;

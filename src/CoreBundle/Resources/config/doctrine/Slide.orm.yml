@@ -28,8 +28,8 @@ Riverway\Cms\CoreBundle\Entity\Slide:
         textAlign:
             type: string
             nullable: false
-        verticalAlign:
-            type: string
+        marginTop:
+            type: integer
             nullable: false
         width:
             type: integer

@@ -28,8 +28,11 @@ class SlideType extends AbstractType
             ->add('textAlign', ChoiceType::class, [
                 'choices' => SliderTextAlignEnum::toArray()
             ])
-            ->add('verticalAlign', ChoiceType::class, [
-                'choices' => SliderVerticalAlignEnum::toArray()
+            ->add('marginTop', RangeType::class, [
+                'attr' => [
+                    'min' => 0,
+                    'max' => 90
+                ]
             ])
             ->add('marginLeft', RangeType::class, [
                 'attr' => [
