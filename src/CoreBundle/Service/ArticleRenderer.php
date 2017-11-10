@@ -39,30 +39,37 @@ class ArticleRenderer
     {
         $article = $this->findArticle($request);
         if ($article) {
+            $schemaOrg = [];
             $base = $this->openGraph->get('base');
             /** @var Widget $editor */
             $editor  = $article->getWidgets()->filter(function (Widget $w){
                 return $w->getName()===EditorWidget::class;
             })->first();
             if($editor){
-                $base->addMeta('description', substr(strip_tags($editor->getHtmlContent()), 0, 140) . '...');
+                $articleDescription = substr(strip_tags($editor->getHtmlContent()), 0, 140) . '...';
+                $schemaOrg['articleDescription'] = $articleDescription;
+                $schemaOrg['articleCategory'] = $article->getCategory();
+                $base->addMeta('description', $articleDescription);
                 $doc = new \DOMDocument();
                 @$doc->loadHTML($editor->getHtmlContent());
                 if ($tag = $doc->getElementsByTagName('img')->item(0)) {
                     $base->addMeta('image', ($tag->getAttribute('src')));
+                } elseif ($article->getFeaturedImage()) {
+                    $base->addMeta('image', $article->getFeaturedImage());
                 }
             }
             $base->addMeta('type', 'article');
             $base->addMeta('title', $article->getTitle());
             $base->addMeta('url', $request->getSchemeAndHttpHost().$request->getRequestUri());
+            $schemaOrg['url'] = $_SERVER['HTTP_HOST'].substr($_SERVER['REQUEST_URI'], 1);
             $view = View::create([
                 'article' => $article,
                 'sidebar' => $article->getSidebar() ? $article->getSidebar() : '',
+                'schemaOrg' => $schemaOrg
             ], 200);
             $view->setTemplate("@RiverwayCmsCore/templates/{$article->getTemplate()}");
 
             return $this->viewHandler->handle($view);
-        } else {
             return null;
         }
     }
