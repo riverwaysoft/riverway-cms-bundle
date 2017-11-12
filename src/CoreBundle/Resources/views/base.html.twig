@@ -3,28 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block metas %}
-    {% if article is defined %}
-    <div itemscope itemtype="http://schema.org/Article">
-        <meta itemprop="name" content="{{ article.title }}">
-        <meta itemprop="articleSection" content="{{ schemaOrg.articleCategory}}">
-        <meta itemprop="description" content="{{ schemaOrg.articleDescription }}"/>
-        <meta itemprop="image" content="{{ schemaOrg.image }}"/>
-    </div>
-        {% if article.metaDescription is not null %}
-            <meta name="description" content="{{ article.metaDescription }}">
-        {% endif %}
-        {% if article.metaKeywords is not null %}
-            <meta name="keywords" content="{{ article.metaKeywords }}">
-        {% else %}
-            <meta name="keywords" content="{{ article.title }}">
-        {% endif %}
-        {% if article.metaReferrer is not null %}
-            <meta name="referrer" content="{{ article.metaReferrer }}">
-        {% endif %}
-    {% endif %}
-        {{ ogp()|raw }}
-    {% endblock %}
+{% include '@RiverwayCmsCore/_seo-meta.html.twig' %}
     {% block common_stylesheets %}
         {% include '@RiverwayCmsCore/_stylesheets.html.twig' %}
     {% endblock %}
@@ -32,7 +11,6 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
-{#{{ dump(ogp()) }}#}
 {% block riverway_cms_navbar %}
     <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}

@@ -1,0 +1,22 @@
+{% block metas %}
+    {% if article is defined %}
+        <div itemscope itemtype="http://schema.org/Article">
+            <meta itemprop="name" content="{{ article.title }}">
+            <meta itemprop="articleSection" content="{{ schemaOrg.articleCategory}}">
+            <meta itemprop="description" content="{{ schemaOrg.articleDescription }}"/>
+            <meta itemprop="image" content="{{ schemaOrg.image }}"/>
+        </div>
+        {% if article.metaDescription is not null %}
+            <meta name="description" content="{{ article.metaDescription }}">
+        {% endif %}
+        {% if article.metaKeywords is not null %}
+            <meta name="keywords" content="{{ article.metaKeywords }}">
+        {% else %}
+            <meta name="keywords" content="{{ article.title }}">
+        {% endif %}
+        {% if article.metaReferrer is not null %}
+            <meta name="referrer" content="{{ article.metaReferrer }}">
+        {% endif %}
+    {% endif %}
+    {{ ogp()|raw }}
+{% endblock %}
