@@ -54,6 +54,7 @@ class ArticleRenderer
                 @$doc->loadHTML($editor->getHtmlContent());
                 if ($tag = $doc->getElementsByTagName('img')->item(0)) {
                     $base->addMeta('image', ($tag->getAttribute('src')));
+                    $schemaOrg['image'] = $tag->getAttribute('src');
                 } elseif ($article->getFeaturedImage()) {
                     $base->addMeta('image', $article->getFeaturedImage());
                 }

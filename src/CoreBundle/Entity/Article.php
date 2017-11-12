@@ -272,6 +272,8 @@ class Article
         if ($this->uri) {
             if ($this->category !== null) {
                 $this->uri = UrlGenerator::generateFromString($this->category) . UrlGenerator::generateFromString($this->title);
+            } else {
+                $this->uri = UrlGenerator::generateFromString($this->title);
             }
         }
     }

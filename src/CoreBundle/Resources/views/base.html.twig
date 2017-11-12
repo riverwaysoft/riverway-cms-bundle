@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8"/>
     <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block metas %}
     {% if article is defined %}
     <div itemscope itemtype="http://schema.org/Article">
         <meta itemprop="name" content="{{ article.title }}">
         <meta itemprop="articleSection" content="{{ schemaOrg.articleCategory}}">
         <meta itemprop="description" content="{{ schemaOrg.articleDescription }}"/>
-        <meta itemprop="image" content="http://127.0.0.1:8000/uploads/images/redactor/2017-11-03/59fcbfff01360.jpeg"/>
-        {#<meta itemprop="url" content="{{ url }}">#}
+        <meta itemprop="image" content="{{ schemaOrg.image }}"/>
     </div>
-    {% endif %}
-    {% block meta_title %}
-    {% if article is defined %}
         {% if article.metaDescription is not null %}
             <meta name="description" content="{{ article.metaDescription }}">
         {% endif %}
@@ -26,8 +23,6 @@
             <meta name="referrer" content="{{ article.metaReferrer }}">
         {% endif %}
     {% endif %}
-    {% endblock %}
-    {% block metas %}
         {{ ogp()|raw }}
     {% endblock %}
     {% block common_stylesheets %}
