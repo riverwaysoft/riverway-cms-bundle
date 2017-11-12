@@ -62,7 +62,6 @@ class ArticleRenderer
             $base->addMeta('type', 'article');
             $base->addMeta('title', $article->getTitle());
             $base->addMeta('url', $request->getSchemeAndHttpHost().$request->getRequestUri());
-            $schemaOrg['url'] = $_SERVER['HTTP_HOST'].substr($_SERVER['REQUEST_URI'], 1);
             $view = View::create([
                 'article' => $article,
                 'sidebar' => $article->getSidebar() ? $article->getSidebar() : '',

@@ -2,9 +2,15 @@
     {% if article is defined %}
         <div itemscope itemtype="http://schema.org/Article">
             <meta itemprop="name" content="{{ article.title }}">
-            <meta itemprop="articleSection" content="{{ schemaOrg.articleCategory}}">
+            {% if schemaOrg.articleCategory is defined %}
+            <meta itemprop="articleSection" content="{{ schemaOrg.articleCategory }}">
+            {% endif %}
+            {% if schemaOrg.articleDescription is defined %}
             <meta itemprop="description" content="{{ schemaOrg.articleDescription }}"/>
+            {% endif %}
+            {% if schemaOrg.image is defined %}
             <meta itemprop="image" content="{{ schemaOrg.image }}"/>
+            {% endif %}
         </div>
         {% if article.metaDescription is not null %}
             <meta name="description" content="{{ article.metaDescription }}">
