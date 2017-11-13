@@ -22,7 +22,6 @@ class ArticleDto
     public $slider;
     public $metaDescription;
     public $metaKeywords;
-    public $metaReferrer;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {

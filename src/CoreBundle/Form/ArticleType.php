@@ -110,12 +110,6 @@ class ArticleType extends AbstractType
                 ])
                 ->add('metaKeywords', TextType::class, [
                     'required' => false
-                ])
-                ->add('metaReferrer', ChoiceType::class, [
-                    'choices' => MetaReferrerEnum::toArray(),
-                    'expanded' => true,
-                    'multiple' => false,
-                    'required' => false
                 ]);
         }
         $builder->add('save', SubmitType::class);
