@@ -1,4 +1,3 @@
-{% block metas %}
     {% if article is defined %}
         <div itemscope itemtype="http://schema.org/Article">
             <meta itemprop="name" content="{{ article.title }}">
@@ -20,9 +19,5 @@
         {% else %}
             <meta name="keywords" content="{{ article.title }}">
         {% endif %}
-        {% if article.metaReferrer is not null %}
-            <meta name="referrer" content="{{ article.metaReferrer }}">
-        {% endif %}
     {% endif %}
     {{ ogp()|raw }}
-{% endblock %}

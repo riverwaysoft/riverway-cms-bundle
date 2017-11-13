@@ -158,6 +158,11 @@ class Widget
         return $this->htmlContent;
     }
 
+    public function getShortHtmlContent()
+    {
+        return substr(strip_tags($this->getHtmlContent()), 0, 140).'...';
+    }
+
     /**
      * Set htmlContent
      *
