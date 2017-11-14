@@ -177,6 +177,6 @@ class ArticleController extends FOSRestController
         $article->destroyFeaturedImage($this->get('Riverway\Cms\CoreBundle\Service\FileManager'));
         $this->getDoctrine()->getRepository('RiverwayCmsCoreBundle:Article')->saveArticle($article);
 
-        return new Response();
+        return $this->redirectToRoute('article_edit', ['id' => $article->getId()]);
     }
 }

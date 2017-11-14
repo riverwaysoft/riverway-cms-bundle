@@ -48,11 +48,13 @@
             <div class="row">
                 <div class="col-8">
                     <div class="form-group">
-                        <div class="col-6">
-                            <button type="button" id="upload-btn" class="btn btn-primary">Upload image</button>
-                        </div>
-                        <div class="col-6">
-                            <img id="featured-img" class="admin-preview" src="{{ article.featuredImage }}"/>
+                        <div class="row">
+                            <div class="col-2">
+                                <button type="button" id="upload-btn" class="btn btn-primary">Upload image</button>
+                            </div>
+                            <div class="col-12 align-self-start">
+                                <img id="featured-img" class="admin-preview" src="{{ article.featuredImage }}"/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -72,6 +74,8 @@
         </div>
         <div class="tab-pane" id="seo-content" role="tabpanel">
             {{ form_row(form.uri) }}
+            {{ form_row(form.metaDescription) }}
+            {{ form_row(form.metaKeywords) }}
         </div>
     </div>
 
@@ -96,5 +100,4 @@
                 $('#featured-img').attr('src', data.real_path);
             }
         });
-    </script>
 {% endblock %}

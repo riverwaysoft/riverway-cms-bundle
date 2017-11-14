@@ -39,41 +39,74 @@ class ArticleRenderer
     {
         $article = $this->findArticle($request);
         if ($article) {
-            $base = $this->openGraph->get('base');
             /** @var Widget $editor */
-            $editor  = $article->getWidgets()->filter(function (Widget $w){
-                return $w->getName()===EditorWidget::class;
-            })->first();
-            if($editor){
-                $base->addMeta('description', substr(strip_tags($editor->getHtmlContent()), 0, 140) . '...');
-                $doc = new \DOMDocument();
-                @$doc->loadHTML($editor->getHtmlContent());
-                if ($tag = $doc->getElementsByTagName('img')->item(0)) {
-                    $base->addMeta('image', ($tag->getAttribute('src')));
+            $editor = $article->getWidgets()->filter(
+                function (Widget $w) {
+                    return $w->getName() === EditorWidget::class;
                 }
+            )->first();
+            $schemaOrg = [];
+            $image = null;
+            if ($editor) {
+                $image = $this->retrieveImage($editor, $request);
+                $schemaOrg = $this->generateSchemaOrg($editor, $image);
+                $this->fillOGMeta($editor, $request, $image);
             }
-            $base->addMeta('type', 'article');
-            $base->addMeta('title', $article->getTitle());
-            $base->addMeta('url', $request->getSchemeAndHttpHost().$request->getRequestUri());
-            $view = View::create([
-                'article' => $article,
-                'sidebar' => $article->getSidebar() ? $article->getSidebar() : '',
-            ], 200);
+
+            $view = View::create(
+                [
+                    'article' => $article,
+                    'sidebar' => $article->getSidebar() ? $article->getSidebar() : '',
+                    'schemaOrg' => $schemaOrg,
+                ],
+                200
+            );
             $view->setTemplate("@RiverwayCmsCore/templates/{$article->getTemplate()}");
 
             return $this->viewHandler->handle($view);
-        } else {
-            return null;
         }
+    }
+
+    private function fillOGMeta(Widget $editor, Request $request, ?string $image = null)
+    {
+        $base = $this->openGraph->get('base');
+        $base->addMeta('description', $editor->getShortHtmlContent());
+        $base->addMeta('image', $image);
+        $base->addMeta('type', 'article');
+        $base->addMeta('title', $editor->getArticle()->getTitle());
+        $base->addMeta('url', $request->getSchemeAndHttpHost().$request->getRequestUri());
+    }
+
+    private function generateSchemaOrg(Widget $editor, ?string $image = null): array
+    {
+        $schemaOrg['articleDescription'] = $editor->getShortHtmlContent();
+        $schemaOrg['articleCategory'] = $editor->getArticle()->getCategory();
+        $schemaOrg['image'] = $image;
+
+        return $schemaOrg;
+    }
+
+    private function retrieveImage(Widget $editor, Request $request): ?string
+    {
+        $doc = new \DOMDocument();
+        @$doc->loadHTML($editor->getHtmlContent());
+        if ($doc->getElementsByTagName('img')->item(0)) {
+            $image = $request->getSchemeAndHttpHost().$doc->getElementsByTagName('img')->item(0)->getAttribute('src');
+        } else {
+            $image = $request->getSchemeAndHttpHost().$editor->getArticle()->getFeaturedImage();
+        }
+        return $image;
     }
 
     public function findArticle(Request $request): ?Article
     {
         $route = $request->getRequestUri();
 
-        return $this->repo->findOneBy([
-            'uri' => $route,
-            'status' => ArticleStatusEnum::PUBLISHED,
-        ]);
+        return $this->repo->findOneBy(
+            [
+                'uri' => $route,
+                'status' => ArticleStatusEnum::PUBLISHED,
+            ]
+        );
     }
 }

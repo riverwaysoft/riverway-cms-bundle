@@ -9,6 +9,7 @@ use Riverway\Cms\CoreBundle\Entity\Category;
 use Riverway\Cms\CoreBundle\Entity\Sidebar;
 use Riverway\Cms\CoreBundle\Entity\Slider;
 use Riverway\Cms\CoreBundle\Entity\Tag;
+use Riverway\Cms\CoreBundle\Enum\MetaReferrerEnum;
 use Riverway\Cms\CoreBundle\Enum\TemplateEnum;
 use Riverway\Cms\CoreBundle\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -49,7 +50,10 @@ class ArticleType extends AbstractType
                 'multiple' => false,
             ]);
         if (in_array('update', $options['validation_groups'])) {
-            $builder->add('uri', TextType::class)
+            $builder
+                ->add('uri', TextType::class, [
+                    'disabled' => true,
+                ])
                 ->add('titleIcon', TextType::class, [
                     'attr' => ['class' => 'icp icp-auto'],
                     'required' => false,
@@ -99,6 +103,13 @@ class ArticleType extends AbstractType
                     'choice_label' => 'name',
                     'placeholder' => 'none',
                     'required' => false,
+                ]);
+            $builder
+                ->add('metaDescription', TextType::class, [
+                    'required' => false
+                ])
+                ->add('metaKeywords', TextType::class, [
+                    'required' => false
                 ]);
         }
         $builder->add('save', SubmitType::class);
