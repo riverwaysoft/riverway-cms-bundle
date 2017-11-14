@@ -290,7 +290,7 @@ class Article
         $dto->slider = $this->slider;
         $dto->metaDescription = $this->metaDescription;
         $dto->metaKeywords = $this->metaKeywords;
-        $dto->status = (bool) $this->status;
+        $dto->status = $this->status === ArticleStatusEnum::PUBLISHED ? true : false;
 
         return $dto;
     }
@@ -312,7 +312,7 @@ class Article
         $this->slider = $articleDto->slider;
         $this->metaDescription = $articleDto->metaDescription;
         $this->metaKeywords = $articleDto->metaKeywords;
-        $this->status = (bool)$articleDto->status;
+        $this->status = $articleDto->status ? ArticleStatusEnum::PUBLISHED : ArticleStatusEnum::DRAFT;
         if (!$this->creator) {
             $this->creator = $user;
         }
