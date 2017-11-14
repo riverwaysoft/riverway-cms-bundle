@@ -156,6 +156,7 @@ body {
     margin-top: 2px;
   }
 
+  // SLIDER
   .slider-preview-img {
     box-sizing: border-box;
     display: block;
@@ -231,6 +232,10 @@ body {
       font-size: 12px;
       padding: 8px 24px;
     }
+  }
+  // DROPDOWN MENU
+  .nav-item {
+    position: relative;
   }
 }
 
