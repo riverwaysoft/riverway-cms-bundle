@@ -28,8 +28,8 @@ class ArticleController extends FOSRestController
                 'id',
                 'title',
                 'uri',
-                'templateKey',
-                'statusKey',
+                'templateKey' => ['label' => 'template'],
+                'statusKey' => ['label' => 'status'],
                 'actions' => [
                     'value' => function (Article $article) {
                         return $this->renderView(
@@ -63,7 +63,11 @@ class ArticleController extends FOSRestController
             if ($form->isValid()) {
                 $dto = $form->getData();
                 $article->updateFromDTO($dto, $this->getUser());
-                $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addArticleToParentCategoryMenuNodes($article);
+                if ($article->isPublished()) {
+                    $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addArticleToParentCategoryMenuNodes($article);
+                } else {
+                    $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->removeArticleFromAll($article);
+                }
                 $em->persist($article);
                 $em->flush();
 
