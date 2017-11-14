@@ -51,7 +51,12 @@
                             <div class="col-2">
                                 <button type="button" id="upload-btn" class="btn btn-primary">Upload image</button>
                             </div>
-                            <div class="col-12 align-self-start">
+                            {% if article.featuredImage is not null %}
+                            <div class="col-2">
+                                <a id="remove-img"  href="#">Remove image</a>
+                            </div>
+                            {% endif %}
+                            <div class="col-12 align-self-start" id="featured-img-wrapper">
                                 <img id="featured-img" class="admin-preview" src="{{ article.featuredImage }}"/>
                             </div>
                         </div>
@@ -99,5 +104,20 @@
                 $('#featured-img').attr('src', data.real_path);
             }
         });
-    </script>    
+        $(document).ready(function () {
+            $('#remove-img').on('click', function (e) {
+                $.ajax({
+                    'type': 'POST',
+                    'url': 'image-delete',
+                    'success': function (res) {
+                       $("#featured-img-wrapper").remove();
+                        $('#remove-img').remove();
+                    }
+                });
+
+                e.preventDefault();
+                return false;
+            })
+        });
+    </script>
 {% endblock %}
