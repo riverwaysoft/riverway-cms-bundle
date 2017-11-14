@@ -28,12 +28,11 @@
                     {{ form_row(form.titleIcon) }}
                 </div>
                 <div class="col-3">
-                    Status: {{ article.statusKey }}<br/>
+                    {{ form_row(form.status) }}
+
                     {% if not article.published %}
-                        <a href="{{ path('article_publish', {id: article.id}) }}">Publish</a><br/><br/>
                         <a href="{{ path('preview_article', {id: article.id}) }}" target="_blank">Preview</a><br/>
                     {% else %}
-                        <a href="{{ path('article_unpublish', {id: article.id}) }}">Convert to draft</a><br/><br/>
                         <a href="{{ article.uri }}" target="_blank">View on site</a>
                     {% endif %}
                 </div>

@@ -140,35 +140,6 @@ class ArticleController extends FOSRestController
     }
 
     /**
-     * @Route("/article/{id}/publish", name="article_publish")
-     */
-    public function publishAction(
-        Article $article
-    ) {
-        $em = $this->getDoctrine()->getManager();
-        $article->publish();
-        $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addArticleToParentCategoryMenuNodes($article);
-        $em->persist($article);
-        $em->flush();
-
-        return $this->redirectToRoute('article_edit', ['id' => $article->getId()]);
-    }
-    /**
-     * @Route("/article/{id}/unpublish", name="article_unpublish")
-     */
-    public function unpublishAction(
-        Article $article
-    ) {
-        $em = $this->getDoctrine()->getManager();
-        $article->unPublish();
-        $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->removeArticleFromAll($article);
-        $em->persist($article);
-        $em->flush();
-
-        return $this->redirectToRoute('article_edit', ['id' => $article->getId()]);
-    }
-
-    /**
      * @Route("article/{id}/image-delete", name="article_image_delete")
      */
     public function actionImageDelete(

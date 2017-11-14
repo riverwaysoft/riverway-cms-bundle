@@ -21,6 +21,7 @@ class ArticleDto
     public $tags;
     public $slider;
     public $metaDescription;
+    public $status;
     public $metaKeywords;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)

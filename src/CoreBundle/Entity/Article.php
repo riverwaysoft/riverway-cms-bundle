@@ -265,7 +265,7 @@ class Article
     {
         if ($this->uri) {
             if ($this->category !== null) {
-                $this->uri = UrlGenerator::generateFromString($this->category) . UrlGenerator::generateFromString($this->title);
+                $this->uri = UrlGenerator::generateFromString($this->category).UrlGenerator::generateFromString($this->title);
             } else {
                 $this->uri = UrlGenerator::generateFromString($this->title);
             }
@@ -290,6 +290,7 @@ class Article
         $dto->slider = $this->slider;
         $dto->metaDescription = $this->metaDescription;
         $dto->metaKeywords = $this->metaKeywords;
+        $dto->status = (bool) $this->status;
 
         return $dto;
     }
@@ -311,6 +312,7 @@ class Article
         $this->slider = $articleDto->slider;
         $this->metaDescription = $articleDto->metaDescription;
         $this->metaKeywords = $articleDto->metaKeywords;
+        $this->status = (bool)$articleDto->status;
         if (!$this->creator) {
             $this->creator = $user;
         }
@@ -445,7 +447,8 @@ class Article
     /**
      * @return null|Slider
      */
-    public function getSlider(): ?Slider {
+    public function getSlider(): ?Slider
+    {
         return $this->slider;
     }
 }

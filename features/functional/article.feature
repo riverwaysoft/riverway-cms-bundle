@@ -21,8 +21,10 @@ Feature: Article management
       | app_article[title]    | Test title123  |
       | app_article[template] | post.html.twig |
       | app_article[uri]      | /test-test     |
+      | app_article[status]   | 2              |
     And the response status code should be 201
     And entity "RiverwayCmsCoreBundle:Article" #1 should have title in "Test title123"
+    And entity "RiverwayCmsCoreBundle:Article" #1 should have status in "2"
 
   Scenario: Fetch data in html
     Given I add "Accept" header equal to "application/html"

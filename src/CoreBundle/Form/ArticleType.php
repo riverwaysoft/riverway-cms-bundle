@@ -14,6 +14,7 @@ use Riverway\Cms\CoreBundle\Enum\TemplateEnum;
 use Riverway\Cms\CoreBundle\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -49,6 +50,7 @@ class ArticleType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
             ]);
+        $builder->add('status', CheckboxType::class, ['label'=>'Published', 'required'=>false]);
         if (in_array('update', $options['validation_groups'])) {
             $builder
                 ->add('uri', TextType::class, [
@@ -113,8 +115,6 @@ class ArticleType extends AbstractType
                 ]);
         }
         $builder->add('save', SubmitType::class);
-
-
     }
 
     public function configureOptions(OptionsResolver $resolver)
