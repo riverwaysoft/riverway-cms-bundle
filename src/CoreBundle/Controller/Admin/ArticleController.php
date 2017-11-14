@@ -63,7 +63,11 @@ class ArticleController extends FOSRestController
             if ($form->isValid()) {
                 $dto = $form->getData();
                 $article->updateFromDTO($dto, $this->getUser());
-                $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addArticleToParentCategoryMenuNodes($article);
+                if ($article->isPublished()) {
+                    $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->addArticleToParentCategoryMenuNodes($article);
+                } else {
+                    $em->getRepository('RiverwayCmsCoreBundle:MenuNode')->removeArticleFromAll($article);
+                }
                 $em->persist($article);
                 $em->flush();
 
