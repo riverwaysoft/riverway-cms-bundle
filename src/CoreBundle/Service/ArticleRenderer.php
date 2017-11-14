@@ -10,14 +10,12 @@ namespace Riverway\Cms\CoreBundle\Service;
 
 
 use Beyerz\OpenGraphProtocolBundle\Libraries\OpenGraph;
-use Beyerz\OpenGraphProtocolBundle\Libraries\OpenGraphInterface;
-use function foo\func;
+use FOS\RestBundle\View\View;
+use FOS\RestBundle\View\ViewHandler;
 use Riverway\Cms\CoreBundle\Entity\Article;
 use Riverway\Cms\CoreBundle\Entity\Widget;
 use Riverway\Cms\CoreBundle\Enum\ArticleStatusEnum;
 use Riverway\Cms\CoreBundle\Repository\ArticleRepository;
-use FOS\RestBundle\View\View;
-use FOS\RestBundle\View\ViewHandler;
 use Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,6 +63,19 @@ class ArticleRenderer
 
             return $this->viewHandler->handle($view);
         }
+        return null;
+    }
+
+    public function findArticle(Request $request): ?Article
+    {
+        $route = $request->getRequestUri();
+
+        return $this->repo->findOneBy(
+            [
+                'uri' => $route,
+                'status' => ArticleStatusEnum::PUBLISHED,
+            ]
+        );
     }
 
     private function fillOGMeta(Widget $editor, Request $request, ?string $image = null)
@@ -95,18 +106,7 @@ class ArticleRenderer
         } else {
             $image = $request->getSchemeAndHttpHost().$editor->getArticle()->getFeaturedImage();
         }
+
         return $image;
-    }
-
-    public function findArticle(Request $request): ?Article
-    {
-        $route = $request->getRequestUri();
-
-        return $this->repo->findOneBy(
-            [
-                'uri' => $route,
-                'status' => ArticleStatusEnum::PUBLISHED,
-            ]
-        );
     }
 }
