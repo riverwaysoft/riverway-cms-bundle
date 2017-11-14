@@ -102,7 +102,7 @@ class ArticleRenderer
         $doc = new \DOMDocument();
         @$doc->loadHTML($editor->getHtmlContent());
         if ($doc->getElementsByTagName('img')->item(0)) {
-            $image = $request->getSchemeAndHttpHost().$doc->getElementsByTagName('img')->item(0)->getAttribute('src');
+            $image = $doc->getElementsByTagName('img')->item(0)->getAttribute('src');
         } else {
             $image = $request->getSchemeAndHttpHost().$editor->getArticle()->getFeaturedImage();
         }
