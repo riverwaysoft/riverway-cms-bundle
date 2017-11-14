@@ -4,7 +4,6 @@ namespace Riverway\Cms\CoreBundle\Entity;
 
 use Riverway\Cms\CoreBundle\Dto\SlideDto;
 use Riverway\Cms\CoreBundle\Enum\SliderTextAlignEnum;
-use Riverway\Cms\CoreBundle\Enum\SliderVerticalAlignEnum;
 
 /**
  * Slide
@@ -34,7 +33,6 @@ class Slide
     public function __construct()
     {
         $this->textAlign = SliderTextAlignEnum::LEFT();
-        $this->marginTop = SliderVerticalAlignEnum::TOP();
     }
 
     /**
@@ -71,7 +69,7 @@ class Slide
     /**
      * @var string
      */
-    private $marginTop;
+    private $marginTop = 0;
 
     /**
      * @var int

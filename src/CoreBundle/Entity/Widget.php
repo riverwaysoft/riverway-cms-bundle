@@ -236,7 +236,6 @@ class Widget
     {
         $entity = new self($type);
         $entity->setArticle($article);
-        $entity->setHtmlContent('Hello world!');
         $entity->setSequence($article->getWidgets() ? $article->getWidgets()->count() : 0);
 
         return $entity;
@@ -251,7 +250,6 @@ class Widget
     {
         $entity = new self($type);
         $entity->setSidebar($sidebar);
-        $entity->setHtmlContent('Hello world!');
         $entity->setSequence($sidebar->getWidgets() ? $sidebar->getWidgets()->count() : 0);
 
         return $entity;

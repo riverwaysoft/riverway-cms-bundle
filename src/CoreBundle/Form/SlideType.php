@@ -4,7 +4,6 @@ namespace Riverway\Cms\CoreBundle\Form;
 
 use Riverway\Cms\CoreBundle\Dto\SlideDto;
 use Riverway\Cms\CoreBundle\Enum\SliderTextAlignEnum;
-use Riverway\Cms\CoreBundle\Enum\SliderVerticalAlignEnum;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -31,7 +30,7 @@ class SlideType extends AbstractType
             ->add('marginTop', RangeType::class, [
                 'attr' => [
                     'min' => 0,
-                    'max' => 90
+                    'max' => 40
                 ]
             ])
             ->add('marginLeft', RangeType::class, [

@@ -109,6 +109,7 @@ body {
     padding: 8px 16px;
     background-color: #868686;
     display: inline-block;
+    width: 24%;
   }
 
   .right-sidebar {
@@ -116,6 +117,7 @@ body {
     padding: 8px 16px;
     background-color: #868686;
     display: inline-block;
+    width: 24%;
   }
 
   .content-wrapper {
@@ -200,11 +202,35 @@ body {
     display: block;
     width: 1000px;
     height: 500px;
-    padding: 0px;
+    padding: 32px;
     margin: 0;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+
+    .slide-header {
+      font-size: 36px;
+      line-height: 40px;
+      margin: 0 auto 4px;
+    }
+
+    .slide-subheader {
+      font-size: 20px;
+      line-height: 24px;
+      margin: 0 auto 20px;
+    }
+
+    .slide-description {
+      margin: 0 auto 20px;
+      font-size: 12px;
+    }
+
+    .slide-button {
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      padding: 8px 24px;
+    }
   }
 }
 
