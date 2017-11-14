@@ -22,7 +22,7 @@ final class EditorWidget extends AbstractWidgetRealisation implements WidgetInte
         /** @var Widget $entity */
         $entity = $event->getData();
         $form = $event->getForm();
-        $form->add('htmlContent', ImperaviType::class, ['label' => false]);
+        $form->add('htmlContent', ImperaviType::class, ['label' => false, 'required'=>false]);
     }
 
     public function subscribePostSubmit(FormEvent $event)
