@@ -28,8 +28,8 @@ class ArticleController extends FOSRestController
                 'id',
                 'title',
                 'uri',
-                'templateKey',
-                'statusKey',
+                'templateKey' => ['label' => 'template'],
+                'statusKey' => ['label' => 'status'],
                 'actions' => [
                     'value' => function (Article $article) {
                         return $this->renderView(
