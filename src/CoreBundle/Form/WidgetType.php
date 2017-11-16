@@ -40,7 +40,7 @@ class WidgetType extends AbstractType
                 }
             });
 
-            $builder->addEventListener(FormEvents::POST_SUBMIT,
+            $builder->addEventListener(FormEvents::PRE_SUBMIT,
                 function (FormEvent $formEvent) use ($widget) {
                     /** @var Widget $entity */
                     $entity = $formEvent->getForm()->getData();
