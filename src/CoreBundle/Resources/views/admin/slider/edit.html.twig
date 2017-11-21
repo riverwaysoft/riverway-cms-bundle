@@ -69,6 +69,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
     <script>
         $(document).on('ready', function () {
             $('.colorselector').colorselector();

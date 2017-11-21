@@ -10,11 +10,10 @@ Feature: Widget management
       | template | title | uri   | status    | creator |
       | POST     | Test1 | /test | PUBLISHED | john    |
     When I send a GET request to "/admin/widget/create-for-article/1" with parameters:
-      | key               | value                                         |
-      | type              | AppBundle\Widget\PopProduct\PopProductWidget  |
+      | key               | value                                                   |
+      | type              | Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget |
     Then the response status code should be 201
-    And entity "RiverwayCmsCoreBundle:Widget" #1 should have html_content in "Hello world!"
-    And entity "RiverwayCmsCoreBundle:Widget" #1 should have name in "AppBundle\Widget\PopProduct\PopProductWidget"
+    And entity "RiverwayCmsCoreBundle:Widget" #1 should have name in "Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget"
     And entity "RiverwayCmsCoreBundle:Widget" #1 should have sequence in 0
     And entity Widget #1 should have Article id in 1
 #    And entity Widget #1 should have Sidebar id in 0
@@ -24,11 +23,10 @@ Feature: Widget management
       | name         |
       | SidebarTest  |
     When I send a GET request to "/admin/widget/create-for-sidebar/1" with parameters:
-      | key               | value                                         |
-      | type              | AppBundle\Widget\PopProduct\PopProductWidget  |
+      | key               | value                                                   |
+      | type              | Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget |
     Then the response status code should be 201
-    And entity "RiverwayCmsCoreBundle:Widget" #1 should have html_content in "Hello world!"
-    And entity "RiverwayCmsCoreBundle:Widget" #1 should have name in "AppBundle\Widget\PopProduct\PopProductWidget"
+    And entity "RiverwayCmsCoreBundle:Widget" #1 should have name in "Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget"
     And entity "RiverwayCmsCoreBundle:Widget" #1 should have sequence in 0
 #    And entity Widget #1 should have Article id in 0
     And entity Widget #1 should have Sidebar id in 1
