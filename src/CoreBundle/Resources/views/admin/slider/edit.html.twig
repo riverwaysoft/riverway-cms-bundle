@@ -12,9 +12,16 @@
         {{ form_row(form.name) }}
         {{ form_row(form.display) }}
 
-        <div id="slides">
+        <ul class="nav nav-tabs" role="tablist">
             {% for key,slide in form.slides %}
-                <div class="slide-container" data-key="{{ key }}">
+                <li class="nav-item">
+                    <a class="nav-link{% if key == 0 %} active{% endif %}" data-toggle="tab" href="#slide-{{ key }}" role="tab">Slide #{{ key+1 }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div id="slides" class="tab-content">
+            {% for key,slide in form.slides %}
+                <div class="tab-pane{% if key == 0 %} active{% endif %} slide-container" data-key="{{ key }}" id="slide-{{ key }}" role="tabpanel">
                     <h3>Slide #{{ key+1 }} <a href="{{ path('slide_delete', {id: slide.vars.value.id}) }}"><i
                                     class="fa fa-times"></i></a></h3><br/>
                     <div class="row">
