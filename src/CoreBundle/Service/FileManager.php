@@ -34,8 +34,6 @@ class FileManager
             mkdir($targetDir);
         }
         $fileName = uniqid().'.'.$file->guessExtension();
-        dump($targetDir);
-        dump($fileName);
         $file->move($targetDir, $fileName);
         $info = new \SplFileInfo($webDir.'/'.$fileName);
 
