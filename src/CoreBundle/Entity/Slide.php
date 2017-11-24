@@ -38,7 +38,7 @@ class Slide
     /**
      * @var string
      */
-    private $imageUrl = '/uploads/images/slider_slug.png';
+    private $imageUrl = '/bundles/riverwaycmscore/img/slider_slug.png';
 
     /**
      * @var SlideElementParameters
