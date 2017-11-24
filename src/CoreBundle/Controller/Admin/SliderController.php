@@ -115,17 +115,9 @@ class SliderController extends Controller
         $form->handleRequest($request);
         /** @var Form $slideData */
         $slideData = $form->get('slides')[$key];
-        return $this->render('@RiverwayCmsCore/admin/slider/_slide_preview.html.twig', [
+        return $this->render('@RiverwayCmsCore/admin/slide/_slide_preview.html.twig', [
             'key' => $key,
             'slide' => $slideData->getData()
-        ]);
-    }
-
-    public function renderSlidePreviewAction(Slide $slide, $key)
-    {
-        return $this->render('@RiverwayCmsCore/admin/slider/_slide_preview.html.twig', [
-            'key' => $key,
-            'slide' => $slide->getDto()
         ]);
     }
 

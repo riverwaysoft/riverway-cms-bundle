@@ -2,16 +2,14 @@
 
 namespace Riverway\Cms\CoreBundle\Widget\Realisation;
 
-use Riverway\Cms\CoreBundle\Entity\Widget;
-use Riverway\Cms\CoreBundle\Form\Extension\ImperaviType;
 use Riverway\Cms\CoreBundle\Widget\AbstractWidgetRealisation;
 use Riverway\Cms\CoreBundle\Widget\WidgetFormTypeRegistry;
 use Riverway\Cms\CoreBundle\Widget\WidgetInterface;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 
 final class FormWidget extends AbstractWidgetRealisation implements WidgetInterface
@@ -25,10 +23,10 @@ final class FormWidget extends AbstractWidgetRealisation implements WidgetInterf
      * FormWidget constructor.
      * @param FormFactory $formFactory
      * @param WidgetFormTypeRegistry $widgetFormTypeRegistry
-     * @param Router $router
+     * @param RouterInterface $router
      * @param Environment $twig
      */
-    public function __construct(FormFactory $formFactory, WidgetFormTypeRegistry $widgetFormTypeRegistry, Router $router, Environment $twig)
+    public function __construct(FormFactory $formFactory, WidgetFormTypeRegistry $widgetFormTypeRegistry, RouterInterface $router, Environment $twig)
     {
         $this->formFactory = $formFactory;
         $this->widgetFormTypeRegistry = $widgetFormTypeRegistry;
