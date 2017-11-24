@@ -56,7 +56,7 @@ class FileManager
             \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::LEAVES_ONLY);
         foreach ($objects as $name => $object) {
-            if (strstr($name, '.gitignore') !== false) {
+            if (strstr($name, '.git') !== false) {
                 continue;
             }
             $realPath = explode('/web', $name)[1];
