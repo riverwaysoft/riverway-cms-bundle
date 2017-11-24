@@ -121,12 +121,4 @@ class SliderController extends Controller
         ]);
     }
 
-    public function renderSlidePreviewAction(Slide $slide, $key)
-    {
-        return $this->render('@RiverwayCmsCore/admin/slider/_slide_preview.html.twig', [
-            'key' => $key,
-            'slide' => $slide->getDto()
-        ]);
-    }
-
 }
