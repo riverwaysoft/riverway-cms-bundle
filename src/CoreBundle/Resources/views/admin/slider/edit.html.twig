@@ -47,8 +47,8 @@
                                             </button>
                                         </div>
                                         <div id="slider-preview-{{ key }}">
-                                            {{ render(controller('RiverwayCmsCoreBundle:Admin/Slide:renderSlidePreview', {
-                                                slide: slide.vars.value.id,
+                                            {{ render(controller('RiverwayCmsCoreBundle:Admin/Slider:renderSlidePreview', {
+                                                slide: slider.slides[key],
                                                 key: key
                                             })) }}
                                         </div>
