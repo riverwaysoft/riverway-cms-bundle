@@ -1,5 +1,5 @@
-<div id="slide-img-{{ key }}"
-     class="slider-preview-img"
+<div{% if key is defined %} id="slide-img-{{ key }}"{% endif %}
+     class="slide-preview-img"
      style="
              background-image: url('{{ slide.imageUrl }}');
              text-align: {{ slide.textAlign }};
