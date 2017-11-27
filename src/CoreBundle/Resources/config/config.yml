@@ -4,6 +4,13 @@ liip_imagine:
     resolvers:
         default:
             web_path: ~
+    # loaders
+    loaders:
+        default:
+            filesystem:
+                data_root:
+                    - '%kernel.root_dir%/../web/'
+                    - 'media/cache'
     filter_sets:
         cache: ~
         thumb:
@@ -18,6 +25,7 @@ liip_imagine:
                 # create a thumbnail: set size to 120x90 and use the "outbound" mode
                 # to crop the image when the size ratio of the input differs
                 thumbnail: { size: [500, 400], mode: outbound }
+
 knp_menu:
     # use "twig: false" to disable the Twig extension and the TwigRenderer
     twig:
