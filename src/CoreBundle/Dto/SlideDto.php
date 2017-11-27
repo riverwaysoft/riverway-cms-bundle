@@ -25,6 +25,11 @@ class SlideDto
     public $description;
 
     /**
+     * @var bool
+     */
+    public $display;
+
+    /**
      * @var SlideButtonElementParameters
      */
     public $button;

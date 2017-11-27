@@ -192,4 +192,25 @@ class Slider
         }
     }
 
+    /**
+     * @return bool
+     */
+    public function isDisplayed(): bool
+    {
+        if (!$this->getDisplay()) {
+            return false;
+        }
+
+        $slides = [];
+        foreach ($this->slides as $slide) {
+            if ($slide->getDisplay()) {
+                $slides[] = $slide;
+            }
+        }
+        if (empty($slides) || !$this->getDisplay()) {
+            return false;
+        }
+        return true;
+    }
+
 }
