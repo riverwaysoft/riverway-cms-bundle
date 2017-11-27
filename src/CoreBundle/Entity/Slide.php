@@ -21,6 +21,12 @@ class Slide
     private $slider;
 
     /**
+     * @var boolean
+     *
+     */
+    private $display = true;
+
+    /**
      * Get id
      *
      * @return int
@@ -93,6 +99,20 @@ class Slide
      */
     public function setSlider(Slider $slider) {
         $this->slider = $slider;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getDisplay() {
+        return (bool)$this->display;
+    }
+
+    /**
+     * @param bool $display
+     */
+    public function setDisplay(bool $display) {
+        $this->display = $display;
     }
 
     /**
@@ -271,6 +291,7 @@ class Slide
         $dto->width = $this->width;
         $dto->url = $this->url;
         $dto->imageUrl = $this->imageUrl;
+        $dto->display = (bool)$this->display;
 
         return $dto;
     }
@@ -305,6 +326,7 @@ class Slide
         $this->width = $dto->width;
         $this->url = $dto->url;
         $this->imageUrl = $dto->imageUrl;
+        $this->display = $dto->display;
     }
 }
 

@@ -5,6 +5,7 @@ namespace Riverway\Cms\CoreBundle\Form;
 use Riverway\Cms\CoreBundle\Dto\SlideDto;
 use Riverway\Cms\CoreBundle\Enum\SliderTextAlignEnum;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
@@ -24,6 +25,7 @@ class SlideType extends AbstractType
             ->add('subHeader', SlideElementParametersType::class)
             ->add('description', SlideElementParametersType::class)
             ->add('button', SlideButtonElementParametersType::class)
+            ->add('display', CheckboxType::class, ['required' => false])
             ->add('textAlign', ChoiceType::class, [
                 'choices' => SliderTextAlignEnum::toArray()
             ])

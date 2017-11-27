@@ -43,6 +43,12 @@ Riverway\Cms\CoreBundle\Entity\Slide:
         url:
             type: string
             nullable: true
+        display:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: 1
 
     oneToOne:
         header:
