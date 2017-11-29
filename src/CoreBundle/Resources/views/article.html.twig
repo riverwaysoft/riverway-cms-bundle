@@ -41,10 +41,6 @@
             lonFloat = lonFloat || $('.crime-map-lng').val();
             crimes = crimes || $.parseJSON($('.crime-map-crimes').val());
 
-            if (!latFloat.length || !lonFloat.length || !crimes.length) {
-                return false;
-            }
-
             var map = new google.maps.Map(document.getElementById('map-canvas'), {
                 center: new google.maps.LatLng(latFloat, lonFloat),
                 zoom: 13,
