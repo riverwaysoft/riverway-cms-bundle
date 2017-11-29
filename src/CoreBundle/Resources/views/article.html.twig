@@ -30,7 +30,9 @@
                     url: $('.crime-map form').attr('action'),
                     data: {address: address},
                     success: function (res) {
-                        crimeByPostcode(res.lat, res.lng, res.crimes);
+                        if (res.success) {
+                            crimeByPostcode(res.data.lat, res.data.lng, res.data.crimes);
+                        }
                     }
                 });
             }

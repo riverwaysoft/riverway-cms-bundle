@@ -43,15 +43,20 @@ final class CrimeMapWidget extends AbstractWidgetRealisation implements WidgetIn
     {
         $address = $this->entity->getExtraDataByKey('defaultAddress') ? $this->entity->getExtraDataByKey('defaultAddress') : '';
         $cityLocation = $this->crimeMapManager->getLocationByName($address);
-        $poly = $this->crimeMapManager->boundaryNeighbourhood($this->crimeMapManager->locateNeighbourhood($cityLocation));
-        $crimes = $this->crimeMapManager->streetLevelCrimes($poly);
+        if ($cityLocation) {
+            $neighbourhood = $this->crimeMapManager->locateNeighbourhood($cityLocation);
+            if ($neighbourhood) {
+                $poly = $this->crimeMapManager->boundaryNeighbourhood($neighbourhood);
+                $crimes = $this->crimeMapManager->streetLevelCrimes($poly);
+            }
+        }
 
         $form = $this->formFactory->create(CrimeMapType::class, null, [
             'action' => $this->router->generate('crime_map_search'),
             'address' => $address,
-            'crimes' => json_encode($crimes),
-            'lat' => $cityLocation->lat,
-            'lng' => $cityLocation->lng
+            'crimes' => !empty($crimes) ? json_encode($crimes) : null,
+            'lat' => !empty($cityLocation) ? $cityLocation->lat : null,
+            'lng' => !empty($cityLocation) ? $cityLocation->lng : null
         ]);
 
         return $this->twig->render('@RiverwayCmsCore/crime-map-form.html.twig', array(
