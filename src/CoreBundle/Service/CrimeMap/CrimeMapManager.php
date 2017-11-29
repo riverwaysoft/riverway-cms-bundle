@@ -41,9 +41,9 @@ class CrimeMapManager implements CrimeMapManagerInterface
 
     /**
      * @param string $poly
-     * @return null|\stdClass
+     * @return array|null
      */
-    public function streetLevelCrimes(string $poly)
+    public function streetLevelCrimes(string $poly): ?array
     {
         $url = "https://data.police.uk/api/crimes-street/all-crime";
         $args = ["poly" => $poly];
@@ -52,19 +52,16 @@ class CrimeMapManager implements CrimeMapManagerInterface
 
     /**
      * @param null|\stdClass $neighbourhood
-     * @param bool $polyString
-     * @return null|\stdClass|string
+     * @return string
      */
-    public function boundaryNeighbourhood(?\stdClass $neighbourhood = null, bool $polyString = false)
+    public function boundaryNeighbourhood(?\stdClass $neighbourhood = null): string
     {
         if (empty($neighbourhood->force) || empty($neighbourhood->neighbourhood)) {
             return null;
         }
         $url = "https://data.police.uk/api/{$neighbourhood->force}/{$neighbourhood->neighbourhood}/boundary";
         $output = $this->sendRequest($url);
-        if (!$polyString) {
-            return $output;
-        }
+
         $poly = '';
         foreach ($output as $key => $point) {
             $poly .= $point->latitude . ',' . $point->longitude;
@@ -93,7 +90,8 @@ class CrimeMapManager implements CrimeMapManagerInterface
                 'args' => $args,
                 'response' => $response
             ]);
-            return \GuzzleHttp\json_decode((string) $response->getBody());
+            $response = (string) $response->getBody();
+            return $response ? \GuzzleHttp\json_decode($response) : null;
         } catch (RequestException $e) {
             $this->logger->warning('Crime map request', [
                 'action' => $url,
@@ -108,9 +106,9 @@ class CrimeMapManager implements CrimeMapManagerInterface
 
     /**
      * @param string $cityName
-     * @return \stdClass
+     * @return null|\stdClass
      */
-    public function getLocationByName(string $cityName): \stdClass
+    public function getLocationByName(string $cityName): ?\stdClass
     {
         $url = "https://maps.googleapis.com/maps/api/geocode/json?address={$cityName}+UK&key={$this->googleGeocodeApiKey}";
         $output = $this->sendRequest($url);
