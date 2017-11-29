@@ -6,11 +6,10 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3GldSd1EiOG325n0yGdXo4_5y8OaXywQ"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3GldSd1EiOG325n0yGdXo4_5y8OaXywQ"></script>
     <script>
         $(function() {
-            updateCrimesMap();
+            crimeByPostcode();
             $(".crime-map-address").on("blur", function (e) {
                 updateCrimesMap();
             });
@@ -38,15 +37,12 @@
             }
         }
         function crimeByPostcode(latFloat, lonFloat, crimes) {
-            if (!crimes) {
-                crimes = $.parseJSON($('.crime-map-crimes').val());
-            }
+            latFloat = latFloat || $('.crime-map-lat').val();
+            lonFloat = lonFloat || $('.crime-map-lng').val();
+            crimes = crimes || $.parseJSON($('.crime-map-crimes').val());
 
-            if (!latFloat) {
-                latFloat = $('.crime-map-lat').val();
-            }
-            if (!lonFloat) {
-                lonFloat = $('.crime-map-lng').val();
+            if (!latFloat.length || !lonFloat.length || !crimes.length) {
+                return false;
             }
 
             var map = new google.maps.Map(document.getElementById('map-canvas'), {
