@@ -42,13 +42,25 @@ class SearchController extends Controller
     {
         $crimeMapManager = $this->get('Riverway\Cms\CoreBundle\Service\CrimeMap\CrimeMapManager');
         $cityLocation = $crimeMapManager->getLocationByName($request->get('address'));
-        $poly = $crimeMapManager->boundaryNeighbourhood($crimeMapManager->locateNeighbourhood($cityLocation));
-        $crimes = $crimeMapManager->streetLevelCrimes($poly);
+        if ($cityLocation) {
+            $neighbourhood = $crimeMapManager->locateNeighbourhood($cityLocation);
+            if ($neighbourhood) {
+                $poly = $crimeMapManager->boundaryNeighbourhood($neighbourhood);
+                $crimes = $crimeMapManager->streetLevelCrimes($poly);
+
+                return new JsonResponse([
+                    'success' => true,
+                    'data' => [
+                        'lat' => $cityLocation->lat,
+                        'lng' => $cityLocation->lng,
+                        'crimes' => $crimes
+                    ]
+                ]);
+            }
+        }
 
         return new JsonResponse([
-            'lat' => $cityLocation->lat,
-            'lng' => $cityLocation->lng,
-            'crimes' => $crimes
+            'success' => false
         ]);
     }
 
