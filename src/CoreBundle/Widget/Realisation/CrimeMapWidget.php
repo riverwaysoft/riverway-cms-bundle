@@ -43,7 +43,7 @@ final class CrimeMapWidget extends AbstractWidgetRealisation implements WidgetIn
     {
         $address = $this->entity->getExtraDataByKey('defaultAddress') ? $this->entity->getExtraDataByKey('defaultAddress') : '';
         $cityLocation = $this->crimeMapManager->getLocationByName($address);
-        $poly = $this->crimeMapManager->boundaryNeighbourhood($this->crimeMapManager->locateNeighbourhood($cityLocation), true);
+        $poly = $this->crimeMapManager->boundaryNeighbourhood($this->crimeMapManager->locateNeighbourhood($cityLocation));
         $crimes = $this->crimeMapManager->streetLevelCrimes($poly);
 
         $form = $this->formFactory->create(CrimeMapType::class, null, [
