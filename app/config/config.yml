@@ -89,3 +89,6 @@ open_graph_protocol:
         facebook:
             class: Beyerz\OpenGraphProtocolBundle\Libraries\Facebook
             default_values: { app_id: "2012452870397" }
+
+riverway_cms_core:
+    google_geocode_api_key: AIzaSyB3GldSd1EiOG325n0yGdXo4_5y8OaXywQ

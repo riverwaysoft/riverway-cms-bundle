@@ -19,7 +19,7 @@ class CrimeMapManager implements CrimeMapManagerInterface
      */
     public function __construct(
         string $google_geocode_api_key,
-        LoggerInterface $logger
+        ?LoggerInterface $logger = null
     )
     {
         $this->logger = $logger;
