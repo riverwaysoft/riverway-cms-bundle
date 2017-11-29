@@ -1,0 +1,17 @@
+<div class="crime-map">
+    <div class="crime-map-title">How safe is your area</div>
+    <div class="crime-map-form">
+        {{ form_start(form,  { 'attr' : { 'class': 'form-inline' } }) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.address) }}
+        {{ form_row(form.submit) }}
+        {{ form_row(form.crimes) }}
+        {{ form_row(form.lat) }}
+        {{ form_row(form.lng) }}
+
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+    <div id="map-canvas"></div>
+</div>

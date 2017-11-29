@@ -3,3 +3,85 @@
 {% block title %}
     {{ article.title }}
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3GldSd1EiOG325n0yGdXo4_5y8OaXywQ"></script>
+    <script>
+        $(function() {
+            updateCrimesMap();
+            $(".crime-map-address").on("blur", function (e) {
+                updateCrimesMap();
+            });
+            $(".crime-map-submit").on("click", function(e) {
+                e.preventDefault();
+                updateCrimesMap();
+            });
+        });
+
+        function updateCrimesMap() {
+            var address = $('.crime-map-address').val();
+            if (address.length) {
+                $("#map-canvas").html('');
+                jQuery.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    url: $('.crime-map form').attr('action'),
+                    data: {address: address},
+                    success: function (res) {
+                        crimeByPostcode(res.lat, res.lng, res.crimes);
+                    }
+                });
+            }
+        }
+        function crimeByPostcode(latFloat, lonFloat, crimes) {
+            if (!crimes) {
+                crimes = $.parseJSON($('.crime-map-crimes').val());
+            }
+
+            if (!latFloat) {
+                latFloat = $('.crime-map-lat').val();
+            }
+            if (!lonFloat) {
+                lonFloat = $('.crime-map-lng').val();
+            }
+
+            var map = new google.maps.Map(document.getElementById('map-canvas'), {
+                center: new google.maps.LatLng(latFloat, lonFloat),
+                zoom: 13,
+                scrollwheel: false
+            });
+
+            for (var i = 0; i < crimes.length; i++) {
+                if (crimes[i].category == "violent-crime") {
+                    image = '{{ asset('bundles/riverwaycmscore/img/icons/crimes/violentcrime.png') }}';
+                } else if (crimes[i].category == "other-theft" || crimes[i].category == "burglary" || crimes[i].category == "bicycle-theft" || crimes[i].category == "shoplifting" || crimes[i].category == "theft-from-the-person") {
+                    image = '{{ asset('bundles/riverwaycmscore/img/icons/crimes/theft.png') }}';
+                } else if (crimes[i].category == "criminal-damage-arson") {
+                    image = '{{ asset('bundles/riverwaycmscore/img/icons/crimes/fire.png') }}';
+                } else if (crimes[i].category == "vehicle-crime") {
+                    image = '{{ asset('bundles/riverwaycmscore/img/icons/crimes/vehiclecrime.png') }}';
+                } else {
+                    image = '{{ asset('bundles/riverwaycmscore/img/icons/crimes/lowlevel.png') }}';
+                }
+                var infowindow = new google.maps.InfoWindow();
+                var myLatLng = new google.maps.LatLng(crimes[i].location.latitude, crimes[i].location.longitude);
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    title: crimes[i].category,
+                    street: crimes[i].location.street.name,
+                    month: crimes[i].month,
+                    icon: image,
+                    map: map
+                });
+
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.setContent("<div class='infoWindow'><h4>Crime: " + this.title + "</h4><h4>Location: " + this.street + "</h4><h4>Month: " + this.month + "</h4></div>");
+                    infowindow.open(map, this);
+                });
+            }
+        }
+    </script>
+
+{% endblock %}

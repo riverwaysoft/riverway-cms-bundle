@@ -6,14 +6,19 @@ use Doctrine\ORM\Query;
 use Riverway\Cms\CoreBundle\Entity\Tag;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SearchController extends Controller
 {
     /**
      * @Route("/search/{id}", name="tag_search")
+     * @param Tag $tag
+     * @param Request $request
+     * @return Response
      */
-    public function tagSearchAction(Tag $tag, Request $request)
+    public function tagSearchAction(Tag $tag, Request $request): Response
     {
         $query = $this->getDoctrine()->getRepository('RiverwayCmsCoreBundle:Article')->getArticleQuery();
 
@@ -26,6 +31,25 @@ class SearchController extends Controller
 
         return $this->render('@RiverwayCmsCore/search/list.html.twig', ['pagination'=>$pagination]);
 
+    }
+
+    /**
+     * @Route("/crime-map-search", name="crime_map_search", condition="request.isXmlHttpRequest()", options={"expose"=true})
+     * @param Request $request
+     * @return Response
+     */
+    public function crimeMapSearchAction(Request $request): Response
+    {
+        $crimeMapManager = $this->get('Riverway\Cms\CoreBundle\Service\CrimeMap\CrimeMapManager');
+        $cityLocation = $crimeMapManager->getLocationByName($request->get('address'));
+        $poly = $crimeMapManager->boundaryNeighbourhood($crimeMapManager->locateNeighbourhood($cityLocation), true);
+        $crimes = $crimeMapManager->streetLevelCrimes($poly);
+
+        return new JsonResponse([
+            'lat' => $cityLocation->lat,
+            'lng' => $cityLocation->lng,
+            'crimes' => $crimes
+        ]);
     }
 
 }
