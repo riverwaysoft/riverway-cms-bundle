@@ -30,6 +30,11 @@ services:
         tags:
           - { name: 'riverway.cms.widget' }
 
+    Riverway\Cms\CoreBundle\Widget\Realisation\CrimeMapWidget:
+        arguments: ['@form.factory', '@router', '@twig', '@Riverway\Cms\CoreBundle\Service\CrimeMap\CrimeMapManager']
+        tags:
+          - { name: 'riverway.cms.widget' }
+
     Riverway\Cms\CoreBundle\Service\FileManager:
         public: true
         arguments:
@@ -62,3 +67,9 @@ services:
 
     Riverway\Cms\CoreBundle\Widget\WidgetFormTypeRegistry:
         public: true
+
+    Riverway\Cms\CoreBundle\Service\CrimeMap\CrimeMapManager:
+        public: true
+        arguments:
+            $google_geocode_api_key: '%google_geocode_api_key%'
+            $logger: '@monolog.logger'

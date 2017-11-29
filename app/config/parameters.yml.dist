@@ -18,3 +18,5 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
     assets.json_manifest_path: '%kernel.project_dir%/web/build/manifest.json'
+
+    google_geocode_api_key: ''

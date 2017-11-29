@@ -1,3 +1,4 @@
 Riverway\Cms\CoreBundle\Widget\Realisation\EditorWidget: Editor widget
 Riverway\Cms\CoreBundle\Widget\Realisation\FormWidget: Form widget
+Riverway\Cms\CoreBundle\Widget\Realisation\CrimeMapWidget: Crime map widget
 Riverway\Cms\CoreBundle\Form\ContactType: Contact form
