@@ -49,7 +49,7 @@ class SearchController extends Controller
                 $message .= sprintf(' (from "%s")', $referer);
             }
 
-            throw new NotFoundHttpException($message);
+            throw $this->createNotFoundException($message);
         }
         $crimeMapManager = $this->get('Riverway\Cms\CoreBundle\Service\CrimeMap\CrimeMapManager');
         $cityLocation = $crimeMapManager->getLocationByName($request->get('address'));
