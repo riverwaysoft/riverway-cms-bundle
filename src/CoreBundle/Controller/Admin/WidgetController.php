@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class WidgetController extends FOSRestController
 {
@@ -27,7 +28,7 @@ class WidgetController extends FOSRestController
     }
 
     /**
-     * @Route("/widget/delete", name="delete_widget", condition="request.isXmlHttpRequest()")
+     * @Route("/widget/delete", name="delete_widget")
      */
     public function deleteWidgetAction(Request $request)
     {
@@ -38,7 +39,9 @@ class WidgetController extends FOSRestController
         $em->remove($widget);
         $em->flush();
 
-        return new JsonResponse(['status' => 'success', 'deleted_id' => $id]);
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse(['status' => 'success', 'deleted_id' => $id]);
+        }
     }
 
     /**
