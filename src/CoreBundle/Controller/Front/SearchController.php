@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SearchController extends Controller
 {
@@ -34,12 +36,21 @@ class SearchController extends Controller
     }
 
     /**
-     * @Route("/crime-map-search", name="crime_map_search", condition="request.isXmlHttpRequest()", options={"expose"=true})
+     * @Route("/crime-map-search", name="crime_map_search", options={"expose"=true})
      * @param Request $request
      * @return Response
      */
     public function crimeMapSearchAction(Request $request): Response
     {
+        if (!$request->isXmlHttpRequest()) {
+            $message = sprintf('No route found for "%s %s"', $request->getMethod(), $request->getPathInfo());
+
+            if ($referer = $request->headers->get('referer')) {
+                $message .= sprintf(' (from "%s")', $referer);
+            }
+
+            throw new NotFoundHttpException($message);
+        }
         $crimeMapManager = $this->get('Riverway\Cms\CoreBundle\Service\CrimeMap\CrimeMapManager');
         $cityLocation = $crimeMapManager->getLocationByName($request->get('address'));
         if ($cityLocation) {
