@@ -50,7 +50,7 @@
         "symfony/polyfill-apcu": "^1.0",
         "symfony/polyfill-php70": "v1.6.0",
         "symfony/swiftmailer-bundle": "^3.0",
-        "symfony/symfony": "^3.4.0-rc2",
+        "symfony/symfony": "^3.3",
         "tetranz/select2entity-bundle": "2.*",
         "twig/extensions": "^1.5",
         "twig/twig": "^1.0||^2.0",
