@@ -47,7 +47,7 @@ Riverway\Cms\CoreBundle\Entity\Widget:
             cascade: {  }
             fetch: LAZY
             mappedBy: null
-            inversedBy: null
+            inversedBy: widgets
             joinColumns:
                 sidebar_id:
                     referencedColumnName: id
@@ -57,7 +57,7 @@ Riverway\Cms\CoreBundle\Entity\Widget:
             cascade: {}
             fetch: LAZY
             mappedBy: null
-            inversedBy: null
+            inversedBy: widgets
             joinColumns:
                 article_id:
                     referencedColumnName: id

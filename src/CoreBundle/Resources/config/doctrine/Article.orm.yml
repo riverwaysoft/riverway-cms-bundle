@@ -91,7 +91,7 @@ Riverway\Cms\CoreBundle\Entity\Article:
             cascade: {  }
             fetch: LAZY
             mappedBy: null
-            inversedBy: null
+            inversedBy: articles
             joinColumns:
                 category_id:
                     referencedColumnName: id
@@ -131,8 +131,6 @@ Riverway\Cms\CoreBundle\Entity\Article:
             targetEntity: Riverway\Cms\CoreBundle\Entity\Tag
             cascade: [persist]
             fetch: LAZY
-            mappedBy: null
-            inversedBy: article
             joinTable:
                 name: article_tag
                 joinColumns:

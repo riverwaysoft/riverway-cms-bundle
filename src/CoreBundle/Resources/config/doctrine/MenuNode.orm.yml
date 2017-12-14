@@ -100,7 +100,7 @@ Riverway\Cms\CoreBundle\Entity\MenuNode:
             cascade: {  }
             fetch: LAZY
             mappedBy: null
-            inversedBy: null
+            inversedBy: menu
             joinColumns:
                 category_id:
                     referencedColumnName: id
@@ -120,7 +120,7 @@ Riverway\Cms\CoreBundle\Entity\MenuNode:
             cascade: []
             fetch: LAZY
             mappedBy: null
-            inversedBy: null
+            inversedBy: menu
             joinColumns:
                 article_id:
                     referencedColumnName: id
